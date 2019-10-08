@@ -41,7 +41,7 @@
                                                 </span> --}}
                                                 <div class="bgImg">
                                                     {{ $team->nome }}
-                                                    <img class="ml-1 mb-1" src="/image/f1Model.png" height="15px"
+                                                    <img class="ml-1 mb-1 float-right" src="/image/f1Model.png" height="15px"
                                                         style="filter: drop-shadow(0 9999px 0 {{ $team->cor }})
                                                                        drop-shadow(2px 9999px 1px white)
                                                                        drop-shadow(-2px 9999px 1px white);">

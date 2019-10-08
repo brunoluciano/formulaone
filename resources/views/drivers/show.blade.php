@@ -14,7 +14,7 @@
                         <td class="align-middle">
                             <h1 class="m-0">
                                 <span class="badge badge-info shadow bordaSimples p-2 ml-3" style="background-color: {{ $driver->equipe()->get()->first()->cor }};">
-                                    {{ $driver->numero_carro }}
+                                    <i>{{ $driver->numero_carro }}</i>
                                 </span>
                             </h1>
                         </td>

@@ -57,9 +57,17 @@
                             </tr>
                             <tr>
                                 <td colspan="6" class="align-middle p-0">
+                                    @foreach ($campeonatos as $campeonato)
+                                        @php
+                                            $finishCamp = \App\Campeonato::where('season_id', '=', $season->id)
+                                                                         ->where('terminado', '=', TRUE)->get()->count();
+                                            $percConcluida = ($finishCamp * 100) / $totalPistas;
+                                            $percConcluida = number_format($percConcluida, 1, '.', '');
+                                        @endphp
+                                    @endforeach
                                     <div class="progress rounded-0" style="height: 15px;">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%">
-                                            <i class="font-weight-bold text-white">75% concluída</i>
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" aria-valuenow="{{ $percConcluida }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $percConcluida }}%">
+                                            <i class="font-weight-bold text-white">{{ $percConcluida }}% concluída</i>
                                         </div>
                                     </div>
                                 </td>

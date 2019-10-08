@@ -22,19 +22,16 @@
                     <tbody>
                         @foreach ($campeonatos as $campeonato)
                             <tr>
-                                @php ($contId++)
+                                @php ($contId++)@endphp
                                 <td class="font-weight-bold align-middle" scope="row">{{-- $campeonato->id --}}{{ $contId }}</td>
                                 <td class="align-middle">
-                                    @foreach (\App\Driver::where('id', '=', $campeonato->piloto_venc_id)->get() as $pilotoVenc)
-                                        {{ $pilotoVenc->nome}}
+                                    @foreach (\App\Driver::where('id', '=', $campeonato->piloto_venc_id)->get() as $vencedor)
+                                        <h5>{{ $vencedor->nome}}</h5>
                                     @endforeach
-                                    {{-- <div class="spinner-grow spinner-grow-sm text-dark" role="status">
-                                        <span class="sr-only">Temporada ainda não finalizada...</span>
-                                    </div> --}}
                                 </td>
                                 <td class="align-middle">
-                                    @foreach (\App\Driver::where('id', '=', $campeonato->piloto_pole_id)->get() as $pilotoPole)
-                                        {{ $pilotoPole->nome}}
+                                    @foreach (\App\Driver::where('id', '=', $campeonato->piloto_pole_id)->get() as $poleposition)
+                                        <h5>{{ $poleposition->nome}}</h5>
                                     @endforeach
                                     {{-- <div class="spinner-grow spinner-grow-sm text-dark" role="status">
                                         <span class="sr-only">Temporada ainda não finalizada...</span>

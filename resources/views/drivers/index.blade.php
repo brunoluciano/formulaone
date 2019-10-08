@@ -48,7 +48,7 @@
                                                 <td class="align-middle">{{ $driver->nome }}</td>
                                                 <td class="align-middle">
                                                     <span class="badge badge-info shadow bordaSimples p-2" style="background-color: {{ $driver->equipe()->get()->first()->cor }};">
-                                                        {{ $driver->numero_carro }}
+                                                        <i>{{ $driver->numero_carro }}</i>
                                                     </span>
                                                 </td>
                                                 <td class="align-middle">{{ $driver->equipe()->get()->first()->nome }}</td>

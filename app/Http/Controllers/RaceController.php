@@ -44,20 +44,28 @@ class RaceController extends Controller
                     'campeonato_id' => $idSeason,
                     'track_id' => $idTrack,
                     'pontos' => $pontos[$id-1],
+                    'terminado' => TRUE,
                     'created_at' =>  now(),
                     'updated_at' => now()
                 ];
                 $id++;
+                Campeonato::where('pista_id', '=', $idTrack)
+                          ->where('season_id', '=', $idSeason)
+                          ->update(['terminado' => TRUE]);
             }
             Race::insert($grid); // INSERE NO BANCO DE DADOS O GRID FINAL
         }
 
         $pilotoVencedor = Race::orderby('id')->where('campeonato_id', '=', $idSeason)
-                              ->where('track_id', '=', $idTrack)->get()->first();
-        $rdmPilotoPole = Race::inRandomOrder()->first();
+                              ->where('track_id', '=', $idTrack)->get()->first(); // PEGA O PILOTO VENCEDOR DA CORRIDA
+        $rdmPilotoPole = Race::inRandomOrder()->first(); // PEGA ALEATORIAMENTE UM PILOTO QUE FEZ A POLE POSITION
 
-        Campeonato::where('pista_id', '=', $idTrack)->update(['piloto_venc_id' => $pilotoVencedor->piloto_id]); // ATUALIZA A CORRIDA COM O RESPECTIVO PILOTO VENCEDOR
-        Campeonato::where('pista_id', '=', $idTrack)->update(['piloto_pole_id' => $rdmPilotoPole->piloto_id]);
+        $campPilotos = Campeonato::where('pista_id', '=', $idTrack)->where('season_id', '=', $idSeason)->get()->first();
+
+        if($campPilotos->piloto_venc_id == null)
+            Campeonato::where('pista_id', '=', $idTrack)->update(['piloto_venc_id' => $pilotoVencedor->piloto_id]); // ATUALIZA A CORRIDA COM O RESPECTIVO PILOTO VENCEDOR
+        if($rdmPilotoPole->piloto_pole_id == null)
+            Campeonato::where('pista_id', '=', $idTrack)->update(['piloto_pole_id' => $rdmPilotoPole->piloto_id]);
 
         //print_r($driverRdm);
         $contGrid = 0; // VARIÁVEL AUXILIAR PARA CONTAGEM DAS POSIÇÕES NA VIEW
@@ -65,7 +73,7 @@ class RaceController extends Controller
         $races = Race::orderby('id')->where('campeonato_id', '=', $idSeason)
                                     ->where('track_id', '=', $idTrack)->get();
 
-        return view('races.index', compact('races', 'drivers', 'contGrid'));
+        return view('races.index', compact('races', 'drivers', 'contGrid', 'idSeason'));
     }
 
     /**

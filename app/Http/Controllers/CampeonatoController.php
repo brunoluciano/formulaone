@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Campeonato;
 use App\Track;
+use App\Driver;
 use Illuminate\Http\Request;
 
 class CampeonatoController extends Controller
@@ -28,6 +29,7 @@ class CampeonatoController extends Controller
                 ]);
             }
         }
+
         $contId = 0;
         $campeonatos = Campeonato::orderby('id')->where('season_id', '=', $idSeason)->get();
         return view('campeonatos.index', compact('campeonatos', 'contId', 'idSeason'));

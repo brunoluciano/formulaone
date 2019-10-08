@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Season;
+use App\Campeonato;
+use App\Track;
 use Illuminate\Http\Request;
 
 class SeasonController extends Controller
@@ -14,8 +16,14 @@ class SeasonController extends Controller
      */
     public function index()
     {
+        $totalPistas = Track::get()->count();
+        $campeonatos = Campeonato::get();
+
+        $finishCamp = 0;
+        $percConcluida = 0;
+
         $seasons = Season::orderby('id')->get();
-        return view('seasons.index', compact('seasons'));
+        return view('seasons.index', compact('seasons', 'campeonatos', 'totalPistas', 'finishCamp', 'percConcluida'));
     }
 
     /**
