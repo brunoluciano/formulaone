@@ -67,7 +67,9 @@
                                     @endforeach
                                     <div class="progress rounded-0" style="height: 15px;">
                                         <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" aria-valuenow="{{ $percConcluida }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $percConcluida }}%">
-                                            <i class="font-weight-bold text-white">{{ $percConcluida }}% concluída</i>
+                                            <i class="font-weight-bold text-warning bordaPerc">{{ $percConcluida }}%
+                                                @if ($percConcluida == 100) - Temporada Finalizada @endif
+                                            </i>
                                         </div>
                                     </div>
                                 </td>

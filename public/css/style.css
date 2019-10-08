@@ -10,6 +10,12 @@
     text-shadow: 5px 5px 2px rgba(0, 0, 0, 0.5) !important;
 }
 
+.bordaPerc {
+    -webkit-text-stroke-width: 0.1px;
+    -webkit-text-stroke-color: black;
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.8) !important;
+}
+
 .bordaSimples {
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5) !important;
 }
@@ -34,4 +40,9 @@
 
 .bg-dark-transparente {
     background-color: rgba(0, 0, 0, 0.75)
+}
+
+.borderTable td{
+    /* border-color: rgba(0, 0, 0, 1) !important; */
+    border-color: #dc3545 !important;
 }
