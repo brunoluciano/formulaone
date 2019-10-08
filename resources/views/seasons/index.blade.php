@@ -14,23 +14,16 @@
                     <thead class="bg-danger text-light">
                         <tr class="align-middle">
                             <th scope="col">TEMPORADA</th>
-                            <th scope="col">Campeão</th>
-                            <th scope="col">Equipe</th>
-                            <th scope="col">Vice-Campeão</th>
-                            <th scope="col">Terceiro Lugar</th>
-                            <th scope="col">CORRIDAS</th>
+                            <th scope="col"><i class="fas fa-trophy"></i> Campeão</th>
+                            <th scope="col"><i class="fas fa-medal"></i> Vice-Campeão</th>
+                            <th scope="col"><i class="fas fa-award"></i> Terceiro Lugar</th>
+                            <th scope="col"><i class="fas fa-road"></i> CORRIDAS</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($seasons as $season)
                             <tr>
                                 <td class="font-weight-bold align-middle" scope="row">{{ $season->id }}</td>
-                                <td class="align-middle">
-                                    {{ $season->piloto_venc_id }}
-                                    <div class="spinner-border spinner-border-sm text-secondary" role="status">
-                                        <span class="sr-only">Temporada ainda não finalizada...</span>
-                                    </div>
-                                </td>
                                 <td class="align-middle">
                                     {{ $season->piloto_venc_id }}
                                     <div class="spinner-border spinner-border-sm text-secondary" role="status">
@@ -68,7 +61,13 @@
                                     <div class="progress rounded-0" style="height: 15px;">
                                         <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" aria-valuenow="{{ $percConcluida }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $percConcluida }}%">
                                             <i class="font-weight-bold text-warning bordaPerc">{{ $percConcluida }}%
-                                                @if ($percConcluida == 100) - Temporada Finalizada @endif
+                                                @if ($percConcluida == 100)
+                                                    - Temporada Finalizada
+                                                @else
+                                                    <div class="spinner-border spinner-border-sm text-warning align-middle bordaPerc" role="status" style="width:10px;height:10px">
+                                                        <span class="sr-only">Temporada em progresso</span>
+                                                    </div>
+                                                @endif
                                             </i>
                                         </div>
                                     </div>

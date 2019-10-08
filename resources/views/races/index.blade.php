@@ -9,35 +9,35 @@
                 <table class="table table-striped table-secondary table-hover text-center shadow">
                     <thead class="bg-danger text-light">
                         <tr>
-                            <th scope="col">POSIÇÃO</th>
-                            <th colspan="2" scope="col">PILOTO</th>
+                            <th scope="col"><i class="fas fa-flag-checkered"></i> POSIÇÃO</th>
+                            <th colspan="2" scope="col"><i class="fas fa-hard-hat"></i> PILOTO</th>
                             <th scope="col">#</th>
-                            <th scope="col">EQUIPE</th>
-                            <th scope="col">PONTOS</th>
+                            <th scope="col"><i class="fas fa-users"></i> EQUIPE</th>
+                            <th scope="col"><i class="fas fa-table"></i> PONTOS</th>
                         </tr>
                         </thead>
                     <tbody>
                         @foreach ($races as $race)
                             <tr>
                                 @php($contGrid++)
-                                <td class="font-weight-bold align-middle" scope="row">{{ $contGrid }}º</td>
+                                <td class="font-weight-bold align-middle py-2" scope="row">{{ $contGrid }}º</td>
                                 @foreach ($drivers as $driver)
                                     @if ($race->piloto_id == $driver->id)
-                                        <td class="align-middle pl-5">
+                                        <td class="align-middle pl-5 py-0">
                                             <img class="rounded shadow m-0 float-right" src="{{ $driver->pais()->get()->first()->image }}" height="20px">
                                         </td>
-                                        <td class="align-middle text-left"> {{-- PILOTO --}}
+                                        <td class="align-middle text-left py-0"> {{-- PILOTO --}}
                                             <i class="ml-1 mt-1 ">{{ $driver->nome }}</i>
                                         </td>
-                                        <td class="align-middle px-0">
+                                        <td class="align-middle px-0 py-0">
                                             <span class="badge badge-info shadow bordaSimples p-2" style="background-color: {{ $driver->equipe()->get()->first()->cor }};">
                                                 <i>{{ $driver->numero_carro }}</i>
                                             </span>
                                         </td>
-                                        <td class="align-middle pr-5"> {{-- EQUIPE --}}
+                                        <td class="align-middle pr-5 py-0"> {{-- EQUIPE --}}
                                             <div class="bgImg">
                                                 <span class="align-right">{{ $driver->equipe()->get()->first()->nome }}</span>
-                                                <img class="ml-n5 mb-1 float-right" src="/image/f1Model.png" height="15px"
+                                                <img class="ml-n4 mt-2 float-right" src="/image/f1Model.png" height="15px"
                                                      style="filter: drop-shadow(0 9999px 0 {{ $driver->equipe()->get()->first()->cor }})
                                                                     drop-shadow(2px 9999px 1px white)
                                                                     drop-shadow(-2px 9999px 1px white);">
@@ -49,7 +49,7 @@
                                         </td>
                                     @endif
                                 @endforeach
-                                <td class="align-middle font-weight-bold">{{ $race->pontos }}</td>
+                                <td class="align-middle font-weight-bold py-0">{{ $race->pontos }}</td>
                             </tr>
                         @endforeach
                     </tbody>

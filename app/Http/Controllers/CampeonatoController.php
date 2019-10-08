@@ -30,9 +30,15 @@ class CampeonatoController extends Controller
             }
         }
 
+        // $racesFinish = Campeonato::orderby('id')->where('season_id', '=', $idSeason)
+        //                                         ->where('terminado', '=', TRUE)->get()->count();
+
         $contId = 0;
-        $campeonatos = Campeonato::orderby('id')->where('season_id', '=', $idSeason)->get();
-        return view('campeonatos.index', compact('campeonatos', 'contId', 'idSeason'));
+        $campeonatos = Campeonato::orderby('id')->where('season_id', '=', $idSeason)
+                                                ->where('terminado', '=', TRUE)->get();
+        $racesFinish = $campeonatos->count();
+
+        return view('campeonatos.index', compact('campeonatos', 'contId', 'idSeason', 'racesFinish'));
     }
 
     /**
@@ -40,12 +46,11 @@ class CampeonatoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create($idSeason, $idTrack)
     {
-        echo $id;
-        $pista = 1;
+        $pista = $idTrack;
         $track = Track::where('id', '=', $pista)->get()->first();
-        return view('campeonatos.create', compact('track'));
+        return view('campeonatos.create', compact('idSeason','track'));
     }
 
     /**

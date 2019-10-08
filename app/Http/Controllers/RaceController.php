@@ -62,10 +62,13 @@ class RaceController extends Controller
 
         $campPilotos = Campeonato::where('pista_id', '=', $idTrack)->where('season_id', '=', $idSeason)->get()->first();
 
-        if($campPilotos->piloto_venc_id == null)
+        if($campPilotos->piloto_venc_id == null){
             Campeonato::where('pista_id', '=', $idTrack)->update(['piloto_venc_id' => $pilotoVencedor->piloto_id]); // ATUALIZA A CORRIDA COM O RESPECTIVO PILOTO VENCEDOR
-        if($rdmPilotoPole->piloto_pole_id == null)
+        }
+
+        if($campPilotos->piloto_pole_id == null) {
             Campeonato::where('pista_id', '=', $idTrack)->update(['piloto_pole_id' => $rdmPilotoPole->piloto_id]);
+        }
 
         //print_r($driverRdm);
         $contGrid = 0; // VARIÁVEL AUXILIAR PARA CONTAGEM DAS POSIÇÕES NA VIEW
