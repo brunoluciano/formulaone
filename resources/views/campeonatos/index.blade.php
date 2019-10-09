@@ -6,16 +6,38 @@
             <h1 class="display-4 ml-4">Campeonato</h1>
             <hr class="bg-danger">
             @if ($racesFinish > 0)
-                <a href="{{-- route('campeonatos.index',) --}}" class="btn btn-success mb-2 mr-2" role="button">
-                    <i class="fas fa-flag-checkered"></i> Próxima Corrida
-                </a>
-                <div class="btn-group" role="group" aria-label="Tabelas">
-                    <a href="{{-- route('campeonatos.index',) --}}" class="btn btn-outline-warning mb-2" role="button"  data-toggle="modal" data-target="#TabelaCondutores">
-                        <i class="fas fa-table"></i> Condutores
-                    </a>
-                    <a href="{{-- route('campeonatos.index',) --}}" class="btn btn-outline-warning mb-2" role="button" data-toggle="modal" data-target="#TabelaConstrutores">
-                        <i class="fas fa-table"></i> Construtores
-                    </a>
+                <div class="row align-items-end">
+                    <div class="col-md-6">
+                        <a href="{{ route('campeonatos.create', [$idSeason, $racesFinish+1]) }}" class="btn btn-success mb-2 mr-2" role="button">
+                            <i class="fas fa-flag-checkered"></i> Próxima Corrida
+                        </a>
+                        <div class="btn-group" role="group" aria-label="Tabelas">
+                            <a href="{{-- route('campeonatos.index',) --}}" class="btn btn-outline-warning mb-2" role="button"  data-toggle="modal" data-target="#TabelaCondutores">
+                                <i class="fas fa-table"></i> Condutores
+                            </a>
+                            <a href="{{-- route('campeonatos.index',) --}}" class="btn btn-outline-warning mb-2" role="button" data-toggle="modal" data-target="#TabelaConstrutores">
+                                <i class="fas fa-table"></i> Construtores
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-center pl-0">
+                        @php
+                            $finishCamp = \App\Campeonato::where('season_id', '=', $idSeason)
+                                                            ->where('terminado', '=', TRUE)->get()->count();
+                            $percCampeonato = ($finishCamp * 100) / $totalPistas;
+                            $percCampeonato = number_format($percCampeonato, 1, '.', '');
+                        @endphp
+                        <i class="font-weight-bold">Campeonato
+                            @if ($percCampeonato==100)
+                                Finalizado
+                            @else
+                                {{$percCampeonato}}% - ({{ $finishCamp }}/{{$totalPistas}})
+                            @endif
+                        </i>
+                        <div class="progress mb-2 w-100" style="height: 5px;">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" aria-valuenow="{{ $racesFinish }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $percCampeonato }}%"></div>
+                        </div>
+                    </div>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped table-secondary table-hover text-center shadow">
@@ -90,7 +112,7 @@
                                     <td class="align-middle">
                                         @foreach (\App\Track::where('id', '=', $campeonato->pista_id)->get() as $track)
                                             <a class="btn btn-info btn-block btn-sm text-white" href="{{ route('races.index', [$idSeason, $track->id]) }}" role="button">
-                                                <i class="fas fa-flag-checkered"></i> Acompanhar
+                                                <i class="fas fa-flag-checkered"></i> Vizualizar
                                             </a>
                                         @endforeach
                                     </td>

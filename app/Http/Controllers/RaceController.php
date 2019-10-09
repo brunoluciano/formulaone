@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Race;
 use App\Driver;
 use App\Campeonato;
+use App\Track;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\VarDumper\VarDumper;
@@ -70,13 +71,15 @@ class RaceController extends Controller
             Campeonato::where('pista_id', '=', $idTrack)->update(['piloto_pole_id' => $rdmPilotoPole->piloto_id]);
         }
 
+        $pista = Track::where('id', '=', $idTrack)->get()->first();
+
         //print_r($driverRdm);
         $contGrid = 0; // VARIÁVEL AUXILIAR PARA CONTAGEM DAS POSIÇÕES NA VIEW
 
         $races = Race::orderby('id')->where('campeonato_id', '=', $idSeason)
                                     ->where('track_id', '=', $idTrack)->get();
 
-        return view('races.index', compact('races', 'drivers', 'contGrid', 'idSeason'));
+        return view('races.index', compact('races', 'drivers', 'contGrid', 'idSeason', 'pista'));
     }
 
     /**

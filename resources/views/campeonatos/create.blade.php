@@ -20,27 +20,26 @@
                                     </div>
                                 </div>
                             </td>
-                            <td>
-                                <div class="card text-center" style="width: 15rem;background-color:#000!important;">
-                                    <img class="card-img-top" src="{{ $track->pais()->get()->first()->image }}">
-                                    <div class="card-footer p-0">
-                                        <h3>{{ $track->pais()->get()->first()->nome_pt }}</h3>
-                                    </div>
-                                </div>
-                            </td>
                         </tr>
                         <tr>
-                            <td></td>
                             <td>
-                                <a class="btn btn-success float-right" href="{{ route('campeonatos.index', $idSeason) }}" role="button">
-                                    Corrida
-                                </a>
+                                <div class="card text-center" style="width: 15rem;background-color:#000!important;">
+                                    <div class="card-body bg-secondary">
+                                        <h1 class="display-3"><i>{{ $track->curvas }}</i></h1>
+                                    </div>
+                                    <div class="card-footer p-0">
+                                        <h3>Curvas</h3>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                     </table>
                 </div>
             </div>
             <br><br>
+            <a class="btn btn-success " href="{{ route('races.index', [$idSeason, $track->id]) }}" role="button">
+                <i class="fas fa-flag-checkered"></i> Corrida
+            </a>
             <a class="btn btn-outline-light" href="{{ route('campeonatos.index', $idSeason) }}" role="button">Voltar</a>
         </div>
     </div>

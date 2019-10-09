@@ -3,7 +3,10 @@
 <div class="row justify-content-center">
     <div class="col-md-12">
         <div class="jumbotron bg-dark p-4 shadow-lg border border-danger text-white">
-            <h1 class="display-4 ml-4">Corrida</h1>
+            <h1 class="display-4 ml-4">
+                Grande Prêmio de {{ $pista->nome }}
+                <img class="rounded shadow" src="{{ $pista->pais()->get()->first()->image }}" height="50px">
+            </h1>
             <hr class="bg-danger">
             <div class="table-responsive">
                 <table class="table table-striped table-secondary table-hover text-center shadow">
@@ -18,7 +21,28 @@
                         </thead>
                     <tbody>
                         @foreach ($races as $race)
-                            <tr>
+                            <tr
+                            @switch($race->pontos)
+                                @case(25)
+                                    style="background-color:#fafa75;cursor:pointer"
+                                    onMouseOver="this.style.backgroundColor='#fcfc32'"
+                                    onMouseOut="this.style.backgroundColor='#fafa75'"
+                                    @break
+                                @case(18)
+                                    style="background-color:#f7f7f7;cursor:pointer"
+                                    onMouseOver="this.style.backgroundColor='#e0e0e0'"
+                                    onMouseOut="this.style.backgroundColor='#f7f7f7'"
+                                    @break
+                                @case(15)
+                                    style="background-color:#fcbc8b;cursor:pointer"
+                                    onMouseOver="this.style.backgroundColor='#ffb073'"
+                                    onMouseOut="this.style.backgroundColor='#fcbc8b'"
+                                    @break
+                            @endswitch
+                            @if ($race->pontos==25 || $race->pontos==18 || $race->pontos==15)
+                                class="font-weight-bold"
+                            @endif
+                            >
                                 @php($contGrid++)
                                 <td class="font-weight-bold align-middle py-2" scope="row">{{ $contGrid }}º</td>
                                 @foreach ($drivers as $driver)

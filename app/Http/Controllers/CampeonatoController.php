@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Campeonato;
 use App\Track;
-use App\Driver;
 use Illuminate\Http\Request;
 
 class CampeonatoController extends Controller
@@ -37,8 +36,10 @@ class CampeonatoController extends Controller
         $campeonatos = Campeonato::orderby('id')->where('season_id', '=', $idSeason)
                                                 ->where('terminado', '=', TRUE)->get();
         $racesFinish = $campeonatos->count();
+        $percCampeonato = 0;
+        $totalPistas = Track::get()->count();
 
-        return view('campeonatos.index', compact('campeonatos', 'contId', 'idSeason', 'racesFinish'));
+        return view('campeonatos.index', compact('campeonatos', 'contId', 'idSeason', 'racesFinish', 'percCampeonato', 'totalPistas'));
     }
 
     /**
