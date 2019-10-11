@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Campeonato;
 use App\Track;
+use App\Driver;
+use App\Team;
+use App\ScoreDriver;
+use App\ScoreTeam;
 use Illuminate\Http\Request;
 
 class CampeonatoController extends Controller
@@ -16,6 +20,9 @@ class CampeonatoController extends Controller
     public function index($idSeason)
     {
         $rows = Campeonato::where('season_id', '=', $idSeason)->get()->count();
+        $pilotos = Driver::get();
+        $teams = Team::get();
+
         if($rows == 0){
             for($i=0; $i<21; $i++){
                 Campeonato::insert([
@@ -27,7 +34,36 @@ class CampeonatoController extends Controller
                     'updated_at' => now()
                 ]);
             }
+
+            foreach ($pilotos as $piloto) {
+                ScoreDriver::insert([
+                    'season_id' => $idSeason,
+                    'piloto_id' => $piloto->id,
+                    'pontos' => 0,
+                    'created_at' =>  now(),
+                    'updated_at' => now()
+                ]);
+            }
+
+            foreach ($teams as $team) {
+                ScoreTeam::insert([
+                    'season_id' => $idSeason,
+                    'equipe_id' => $team->id,
+                    'pontos' => 0,
+                    'created_at' =>  now(),
+                    'updated_at' => now()
+                ]);
+            }
         }
+
+        //TABELA DE CONDUTORES
+        $classDrivers = ScoreDriver::orderby('pontos','desc')
+                                   ->where('season_id', '=', $idSeason)->get();
+
+        //TABELA DE CONSTRUTORES
+        $classTeams = ScoreTeam::orderby('pontos','desc')
+                               ->where('season_id', '=', $idSeason)->get();
+        $idClass = 1;
 
         // $racesFinish = Campeonato::orderby('id')->where('season_id', '=', $idSeason)
         //                                         ->where('terminado', '=', TRUE)->get()->count();
@@ -39,7 +75,9 @@ class CampeonatoController extends Controller
         $percCampeonato = 0;
         $totalPistas = Track::get()->count();
 
-        return view('campeonatos.index', compact('campeonatos', 'contId', 'idSeason', 'racesFinish', 'percCampeonato', 'totalPistas'));
+        return view('campeonatos.index', compact('campeonatos', 'contId', 'idSeason',
+                                                 'racesFinish', 'percCampeonato', 'totalPistas',
+                                                 'classDrivers', 'classTeams', 'idClass', 'pilotos', 'teams'));
     }
 
     /**

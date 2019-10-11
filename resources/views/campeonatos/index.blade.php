@@ -138,6 +138,7 @@
     </div>
 </div>
 
+@if ($racesFinish > 0)
 <!-- Modal CONDUTORES -->
 <div class="modal fade" id="TabelaCondutores" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -160,12 +161,26 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td scope="row">asd</td>
-                                <td>asd</td>
-                                <td>asd</td>
-                                <td>asd</td>
-                            </tr>
+                            @php
+                                ($idClass = 1)
+                            @endphp
+                            @foreach ($classDrivers as $driver)
+                                <tr>
+                                    <td scope="row">{{ $idClass }}º</td>
+
+                                    @foreach ($pilotos as $piloto)
+                                        @if ($piloto->id == $driver->piloto_id)
+                                            <td>{{ $piloto->nome }}</td>
+                                            <td>{{ $piloto->equipe()->get()->first()->nome }}</td>
+                                        @endif
+                                    @endforeach
+
+                                    <td>{{ $driver->pontos }}</td>
+                                </tr>
+                                @php
+                                    $idClass++;
+                                @endphp
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -194,17 +209,29 @@
                             <tr>
                                 <th>POSIÇÃO</th>
                                 <th>EQUIPE</th>
-                                <th>DIRETOR</th>
                                 <th>PONTOS</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td scope="row">asd</td>
-                                <td>asd</td>
-                                <td>asd</td>
-                                <td>asd</td>
-                            </tr>
+                            @php
+                                $idClass=1;
+                            @endphp
+                            @foreach ($classTeams as $equipe)
+                                <tr>
+                                    <td scope="row">{{ $idClass }}º</td>
+
+                                    @foreach ($teams as $team)
+                                        @if ($equipe->equipe_id == $team->id)
+                                            <td>{{ $team->nome }}</td>
+                                        @endif
+                                    @endforeach
+
+                                    <td>{{ $equipe->pontos }}</td>
+                                </tr>
+                                @php
+                                    $idClass++;
+                                @endphp
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -215,5 +242,6 @@
         </div>
     </div>
 </div>
+@endif
 
 @endsection

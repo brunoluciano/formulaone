@@ -47,3 +47,7 @@
     /* border-color: rgba(0, 0, 0, 1) !important; */
     border-color: #dc3545 !important;
 }
+
+.text-yellow {
+    color: rgb(255, 255, 0)
+}

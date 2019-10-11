@@ -5,7 +5,7 @@
         <div class="jumbotron bg-dark p-4 shadow-lg border border-danger text-white">
             <h1 class="display-4 ml-4">
                 Grande Prêmio de {{ $pista->nome }}
-                <img class="rounded shadow" src="{{ $pista->pais()->get()->first()->image }}" height="50px">
+                <img class="rounded shadow" src="{{ $pista->pais()->get()->first()->image }}" height="50px"  data-toggle="tooltip" data-placement="right" title="{{ $pista->pais()->get()->first()->nome_pt }}">
             </h1>
             <hr class="bg-danger">
             <div class="table-responsive">

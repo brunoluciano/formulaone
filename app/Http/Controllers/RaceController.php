@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Race;
 use App\Driver;
+use App\Team;
 use App\Campeonato;
 use App\Track;
+use App\ScoreDriver;
+use App\ScoreTeam;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\VarDumper\VarDumper;
@@ -21,6 +24,7 @@ class RaceController extends Controller
     public function index($idSeason, $idTrack)
     {
         $drivers = Driver::orderby('id')->get();
+        $teams = Team::orderby('id')->get();
 
         $driverRdm = [];
         $cont = 0;
@@ -49,13 +53,44 @@ class RaceController extends Controller
                     'created_at' =>  now(),
                     'updated_at' => now()
                 ];
-                $id++;
                 Campeonato::where('pista_id', '=', $idTrack)
                           ->where('season_id', '=', $idSeason)
                           ->update(['terminado' => TRUE]);
+                $id++;
             }
             Race::insert($grid); // INSERE NO BANCO DE DADOS O GRID FINAL
+
+            foreach ($drivers as $driver) {
+                $smPonto = Race::where([
+                    ['campeonato_id', '=', $idSeason],
+                    ['track_id', '=', $idTrack],
+                    ['piloto_id', '=', $driver->id]
+                ])->get();
+                foreach ($smPonto as $key) {
+                    ScoreDriver::where('season_id', '=', $idSeason)
+                               ->where('piloto_id', '=', $driver->id)
+                               ->increment('pontos', $key->pontos);
+                }
+            }
+
+            foreach ($teams as $team) {
+                foreach ($drivers as $driver) {
+                    if($team->id == $driver->equipe_id){
+                        $smPonto = Race::where([
+                            ['campeonato_id', '=', $idSeason],
+                            ['track_id', '=', $idTrack],
+                            ['piloto_id', '=', $driver->id]
+                        ])->get();
+                        foreach ($smPonto as $key) {
+                            ScoreTeam::where('season_id', '=', $idSeason)
+                                       ->where('equipe_id', '=', $team->id)
+                                       ->increment('pontos', $key->pontos);
+                        }
+                    }
+                }
+            }
         }
+
 
         $pilotoVencedor = Race::orderby('id')->where('campeonato_id', '=', $idSeason)
                               ->where('track_id', '=', $idTrack)->get()->first(); // PEGA O PILOTO VENCEDOR DA CORRIDA

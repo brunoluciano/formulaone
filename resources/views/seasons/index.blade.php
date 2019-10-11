@@ -8,7 +8,13 @@
         <div class="jumbotron bg-dark p-4 shadow-lg border border-danger text-white">
             <h1 class="display-4 ml-4">Temporadas</h1>
             <hr class="bg-danger">
-            <a class="btn btn-success mb-2" href="{{ route('seasons.create') }}" role="button"><i class="fas fa-plus"></i> Novo</a>
+            @if ($realizandoTemporada == TRUE)
+                <span tabindex="0" data-toggle="tooltip" title="Não é possível adicionar uma nova temporada pois outra já está em progresso!">
+                    <a class="btn btn-success mb-2 disabled" href="#" role="button" style="pointer-events: none;"><i class="fas fa-plus"></i> Novo</a>
+                </span>
+            @else
+                <a class="btn btn-success mb-2" href="{{ route('seasons.create') }}" role="button"><i class="fas fa-plus"></i> Novo</a>
+            @endif
             <div class="table-responsive">
                 <table class="table table-striped table-secondary table-hover text-center shadow">
                     <thead class="bg-danger text-light">
@@ -60,11 +66,11 @@
                                     @endforeach
                                     <div class="progress rounded-0" style="height: 15px;">
                                         <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" aria-valuenow="{{ $percConcluida }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $percConcluida }}%">
-                                            <i class="font-weight-bold text-warning bordaPerc">{{ $percConcluida }}%
                                                 @if ($percConcluida == 100)
-                                                    - Temporada Finalizada
+                                                    <i class="font-weight-bold bordaPerc text-yellow">Temporada Finalizada</i>
                                                 @else
-                                                    <div class="spinner-border spinner-border-sm text-warning align-middle bordaPerc" role="status" style="width:10px;height:10px">
+                                                    <i class="font-weight-bold bordaPerc text-yellow">{{ $percConcluida }}%
+                                                    <div class="spinner-border spinner-border-sm text-yellow align-middle bordaPerc" role="status" style="width:10px;height:10px">
                                                         <span class="sr-only">Temporada em progresso</span>
                                                     </div>
                                                 @endif

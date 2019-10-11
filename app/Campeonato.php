@@ -17,6 +17,6 @@ class Campeonato extends Model
     }
 
     public function piloto(){
-        return $this->hasMany('App\Driver');
+        return $this->hasMany('App\Driver', 'id');
     }
 }

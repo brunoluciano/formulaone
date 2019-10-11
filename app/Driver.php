@@ -24,4 +24,9 @@ class Driver extends Model
     {
         return $this->belongsToMany('App\Race', 'races_drivers', 'driver_id', 'race_id');
     }
+
+    public function campeonato()
+    {
+        return $this->belongsTo('App\Campeonato');
+    }
 }

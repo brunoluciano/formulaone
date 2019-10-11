@@ -22,8 +22,16 @@ class SeasonController extends Controller
         $finishCamp = 0;
         $percConcluida = 0;
 
+        $seasonsFinished = Campeonato::where('terminado', '=', TRUE)->get()->count();
+        $seasonsUnfinished = Campeonato::where('terminado', '=', FALSE)->get()->count();
+        if($seasonsUnfinished > 0){
+            $realizandoTemporada = TRUE;
+        } else {
+            $realizandoTemporada = FALSE;
+        }
+
         $seasons = Season::orderby('id')->get();
-        return view('seasons.index', compact('seasons', 'campeonatos', 'totalPistas', 'finishCamp', 'percConcluida'));
+        return view('seasons.index', compact('seasons', 'campeonatos', 'totalPistas', 'finishCamp', 'percConcluida', 'realizandoTemporada'));
     }
 
     /**
