@@ -26,7 +26,7 @@
                                     <th scope="col"><i class="fas fa-briefcase"></i> Diretor</th>
                                     <th scope="col"><i class="fas fa-award"></i> Pódios</th>
                                     <th scope="col"><i class="fas fa-trophy"></i> Títulos</th>
-                                    <th scope="col"><i class="fas fa-globe-americas"></i> País</th>
+                                    <th colspan="2" scope="col"><i class="fas fa-globe-americas"></i> País</th>
                                     <th scope="col">Info / Editar / Excluir</th>
                                 </tr>
                             </thead>
@@ -50,8 +50,10 @@
                                             <td class="align-middle">{{ $team->diretor }}</td>
                                             <td class="align-middle">{{ $team->podios }}</td>
                                             <td class="align-middle">{{ $team->titulos }}</td>
-                                            <td class="align-middle">
+                                            <td class="align-middle text-right">
                                                 <i>{{ $team->pais()->get()->first()->nome_pt }}</i>
+                                            </td>
+                                            <td class="align-middle text-left">
                                                 <img class="rounded shadow" src="image/paises/{{ $team->pais()->get()->first()->nome_pt }}.png" height="20px">
                                             </td>
                                             <td class="align-middle">

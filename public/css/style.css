@@ -35,8 +35,8 @@
 }
 
 .bgImg img {
-    position: relative;
-    top: -9999px;
+    position: relative !important;
+    top: -9999px !important;
 }
 
 .bg-dark-transparente {

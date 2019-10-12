@@ -5,6 +5,8 @@
         <div class="jumbotron bg-dark p-4 shadow-lg border border-danger text-white">
             <h1 class="display-4 ml-4">
                 Grande Prêmio de {{ $pista->nome }}
+                <a class="btn btn-outline-light float-right" href="{{ route('campeonatos.index', $idSeason) }}" role="button"><i class="fas fa-trophy"></i>
+                    Campeonato</a>
                 <img class="rounded shadow" src="{{ $pista->pais()->get()->first()->image }}" height="50px"  data-toggle="tooltip" data-placement="right" title="{{ $pista->pais()->get()->first()->nome_pt }}">
             </h1>
             <hr class="bg-danger">
@@ -15,7 +17,7 @@
                             <th scope="col"><i class="fas fa-flag-checkered"></i> POSIÇÃO</th>
                             <th colspan="2" scope="col"><i class="fas fa-hard-hat"></i> PILOTO</th>
                             <th scope="col">#</th>
-                            <th scope="col"><i class="fas fa-users"></i> EQUIPE</th>
+                            <th colspan="2" scope="col"><i class="fas fa-users"></i> EQUIPE</th>
                             <th scope="col"><i class="fas fa-table"></i> PONTOS</th>
                         </tr>
                         </thead>
@@ -58,10 +60,12 @@
                                                 <i>{{ $driver->numero_carro }}</i>
                                             </span>
                                         </td>
-                                        <td class="align-middle pr-5 py-0"> {{-- EQUIPE --}}
+                                        <td class="align-middle py-0 text-right"> {{-- EQUIPE --}}
+                                            {{ $driver->equipe()->get()->first()->nome }}
+                                        </td>
+                                        <td class="align-middle pr-5 py-0 text-left">
                                             <div class="bgImg">
-                                                <span class="align-right">{{ $driver->equipe()->get()->first()->nome }}</span>
-                                                <img class="ml-n4 mt-2 float-right" src="/image/f1Model.png" height="15px"
+                                                <img class="mt-2" src="/image/f1Model.png" height="15px"
                                                      style="filter: drop-shadow(0 9999px 0 {{ $driver->equipe()->get()->first()->cor }})
                                                                     drop-shadow(2px 9999px 1px white)
                                                                     drop-shadow(-2px 9999px 1px white);">

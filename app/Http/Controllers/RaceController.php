@@ -103,7 +103,7 @@ class RaceController extends Controller
         }
 
         if($campPilotos->piloto_pole_id == null) {
-            Campeonato::where('pista_id', '=', $idTrack)->update(['piloto_pole_id' => $rdmPilotoPole->piloto_id]);
+            Campeonato::where('pista_id', '=', $idTrack)->update(['piloto_pole_id' => $rdmPilotoPole->piloto_id]); // ATUALIZA A CORRIDA COM A RESPECTIVA POLE POSITION
         }
 
         $pista = Track::where('id', '=', $idTrack)->get()->first();

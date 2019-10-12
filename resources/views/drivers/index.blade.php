@@ -36,7 +36,7 @@
                                         <th class="align-middle" scope="col"><i class="fas fa-users"></i> Equipe</th>
                                         <th class="align-middle" scope="col"><i class="fas fa-trophy"></i> Títulos</th>
                                         <th class="align-middle" scope="col"><i class="fas fa-medal"></i> Vitórias</th>
-                                        <th class="align-middle" scope="col"><i class="fas fa-globe-americas"></i> Nacionalidade</th>
+                                        <th colspan="2" class="align-middle" scope="col"><i class="fas fa-globe-americas"></i> Nacionalidade</th>
                                         <th class="align-middle" scope="col">Info / Editar / Excluir</th>
                                     </tr>
                                 </thead>
@@ -54,8 +54,10 @@
                                                 <td class="align-middle">{{ $driver->equipe()->get()->first()->nome }}</td>
                                                 <td class="align-middle">{{ $driver->titulos }}</td>
                                                 <td class="align-middle">{{ $driver->vitorias }}</td>
-                                                <td class="align-middle">
+                                                <td class="align-middle text-right">
                                                     <i>{{ $driver->pais()->get()->first()->nome_pt }}</i>
+                                                </td>
+                                                <td class="align-middle text-left">
                                                     <img class="rounded shadow" src="{{ $driver->pais()->get()->first()->image }}" height="20px">
                                                 </td>
                                                 <td class="align-middle">

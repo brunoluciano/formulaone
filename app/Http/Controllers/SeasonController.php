@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Season;
 use App\Campeonato;
 use App\Track;
+use App\Driver;
+use App\Team;
 use Illuminate\Http\Request;
 
 class SeasonController extends Controller
@@ -18,11 +20,13 @@ class SeasonController extends Controller
     {
         $totalPistas = Track::get()->count();
         $campeonatos = Campeonato::get();
+        $drivers = Driver::get();
+        $teams = Team::get();
 
         $finishCamp = 0;
         $percConcluida = 0;
 
-        $seasonsFinished = Campeonato::where('terminado', '=', TRUE)->get()->count();
+        //$seasonsFinished = Campeonato::where('terminado', '=', TRUE)->get()->count();
         $seasonsUnfinished = Campeonato::where('terminado', '=', FALSE)->get()->count();
         if($seasonsUnfinished > 0){
             $realizandoTemporada = TRUE;
@@ -30,8 +34,10 @@ class SeasonController extends Controller
             $realizandoTemporada = FALSE;
         }
 
-        $seasons = Season::orderby('id')->get();
-        return view('seasons.index', compact('seasons', 'campeonatos', 'totalPistas', 'finishCamp', 'percConcluida', 'realizandoTemporada'));
+        $seasons = Season::orderby('id', 'desc')->get();
+        return view('seasons.index', compact('seasons', 'campeonatos', 'totalPistas',
+                                             'finishCamp', 'percConcluida', 'realizandoTemporada',
+                                            'drivers', 'teams'));
     }
 
     /**

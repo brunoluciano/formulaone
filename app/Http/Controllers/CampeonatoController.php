@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Campeonato;
+use App\Season;
 use App\Track;
 use App\Driver;
 use App\Team;
@@ -72,8 +73,27 @@ class CampeonatoController extends Controller
         $campeonatos = Campeonato::orderby('id')->where('season_id', '=', $idSeason)
                                                 ->where('terminado', '=', TRUE)->get();
         $racesFinish = $campeonatos->count();
+
         $percCampeonato = 0;
         $totalPistas = Track::get()->count();
+
+        if($racesFinish == $totalPistas){
+            $campeao = ScoreDriver::orderby('pontos','desc')
+                                  ->where('season_id', '=', $idSeason)->get()->first();
+            Season::where('id', '=', $idSeason)->update(['piloto_venc_id' => $campeao->piloto_id]);
+
+            $construtor = ScoreTeam::orderby('pontos','desc')
+                                   ->where('season_id', '=', $idSeason)->get()->first();
+            Season::where('id', '=', $idSeason)->update(['construtor_id' => $construtor->equipe_id]);
+
+            $vice = ScoreDriver::orderby('pontos','desc')
+                                  ->where('season_id', '=', $idSeason)->get()->skip(1)->first();
+            Season::where('id', '=', $idSeason)->update(['piloto_vice_id' => $vice->piloto_id]);
+
+            $terceiro = ScoreDriver::orderby('pontos','desc')
+                                  ->where('season_id', '=', $idSeason)->get()->skip(2)->first();
+            Season::where('id', '=', $idSeason)->update(['piloto_terc_id' => $terceiro->piloto_id]);
+        }
 
         return view('campeonatos.index', compact('campeonatos', 'contId', 'idSeason',
                                                  'racesFinish', 'percCampeonato', 'totalPistas',

@@ -3,8 +3,16 @@
 <div class="row justify-content-center">
     <div class="col-md-12">
         <div class="jumbotron bg-dark p-4 shadow-lg border border-danger text-white">
-            <h1 class="display-4 ml-4">Campeonato</h1>
-            <hr class="bg-danger">
+            <div class="row">
+                <div class="col-md-12">
+                        <h1 class="display-4 ml-4">Campeonato
+                            <a class="btn btn-outline-light float-right" href="{{ route('seasons.index') }}" role="button"><i class="fas fa-trophy"></i>
+                                Temporadas</a>
+                        </h1>
+                        <hr class="bg-danger">
+                </div>
+            </div>
+
             @if ($racesFinish > 0)
                 <div class="row align-items-end">
                     <div class="col-md-6">
@@ -58,12 +66,13 @@
                                     <td class="align-middle">
                                         @foreach (\App\Driver::where('id', '=', $campeonato->piloto_venc_id)->get() as $vencedor)
                                             <h5>
-                                                {{ $vencedor->nome}}
+                                                <img class="rounded shadow m-0" src="{{ $vencedor->pais()->get()->first()->image }}" height="15px">
+                                                {{ $vencedor->nome }}
                                                 <span class="badge badge-dark shadow-sm bordaSimples p-2" style="font-size:12px">
                                                     <i>{{ $vencedor->numero_carro }}</i>
                                                 </span>
                                             </h5>
-                                            <hr>
+                                            <hr class="my-2">
                                             {{ $vencedor->equipe()->get()->first()->nome }}
                                             <div class="bgImg">
                                                 <img class="ml-1 mb-1" src="/image/f1Model.png" height="15px"
@@ -77,12 +86,13 @@
                                     <td class="align-middle">
                                         @foreach (\App\Driver::where('id', '=', $campeonato->piloto_pole_id)->get() as $poleposition)
                                             <h5>
-                                                {{ $poleposition->nome}}
+                                                <img class="rounded shadow m-0" src="{{ $poleposition->pais()->get()->first()->image }}" height="15px">
+                                                {{ $poleposition->nome }}
                                                 <span class="badge badge-dark shadow-sm bordaSimples p-2" style="font-size:12px">
                                                     <i>{{ $poleposition->numero_carro }}</i>
                                                 </span>
                                             </h5>
-                                            <hr>
+                                            <hr class="my-2">
                                             {{ $poleposition->equipe()->get()->first()->nome }}
                                             <div class="bgImg">
                                                 <img class="ml-1 mb-1" src="/image/f1Model.png" height="15px"
@@ -112,7 +122,7 @@
                                     <td class="align-middle">
                                         @foreach (\App\Track::where('id', '=', $campeonato->pista_id)->get() as $track)
                                             <a class="btn btn-info btn-block btn-sm text-white" href="{{ route('races.index', [$idSeason, $track->id]) }}" role="button">
-                                                <i class="fas fa-flag-checkered"></i> Vizualizar
+                                                <i class="fas fa-eye"></i> Vizualizar
                                             </a>
                                         @endforeach
                                     </td>
@@ -143,7 +153,7 @@
 <div class="modal fade" id="TabelaCondutores" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content bg-dark border-danger">
-            <div class="modal-header text-white text-center p-2">
+            <div class="modal-header text-white text-center">
                 <h4 class="display-4 text-center m-0" id="exampleModalLabel" style="font-size:40px;">Tabela de Classificação - <i class="font-weight-bold">CONDUTORES</i></h4>
                 <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -154,10 +164,14 @@
                     <table class="table table-striped table-secondary table-hover text-center m-0">
                         <thead class="bg-info text-white">
                             <tr>
-                                <th>POSIÇÃO</th>
-                                <th>PILOTO</th>
-                                <th>EQUIPE</th>
-                                <th>PONTOS</th>
+                                <th scope="col" class="">POSIÇÃO</th>
+                                <th scope="col">PILOTO</th>
+                                <th scope="col">#</th>
+                                <th scope="col">EQUIPE</th>
+                                <th scope="col">VITÓRIAS</th>
+                                <th scope="col">PÓDIOS</th>
+                                {{-- <th scope="col">POLES</th> --}}
+                                <th scope="col">PONTOS</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -166,16 +180,26 @@
                             @endphp
                             @foreach ($classDrivers as $driver)
                                 <tr>
-                                    <td scope="row">{{ $idClass }}º</td>
+                                    <th class="py-1" scope="row">{{ $idClass }}º</th>
 
                                     @foreach ($pilotos as $piloto)
                                         @if ($piloto->id == $driver->piloto_id)
-                                            <td>{{ $piloto->nome }}</td>
-                                            <td>{{ $piloto->equipe()->get()->first()->nome }}</td>
+                                            <td class="text-left py-1">
+                                                <img class="rounded shadow mb-1 mr-1" src="{{ $piloto->pais()->get()->first()->image }}" height="15px">
+                                                {{ $piloto->nome }}
+                                            </td>
+                                            <td class="py-1">
+                                                <span class="badge badge-dark shadow-sm bordaSimples p-2" style="background-color:{{ $piloto->equipe()->get()->first()->cor }};font-size:12px;">
+                                                    <i>{{ $piloto->numero_carro }}</i>
+                                                </span>
+                                            </td>
+                                            <td class="py-1">{{ $piloto->equipe()->get()->first()->nome }}</td>
                                         @endif
                                     @endforeach
-
-                                    <td>{{ $driver->pontos }}</td>
+                                    <td class="py-1">123</td>
+                                    <td class="py-1">123</td>
+                                    {{-- <td>123</td> --}}
+                                    <th class="font-italic py-1">{{ $driver->pontos }}</th>
                                 </tr>
                                 @php
                                     $idClass++;
@@ -196,7 +220,7 @@
 <div class="modal fade" id="TabelaConstrutores" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content bg-dark border-danger">
-            <div class="modal-header text-white text-center p-2">
+            <div class="modal-header text-white text-center">
                 <h4 class="display-4 text-center m-0" id="exampleModalLabel" style="font-size:40px;">Tabela de Classificação - <i class="font-weight-bold">CONSTRUTORES</i></h4>
                 <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -207,9 +231,11 @@
                     <table class="table table-striped table-secondary table-hover text-center m-0">
                         <thead class="bg-info text-white">
                             <tr>
-                                <th>POSIÇÃO</th>
-                                <th>EQUIPE</th>
-                                <th>PONTOS</th>
+                                <th scope="col">POSIÇÃO</th>
+                                <th scope="col" colspan="2">EQUIPE</th>
+                                <th scope="col">VITÓRIAS</th>
+                                <th scope="col">PÓDIOS</th>
+                                <th scope="col">PONTOS</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -218,15 +244,27 @@
                             @endphp
                             @foreach ($classTeams as $equipe)
                                 <tr>
-                                    <td scope="row">{{ $idClass }}º</td>
+                                    <th scope="row">{{ $idClass }}º</th>
 
                                     @foreach ($teams as $team)
                                         @if ($equipe->equipe_id == $team->id)
-                                            <td>{{ $team->nome }}</td>
+                                            <td>
+                                                {{ $team->nome }}
+                                            </td>
+                                            <td>
+                                                <div class="bgImg">
+                                                    <img class="ml-1 mb-1 float-left" src="/image/f1Model.png" height="15px"
+                                                    style="filter: drop-shadow(0 9999px 0 {{ $team->cor }})
+                                                                    drop-shadow(2px 9999px 1px white)
+                                                                    drop-shadow(-2px 9999px 1px white);">
+
+                                                </div>
+                                            </td>
                                         @endif
                                     @endforeach
-
-                                    <td>{{ $equipe->pontos }}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <th class="font-italic">{{ $equipe->pontos }}</th>
                                 </tr>
                                 @php
                                     $idClass++;

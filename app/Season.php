@@ -16,4 +16,9 @@ class Season extends Model
     {
         return $this->hasMany('App\Campeonato');
     }
+
+    public function piloto()
+    {
+        return $this->hasMany('App\Driver');
+    }
 }

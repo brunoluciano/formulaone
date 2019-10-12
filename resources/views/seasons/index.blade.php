@@ -2,9 +2,6 @@
 @section('content')
 <div class="row justify-content-center">
     <div class="col-md-12">
-        {{-- @foreach ($seasons as $season)
-            <p>{{ $season->id }}</p>
-        @endforeach --}}
         <div class="jumbotron bg-dark p-4 shadow-lg border border-danger text-white">
             <h1 class="display-4 ml-4">Temporadas</h1>
             <hr class="bg-danger">
@@ -23,6 +20,7 @@
                             <th scope="col"><i class="fas fa-trophy"></i> Campeão</th>
                             <th scope="col"><i class="fas fa-medal"></i> Vice-Campeão</th>
                             <th scope="col"><i class="fas fa-award"></i> Terceiro Lugar</th>
+                            <th scope="col"><i class="fas fa-car"></i> Construtor</th>
                             <th scope="col"><i class="fas fa-road"></i> CORRIDAS</th>
                         </tr>
                     </thead>
@@ -31,26 +29,111 @@
                             <tr>
                                 <td class="font-weight-bold align-middle" scope="row">{{ $season->id }}</td>
                                 <td class="align-middle">
-                                    {{ $season->piloto_venc_id }}
-                                    <div class="spinner-border spinner-border-sm text-secondary" role="status">
-                                        <span class="sr-only">Temporada ainda não finalizada...</span>
-                                    </div>
+                                    @if ($season->piloto_venc_id != NULL)
+                                        @foreach ($drivers as $driver)
+                                            @if ($season->piloto_venc_id == $driver->id)
+                                                <h5 class="font-weight-bold">
+                                                    {{ $driver->nome }}
+                                                    <span class="badge badge-dark shadow-sm bordaSimples p-1" style="font-size:12px">
+                                                        <i>{{ $driver->numero_carro }}</i>
+                                                    </span>
+                                                </h5>
+                                                <hr class="my-1">
+                                                <p class="mb-0 font-italic">{{ $driver->equipe()->get()->first()->nome }}</p>
+                                                <div class="bgImg m-0">
+                                                    <img class="ml-1 mb-1" src="/image/f1Model.png" height="10px"
+                                                    style="filter: drop-shadow(0 9999px 0 {{ $driver->equipe()->get()->first()->cor }})
+                                                                    drop-shadow(2px 9999px 1px white)
+                                                                    drop-shadow(-2px 9999px 1px white) !important;">
+                                                </div>
+                                            @endif
+                                        @endforeach
+                                    @else
+                                        <div class="spinner-border spinner-border-sm text-secondary" role="status">
+                                            <span class="sr-only">Temporada ainda não finalizada...</span>
+                                        </div>
+                                    @endif
                                 </td>
                                 <td class="align-middle">
-                                    {{ $season->piloto_vice_id }}
-                                    <div class="spinner-border spinner-border-sm text-secondary" role="status">
-                                        <span class="sr-only">Temporada ainda não finalizada...</span>
-                                    </div>
+                                    @if ($season->piloto_vice_id != NULL)
+                                        @foreach ($drivers as $driver)
+                                            @if ($season->piloto_vice_id == $driver->id)
+                                                <h5>{{ $driver->nome }}
+                                                    <span class="badge badge-dark shadow-sm bordaSimples p-1" style="font-size:12px">
+                                                        <i>{{ $driver->numero_carro }}</i>
+                                                    </span>
+                                                </h5>
+                                                <hr class="my-1">
+                                                <p class="mb-0 font-italic">{{ $driver->equipe()->get()->first()->nome }}</p>
+                                                <div class="bgImg m-0">
+                                                    <img class="ml-1 mb-1" src="/image/f1Model.png" height="10px"
+                                                    style="filter: drop-shadow(0 9999px 0 {{ $driver->equipe()->get()->first()->cor }})
+                                                                    drop-shadow(2px 9999px 1px white)
+                                                                    drop-shadow(-2px 9999px 1px white);">
+
+                                                </div>
+                                            @endif
+                                        @endforeach
+                                    @else
+                                        <div class="spinner-border spinner-border-sm text-secondary" role="status">
+                                            <span class="sr-only">Temporada ainda não finalizada...</span>
+                                        </div>
+                                    @endif
                                 </td>
                                 <td class="align-middle">
-                                    {{ $season->piloto_terc_id }}
-                                    <div class="spinner-border spinner-border-sm text-secondary" role="status">
-                                        <span class="sr-only">Temporada ainda não finalizada...</span>
-                                    </div>
+                                    @if ($season->piloto_terc_id != NULL)
+                                        @foreach ($drivers as $driver)
+                                            @if ($season->piloto_terc_id == $driver->id)
+                                                <h5>{{ $driver->nome }}
+                                                    <span class="badge badge-dark shadow-sm bordaSimples p-1" style="font-size:12px">
+                                                        <i>{{ $driver->numero_carro }}</i>
+                                                    </span>
+                                                </h5>
+                                                <hr class="my-1">
+                                                <p class="mb-0 font-italic">{{ $driver->equipe()->get()->first()->nome }}</p>
+                                                <div class="bgImg m-0">
+                                                    <img class="ml-1 mb-1" src="/image/f1Model.png" height="10px"
+                                                    style="filter: drop-shadow(0 9999px 0 {{ $driver->equipe()->get()->first()->cor }})
+                                                                    drop-shadow(2px 9999px 1px white)
+                                                                    drop-shadow(-2px 9999px 1px white);">
+
+                                                </div>
+                                            @endif
+                                        @endforeach
+                                    @else
+                                        <div class="spinner-border spinner-border-sm text-secondary" role="status">
+                                            <span class="sr-only">Temporada ainda não finalizada...</span>
+                                        </div>
+                                    @endif
+                                </td>
+                                <td class="align-middle">
+                                    @if ($season->construtor_id != NULL)
+                                        @foreach ($teams as $team)
+                                            @if ($season->construtor_id == $team->id)
+                                                <h5>{{ $team->nome }}</h5>
+                                                <hr class="my-1">
+                                                <div class="bgImg">
+                                                    <img class="ml-1 mb-1" src="/image/f1Model.png" height="15px"
+                                                    style="filter: drop-shadow(0 9999px 0 {{ $team->cor }})
+                                                                    drop-shadow(2px 9999px 1px white)
+                                                                    drop-shadow(-2px 9999px 1px white);">
+                                                </div>
+                                            @endif
+                                        @endforeach
+                                    @else
+                                        <div class="spinner-border spinner-border-sm text-secondary" role="status">
+                                            <span class="sr-only">Temporada ainda não finalizada...</span>
+                                        </div>
+                                    @endif
                                 </td>
                                 <td class="align-middle">
                                     <a class="btn btn-info btn-block btn-sm text-white" href="{{ route('campeonatos.index', $season->id) }}" role="button">
-                                        <i class="fas fa-flag-checkered"></i> Acompanhar
+                                        @if (App\Campeonato::where('season_id','=',$season->id)
+                                                           ->where('terminado','=',TRUE)->get()->count() < $totalPistas)
+                                            <i class="fas fa-flag-checkered"></i> Acompanhar
+                                        @else
+                                            <i class="fas fa-table"></i> Resultados
+                                        @endif
                                     </a>
                                 </td>
                             </tr>
@@ -64,7 +147,7 @@
                                             $percConcluida = number_format($percConcluida, 1, '.', '');
                                         @endphp
                                     @endforeach
-                                    <div class="progress rounded-0" style="height: 15px;">
+                                    <div class="progress rounded-0" style="height: 12px;">
                                         <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" aria-valuenow="{{ $percConcluida }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $percConcluida }}%">
                                                 @if ($percConcluida == 100)
                                                     <i class="font-weight-bold bordaPerc text-yellow">Temporada Finalizada</i>
