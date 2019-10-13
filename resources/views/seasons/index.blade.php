@@ -148,7 +148,7 @@
                                         @endphp
                                     @endforeach
                                     <div class="progress rounded-0" style="height: 12px;">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" aria-valuenow="{{ $percConcluida }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $percConcluida }}%">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-secondary" role="progressbar" aria-valuenow="{{ $percConcluida }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $percConcluida }}%">
                                                 @if ($percConcluida == 100)
                                                     <i class="font-weight-bold bordaPerc text-yellow">Temporada Finalizada</i>
                                                 @else

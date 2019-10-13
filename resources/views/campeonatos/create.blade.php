@@ -53,16 +53,17 @@
                             </td>
                             <td>
                                 <div class="card text-center border border-white align-middle" style="width: 15rem;background-color:#000!important;min-height:183px !important;">
-                                    <div class="card-body bg-secondary px-3">
+                                    <div class="card-body bg-secondary px-1">
                                         @if ($track->last_win_id != NULL)
                                             @foreach ($drivers as $driver)
                                                 @if ($driver->id == $track->last_win_id)
-                                                <h3 class="font-weight-light">
+                                                <h4 class="font-weight-light">
+                                                    <img class="rounded shadow mb-1" src="{{ $driver->pais()->get()->first()->image }}" height="12px">
                                                     <i>{{ $driver->nome }}</i>
                                                     <span class="badge badge-dark shadow-sm bordaSimples p-1" style="font-size:12px;">
                                                         <i>{{ $driver->numero_carro }}</i>
                                                     </span>
-                                                </h3>
+                                                </h4>
                                                 <hr class="bg-dark my-1">
                                                 <p class="m-0">{{ $driver->equipe()->get()->first()->nome }}</p>
                                                 <div class="bgImg">

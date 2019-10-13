@@ -11,6 +11,87 @@
                 <img class="rounded shadow" src="{{ $pista->pais()->get()->first()->image }}" height="40px"  data-toggle="tooltip" data-placement="right" title="{{ $pista->pais()->get()->first()->nome_pt }}">
             </h1>
             <hr class="bg-danger">
+
+            <div class="row justify-content-center">
+                <div class="jumbotron bg-black p-3 border border-warning">
+                    <table class="text-center text-white">
+                        <tr>
+                            <td>
+                                <img class="h-75" src="{{ asset('image/figuras/2nd.png') }}" height="">
+                            </td>
+                            <td>
+                                <img class="h-75" src="{{ asset('image/figuras/1st.png') }}" alt="">
+                            </td>
+                            <td>
+                                <img class="h-75" src="{{ asset('image/figuras/3rd.png') }}" alt="">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="p-0 align-middle">
+                                @foreach ($drivers as $driver)
+                                    @if ($driver->id == $segundo->piloto_id)
+                                        <h5 class="font-weight-light">
+                                            <img class="rounded shadow m-0" src="{{ $driver->pais()->get()->first()->image }}" height="20px">
+                                            {{ $driver->nome }}
+                                            <hr class="bg-danger my-2">
+                                        </h5>
+                                        <p class="my-0">{{ $driver->equipe()->get()->first()->nome }}</p>
+                                        <div class="bgImg">
+                                            <img class="" src="/image/f1Model.png" height="20px"
+                                                    style="filter: drop-shadow(0 9999px 0 {{ $driver->equipe()->get()->first()->cor }})
+                                                                drop-shadow(2px 9999px 1px white)
+                                                                drop-shadow(-2px 9999px 1px white);">
+
+                                        </div>
+                                        <p class="font-weight-bold font-italic mt-1 my-0">{{ $segundo->pontos }} pontos</p>
+                                    @endif
+                                @endforeach
+                            </td>
+                            <td class="p-0 align-middle border-left border-right border-danger">
+                                @foreach ($drivers as $driver)
+                                    @if ($driver->id == $primeiro->piloto_id)
+                                        <h5 class="font-weight-light">
+                                            <img class="rounded shadow m-0" src="{{ $driver->pais()->get()->first()->image }}" height="20px">
+                                            <b>{{ $driver->nome }}</b>
+                                            <hr class="bg-danger my-2">
+                                        </h5>
+                                        <p class="my-0">{{ $driver->equipe()->get()->first()->nome }}</p>
+                                        <div class="bgImg">
+                                            <img class="" src="/image/f1Model.png" height="20px"
+                                                    style="filter: drop-shadow(0 9999px 0 {{ $driver->equipe()->get()->first()->cor }})
+                                                                drop-shadow(2px 9999px 1px white)
+                                                                drop-shadow(-2px 9999px 1px white);">
+
+                                        </div>
+                                        <p class="font-weight-bold font-italic mt-1 my-0">{{ $primeiro->pontos }} pontos</p>
+                                    @endif
+                                @endforeach
+                            </td>
+                            <td class="p-0 align-middle">
+                                @foreach ($drivers as $driver)
+                                    @if ($driver->id == $terceiro->piloto_id)
+                                        <h5 class="font-weight-light">
+                                            <img class="rounded shadow m-0" src="{{ $driver->pais()->get()->first()->image }}" height="20px">
+                                            {{ $driver->nome }}
+                                            <hr class="bg-danger my-2">
+                                        </h5>
+                                        <p class="my-0">{{ $driver->equipe()->get()->first()->nome }}</p>
+                                        <div class="bgImg">
+                                            <img class="" src="/image/f1Model.png" height="20px"
+                                                    style="filter: drop-shadow(0 9999px 0 {{ $driver->equipe()->get()->first()->cor }})
+                                                                drop-shadow(2px 9999px 1px white)
+                                                                drop-shadow(-2px 9999px 1px white);">
+
+                                        </div>
+                                        <p class="font-weight-bold font-italic mt-1 my-0">{{ $terceiro->pontos }} pontos</p>
+                                    @endif
+                                @endforeach
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
             <div class="table-responsive">
                 <table class="table table-striped table-secondary table-hover text-center shadow">
                     <thead class="bg-danger text-light">
@@ -78,7 +159,7 @@
                                         </td>
                                     @endif
                                 @endforeach
-                                <td class="align-middle font-weight-bold py-0">{{ $race->pontos }}</td>
+                                <td class="align-middle font-weight-bold font-italic py-0">{{ $race->pontos }}</td>
                             </tr>
                         @endforeach
                     </tbody>

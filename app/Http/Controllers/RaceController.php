@@ -118,7 +118,13 @@ class RaceController extends Controller
         $races = Race::orderby('id')->where('campeonato_id', '=', $idSeason)
                                     ->where('track_id', '=', $idTrack)->get();
 
-        return view('races.index', compact('races', 'drivers', 'contGrid', 'idSeason', 'idTrack', 'pista'));
+        //MONTANDO PÓDIO
+        $primeiro = $races->first();
+        $segundo = $races->skip(1)->first();
+        $terceiro = $races->skip(2)->first();
+
+        return view('races.index', compact('races', 'drivers', 'contGrid', 'idSeason', 'idTrack', 'pista',
+                                           'primeiro', 'segundo', 'terceiro'));
     }
 
     /**

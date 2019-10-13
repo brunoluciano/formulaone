@@ -51,3 +51,7 @@
 .text-yellow {
     color: rgb(255, 255, 0)
 }
+
+.bg-black {
+    background-color: #00000050 !important;
+}

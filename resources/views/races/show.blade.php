@@ -68,6 +68,7 @@
                         <tr>
                             <th scope="col">POSIÇÃO</th>
                             <th scope="col" colspan="2">EQUIPE</th>
+                            <th scope="col">PILOTOS</th>
                             <th scope="col">VITÓRIAS</th>
                             <th scope="col">PÓDIOS</th>
                             <th scope="col">PONTOS</th>
@@ -79,27 +80,35 @@
                         @endphp
                         @foreach ($clsTeams as $equipe)
                             <tr>
-                                <th scope="row">{{ $idClass }}º</th>
+                                <th scope="row" class="py-1 align-middle">{{ $idClass }}º</th>
 
                                 @foreach ($teams as $team)
                                     @if ($equipe->equipe_id == $team->id)
-                                        <td>
+                                        <td class="text-right py-1 align-middle">
                                             {{ $team->nome }}
                                         </td>
-                                        <td>
-                                            <div class="bgImg">
-                                                <img class="ml-1 mb-1 float-left" src="/image/f1Model.png" height="15px"
+                                        <td class="py-1 align-middle">
+                                            <div class="bgImg text-left">
+                                                <img class="mb-1" src="/image/f1Model.png" height="15px"
                                                 style="filter: drop-shadow(0 9999px 0 {{ $team->cor }})
                                                                 drop-shadow(2px 9999px 1px white)
                                                                 drop-shadow(-2px 9999px 1px white);">
 
                                             </div>
                                         </td>
+                                        <td class="py-1 align-middle">
+                                            @foreach (\App\Driver::where('equipe_id','=',$equipe->equipe_id)->orderby('nome')->get() as $piloto)
+                                                <p class="my-0 ml-5 text-left">
+                                                    <img class="rounded shadow" src="{{ $piloto->pais()->get()->first()->image }}" height="12px">
+                                                    <i class="ml-2">{{ $piloto->nome }}</i>
+                                                </p>
+                                            @endforeach
+                                        </td>
                                     @endif
                                 @endforeach
-                                <td>#</td>
-                                <td>#</td>
-                                <th class="font-italic">{{ $equipe->pontos }}</th>
+                                <td class="py-1 align-middle">#</td>
+                                <td class="py-1 align-middle">#</td>
+                                <th class="font-italic py-1 align-middle">{{ $equipe->pontos }}</th>
                             </tr>
                             @php
                                 $idClass++;
