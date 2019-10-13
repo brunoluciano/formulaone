@@ -107,9 +107,10 @@ class CampeonatoController extends Controller
      */
     public function create($idSeason, $idTrack)
     {
+        $drivers = Driver::get();
         $pista = $idTrack;
         $track = Track::where('id', '=', $pista)->get()->first();
-        return view('campeonatos.create', compact('idSeason','track'));
+        return view('campeonatos.create', compact('idSeason','track','drivers'));
     }
 
     /**

@@ -4,10 +4,11 @@
     <div class="col-md-12">
         <div class="jumbotron bg-dark p-4 shadow-lg border border-danger text-white">
             <h1 class="display-4 ml-4">
-                Grande Prêmio de {{ $pista->nome }}
-                <a class="btn btn-outline-light float-right" href="{{ route('campeonatos.index', $idSeason) }}" role="button"><i class="fas fa-trophy"></i>
-                    Campeonato</a>
-                <img class="rounded shadow" src="{{ $pista->pais()->get()->first()->image }}" height="50px"  data-toggle="tooltip" data-placement="right" title="{{ $pista->pais()->get()->first()->nome_pt }}">
+                Grande Prêmio de <i class="font-weight-bold">{{ $pista->nome }}</i>
+                <a class="btn btn-outline-light float-right" href="{{ route('races.show', [$idSeason, $idTrack]) }}" role="button">
+                    <i class="fas fa-table"></i>
+                    Resultados</a>
+                <img class="rounded shadow" src="{{ $pista->pais()->get()->first()->image }}" height="40px"  data-toggle="tooltip" data-placement="right" title="{{ $pista->pais()->get()->first()->nome_pt }}">
             </h1>
             <hr class="bg-danger">
             <div class="table-responsive">

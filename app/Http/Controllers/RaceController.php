@@ -108,13 +108,17 @@ class RaceController extends Controller
 
         $pista = Track::where('id', '=', $idTrack)->get()->first();
 
+        //ATUALIZAR ÚLTIMO VENCEDOR DA PISTA NA TABELA TRACKS
+        Track::where('id', '=', $idTrack)
+              ->update(['last_win_id' => $pilotoVencedor->piloto_id]);
+
         //print_r($driverRdm);
         $contGrid = 0; // VARIÁVEL AUXILIAR PARA CONTAGEM DAS POSIÇÕES NA VIEW
 
         $races = Race::orderby('id')->where('campeonato_id', '=', $idSeason)
                                     ->where('track_id', '=', $idTrack)->get();
 
-        return view('races.index', compact('races', 'drivers', 'contGrid', 'idSeason', 'pista'));
+        return view('races.index', compact('races', 'drivers', 'contGrid', 'idSeason', 'idTrack', 'pista'));
     }
 
     /**
@@ -144,9 +148,22 @@ class RaceController extends Controller
      * @param  \App\Race  $race
      * @return \Illuminate\Http\Response
      */
-    public function show(Race $race)
+    public function show(Race $race, $idSeason, $idTrack)
     {
-        //
+        $drivers = Driver::orderby('id')->get();
+        $teams = Team::orderby('id')->get();
+
+        $pista = Track::where('id', '=', $idTrack)->get()->first();
+
+        $clsDrivers = ScoreDriver::orderby('pontos','desc')
+                                 ->where('season_id', '=', $idSeason)->get();
+        $clsTeams = ScoreTeam::orderby('pontos','desc')
+                             ->where('season_id', '=', $idSeason)->get();
+        $idClass = 0;
+
+        return view('races.show', compact('pista', 'idSeason', 'idTrack',
+                                          'clsDrivers', 'clsTeams', 'idClass',
+                                          'drivers', 'teams'));
     }
 
     /**

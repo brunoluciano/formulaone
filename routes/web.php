@@ -27,5 +27,6 @@ Route::get('/seasons/campeonatos/{idSeason}', 'CampeonatoController@index')->nam
 Route::get('/seasons/campeonatos/{idSeason}/{idTrack}', 'CampeonatoController@create')->name('campeonatos.create');
 
 Route::get('/seasons/campeonatos/{idSeason}/race/{idTrack}', 'RaceController@index')->name('races.index');
+Route::get('/seasons/campeonatos/{idSeason}/race/{idTrack}/resultados', 'RaceController@show')->name('races.show');
 
 Route::resource('seasons', 'SeasonController');
