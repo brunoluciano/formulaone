@@ -24,8 +24,8 @@
                                     <th scope="col">ID</th>
                                     <th scope="col"><i class="fas fa-car-alt"></i> Equipe</th>
                                     <th scope="col"><i class="fas fa-briefcase"></i> Diretor</th>
-                                    <th scope="col"><i class="fas fa-award"></i> Pódios</th>
                                     <th scope="col"><i class="fas fa-trophy"></i> Títulos</th>
+                                    <th scope="col"><i class="fas fa-medal"></i> Vitórias</th>
                                     <th colspan="2" scope="col"><i class="fas fa-globe-americas"></i> País</th>
                                     <th scope="col">Info / Editar / Excluir</th>
                                 </tr>
@@ -48,8 +48,8 @@
                                                 </div>
                                             </td>
                                             <td class="align-middle">{{ $team->diretor }}</td>
-                                            <td class="align-middle">{{ $team->podios }}</td>
                                             <td class="align-middle">{{ $team->titulos }}</td>
+                                            <td class="align-middle">{{ $team->vitorias }}</td>
                                             <td class="align-middle text-right">
                                                 <i>{{ $team->pais()->get()->first()->nome_pt }}</i>
                                             </td>

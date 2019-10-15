@@ -15,20 +15,30 @@
 
             @if ($racesFinish > 0)
                 <div class="row align-items-end">
-                    <div class="col-md-6">
-                        <a href="{{ route('campeonatos.create', [$idSeason, $racesFinish+1]) }}" class="btn btn-success mb-2 mr-2" role="button">
-                            <i class="fas fa-flag-checkered"></i> Próxima Corrida
-                        </a>
+                    <div class="col-md-7">
+                        @if ($racesFinish == $totalPistas)
+                            <a href="{{ route('campeonatos.show', $idSeason) }}" class="btn btn-success mb-2 mr-2" role="button">
+                                <i class="fas fa-flag-checkered"></i> Resultado do Campeonato
+                            </a>
+                        @else
+                            <a href="{{ route('campeonatos.create', [$idSeason, $racesFinish+1]) }}" class="btn btn-success mb-2 mr-2" role="button">
+                                <i class="fas fa-flag-checkered"></i> Próxima Corrida
+                            </a>
+                        @endif
+
                         <div class="btn-group" role="group" aria-label="Tabelas">
-                            <a href="{{-- route('campeonatos.index',) --}}" class="btn btn-outline-warning mb-2" role="button"  data-toggle="modal" data-target="#TabelaCondutores">
+                            <a href="#" class="btn btn-outline-warning mb-2" role="button" data-toggle="modal" data-target="#TabelaCampeonato">
+                                <i class="fas fa-table"></i> Campeonato
+                            </a>
+                            <a href="#" class="btn btn-outline-warning mb-2" role="button"  data-toggle="modal" data-target="#TabelaCondutores">
                                 <i class="fas fa-table"></i> Condutores
                             </a>
-                            <a href="{{-- route('campeonatos.index',) --}}" class="btn btn-outline-warning mb-2" role="button" data-toggle="modal" data-target="#TabelaConstrutores">
+                            <a href="#" class="btn btn-outline-warning mb-2" role="button" data-toggle="modal" data-target="#TabelaConstrutores">
                                 <i class="fas fa-table"></i> Construtores
                             </a>
                         </div>
                     </div>
-                    <div class="col-md-6 text-center pl-0">
+                    <div class="col-md-5 text-center pl-0">
                         @php
                             $finishCamp = \App\Campeonato::where('season_id', '=', $idSeason)
                                                             ->where('terminado', '=', TRUE)->get()->count();
@@ -61,8 +71,8 @@
                         <tbody>
                             @foreach ($campeonatos as $campeonato)
                                 <tr class="p-0 borderTable">
-                                    @php ($contId++)@endphp
-                                    <td class="font-weight-bold align-middle" scope="row">{{-- $campeonato->id --}}{{ $contId }}</td>
+                                    {{-- @php ($contId++)@endphp --}}
+                                    <td class="font-weight-bold align-middle" scope="row">{{-- $campeonato->id --}}{{ $campeonato->pista_id }}</td>
                                     <td class="align-middle">
                                         @foreach (\App\Driver::where('id', '=', $campeonato->piloto_venc_id)->get() as $vencedor)
                                             <h5>
@@ -149,6 +159,47 @@
 </div>
 
 @if ($racesFinish > 0)
+<!-- Modal CAMPEONATO -->
+<div class="modal fade" id="TabelaCampeonato" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content bg-dark border-danger">
+            <div class="modal-header text-white text-center">
+                <h4 class="display-4 text-center m-0" id="exampleModalLabel" style="font-size:40px;">Tabela Geral - <i class="font-weight-bold">CAMPEONATO</i></h4>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body bg-light p-0">
+                <div class="table-responsive m-0">
+                    <table class="table table-striped table-secondary table-hover text-center m-0">
+                        <thead class="bg-info text-white">
+                            <tr>
+                                <th scope="col" class="">POSIÇÃO</th>
+                                <th scope="col">PILOTO</th>
+                                <th scope="col">#</th>
+                                <th scope="col">EQUIPE</th>
+                                <th scope="col">PONTOS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="py-1">#</td>
+                                <td class="py-1">#</td>
+                                <td class="py-1">#</td>
+                                <td class="py-1">#</td>
+                                <td class="py-1">#</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-light float-right my-n2" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Modal CONDUTORES -->
 <div class="modal fade" id="TabelaCondutores" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -164,7 +215,7 @@
                     <table class="table table-striped table-secondary table-hover text-center m-0">
                         <thead class="bg-info text-white">
                             <tr>
-                                <th scope="col" class="">POSIÇÃO</th>
+                                <th scope="col">POSIÇÃO</th>
                                 <th scope="col">PILOTO</th>
                                 <th scope="col">#</th>
                                 <th scope="col">EQUIPE</th>

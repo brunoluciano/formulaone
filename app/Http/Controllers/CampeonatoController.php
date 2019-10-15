@@ -9,6 +9,8 @@ use App\Driver;
 use App\Team;
 use App\ScoreDriver;
 use App\ScoreTeam;
+use App\ScoreCamp;
+use App\Race;
 use Illuminate\Http\Request;
 
 class CampeonatoController extends Controller
@@ -31,7 +33,7 @@ class CampeonatoController extends Controller
                     'piloto_venc_id' => null,
                     'piloto_pole_id' => null,
                     'pista_id' => $i+1,
-                    'created_at' =>  now(),
+                    'created_at' => now(),
                     'updated_at' => now()
                 ]);
             }
@@ -41,7 +43,7 @@ class CampeonatoController extends Controller
                     'season_id' => $idSeason,
                     'piloto_id' => $piloto->id,
                     'pontos' => 0,
-                    'created_at' =>  now(),
+                    'created_at' => now(),
                     'updated_at' => now()
                 ]);
             }
@@ -55,6 +57,13 @@ class CampeonatoController extends Controller
                     'updated_at' => now()
                 ]);
             }
+
+            $scoreDriverCamp = ScoreDriver::where('season_id','=',$idSeason)
+                                          ->where('piloto_id','=',$piloto->id)->get();
+            $raceCamp = Race::where('campeonato_id','=',$idSeason)
+                            ->where('piloto_id','=',$piloto->id)->get();
+
+
         }
 
         //TABELA DE CONDUTORES
@@ -69,22 +78,19 @@ class CampeonatoController extends Controller
         // $racesFinish = Campeonato::orderby('id')->where('season_id', '=', $idSeason)
         //                                         ->where('terminado', '=', TRUE)->get()->count();
 
-        $contId = 0;
-        $campeonatos = Campeonato::orderby('id')->where('season_id', '=', $idSeason)
+        $campeonatos = Campeonato::orderby('id','desc')->where('season_id', '=', $idSeason)
                                                 ->where('terminado', '=', TRUE)->get();
+        // $contId = 1;
+
         $racesFinish = $campeonatos->count();
 
         $percCampeonato = 0;
         $totalPistas = Track::get()->count();
 
-        if($racesFinish == $totalPistas){
+        if($racesFinish == $totalPistas){ // DEFININDO GANHADORES TEMPORADA
             $campeao = ScoreDriver::orderby('pontos','desc')
                                   ->where('season_id', '=', $idSeason)->get()->first();
             Season::where('id', '=', $idSeason)->update(['piloto_venc_id' => $campeao->piloto_id]);
-
-            $construtor = ScoreTeam::orderby('pontos','desc')
-                                   ->where('season_id', '=', $idSeason)->get()->first();
-            Season::where('id', '=', $idSeason)->update(['construtor_id' => $construtor->equipe_id]);
 
             $vice = ScoreDriver::orderby('pontos','desc')
                                   ->where('season_id', '=', $idSeason)->get()->skip(1)->first();
@@ -93,9 +99,13 @@ class CampeonatoController extends Controller
             $terceiro = ScoreDriver::orderby('pontos','desc')
                                   ->where('season_id', '=', $idSeason)->get()->skip(2)->first();
             Season::where('id', '=', $idSeason)->update(['piloto_terc_id' => $terceiro->piloto_id]);
+
+            $construtor = ScoreTeam::orderby('pontos','desc')
+                                   ->where('season_id', '=', $idSeason)->get()->first();
+            Season::where('id', '=', $idSeason)->update(['construtor_id' => $construtor->equipe_id]);
         }
 
-        return view('campeonatos.index', compact('campeonatos', 'contId', 'idSeason',
+        return view('campeonatos.index', compact('campeonatos', 'idSeason',
                                                  'racesFinish', 'percCampeonato', 'totalPistas',
                                                  'classDrivers', 'classTeams', 'idClass', 'pilotos', 'teams'));
     }
@@ -136,9 +146,9 @@ class CampeonatoController extends Controller
      * @param  \App\Campeonato  $campeonato
      * @return \Illuminate\Http\Response
      */
-    public function show(Campeonato $campeonato)
+    public function show(Campeonato $campeonato,$idSeason)
     {
-        //
+        return view('campeonatos.show', compact('campeonato', 'idSeason'));
     }
 
     /**

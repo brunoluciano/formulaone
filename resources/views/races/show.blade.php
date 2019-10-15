@@ -5,8 +5,14 @@
         <div class="jumbotron bg-dark p-4 shadow-lg border border-danger text-white">
             <h1 class="display-4 ml-4 font-weight-bold">
                 Classificação Campeonato
-                <a class="btn btn-outline-light float-right" href="{{ route('campeonatos.index', $idSeason) }}" role="button"><i class="fas fa-trophy"></i>
-                    Campeonato</a>
+                <div class="btn-group float-right" role="group" aria-label="Corridas">
+                    @if ($racesFinish < $totalPistas)
+                        <a class="btn btn-outline-success" href="{{ route('campeonatos.create', [$idSeason, $racesFinish+1]) }}" role="button"><i class="fas fa-flag-checkered"></i>
+                            Próxima Corrida</a>
+                    @endif
+                    <a class="btn btn-outline-light" href="{{ route('campeonatos.index', $idSeason) }}" role="button"><i class="fas fa-trophy"></i>
+                        Campeonato</a>
+                </div>
             </h1>
             <hr class="bg-danger">
             <h3 class="ml-4"><i class="font-weight-bold">CONDUTORES</i></h3>

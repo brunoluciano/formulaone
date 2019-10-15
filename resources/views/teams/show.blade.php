@@ -13,9 +13,9 @@
                     <div class="col-md-10">
                         <div class="row">
                             <div class="card bg-secondary w-50 d-inline-block border border-warning">
-                                <div class="row m-0 align-items-center">
+                                <div class="row align-items-center">
                                     <div class="col-md-4">
-                                        <img class="card-img" src="{{ url('image/figuras/titulos.png') }}">
+                                        <img class="card-img ml-3" src="{{ url('image/figuras/titulos.png') }}">
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body text-center">
@@ -29,13 +29,13 @@
                             <div class="card bg-secondary w-50 d-inline-block border border-warning">
                                 <div class="row m-0 align-items-center">
                                     <div class="col-md-4">
-                                        <img class="card-img mt-5" src="{{ url('image/figuras/podios.png') }}">
+                                        <img class="card-img p-4" src="{{ url('image/figuras/vitorias.png') }}">
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body text-center">
-                                            <h2 class="card-title">Pódios</h2>
+                                            <h2 class="card-title">Vitórias</h2>
                                             <hr class="bg-warning">
-                                            <h4 class="card-text">{{ $team->podios }}</h4>
+                                            <h4 class="card-text">{{ $team->vitorias }}</h4>
                                         </div>
                                     </div>
                                 </div>

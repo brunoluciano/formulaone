@@ -9,7 +9,7 @@ class Team extends Model
     protected $table = 'teams';
 
     protected $fillable = [
-        'id', 'nome', 'diretor', 'pais_id', 'podios', 'titulos', 'cor'
+        'id', 'nome', 'diretor', 'pais_id', 'vitorias', 'titulos', 'cor'
     ];
 
     public function pais()

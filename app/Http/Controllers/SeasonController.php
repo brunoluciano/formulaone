@@ -18,10 +18,31 @@ class SeasonController extends Controller
      */
     public function index()
     {
+        $seasons = Season::orderby('id', 'desc')->get();
         $totalPistas = Track::get()->count();
         $campeonatos = Campeonato::get();
         $drivers = Driver::get();
         $teams = Team::get();
+
+        foreach ($drivers as $driver) { //DEFININDO A QUANTIDADE DE TÍTULOS CONQUISTADOS PELOS PILOTOS. ESSA DADO SERÁ MOSTRADO NAS INFORMAÇÕES DO PILOTO
+            $cont = 0; // VARIÁVEL UTILIZADA PARA ARMAZENAR A QUANTIDADE DE TÍTULOS DO RESPECTIVO PILOTO
+            foreach ($seasons as $titulo) {
+                if($driver->id == $titulo->piloto_venc_id){
+                    $cont++;
+                }
+            }
+            Driver::where('id','=',$driver->id)->update(['titulos' => $cont]);
+        }
+
+        foreach ($teams as $team) { //DEFININDO A QUANTIDADE DE TÍTULOS CONQUISTADOS PELAS EQUIPES. ESSA DADO SERÁ MOSTRADO NAS INFORMAÇÕES DA EQUIPE
+            $cont = 0; // VARIÁVEL UTILIZADA PARA ARMAZENAR A QUANTIDADE DE TÍTULOS DA RESPECTIVA EQUIPE
+            foreach ($seasons as $titulo) {
+                if($team->id == $titulo->construtor_id){
+                    $cont++;
+                }
+            }
+            Team::where('id','=',$team->id)->update(['titulos' => $cont]);
+        }
 
         $finishCamp = 0;
         $percConcluida = 0;
@@ -34,7 +55,6 @@ class SeasonController extends Controller
             $realizandoTemporada = FALSE;
         }
 
-        $seasons = Season::orderby('id', 'desc')->get();
         return view('seasons.index', compact('seasons', 'campeonatos', 'totalPistas',
                                              'finishCamp', 'percConcluida', 'realizandoTemporada',
                                             'drivers', 'teams'));

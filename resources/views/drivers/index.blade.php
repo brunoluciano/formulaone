@@ -52,8 +52,8 @@
                                                     </span>
                                                 </td>
                                                 <td class="align-middle">{{ $driver->equipe()->get()->first()->nome }}</td>
-                                                <td class="align-middle">{{ $driver->titulos }}</td>
-                                                <td class="align-middle">{{ $driver->vitorias }}</td>
+                                                <td class="align-middle"><i>{{ $driver->titulos }}</i></td>
+                                                <td class="align-middle"><i></i>{{ $driver->vitorias }}</i></td>
                                                 <td class="align-middle text-right">
                                                     <i>{{ $driver->pais()->get()->first()->nome_pt }}</i>
                                                 </td>

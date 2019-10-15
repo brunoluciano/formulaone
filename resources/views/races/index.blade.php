@@ -13,7 +13,7 @@
             <hr class="bg-danger">
 
             <div class="row justify-content-center">
-                <div class="jumbotron bg-black p-3 border border-warning">
+                <div class="jumbotron bg-black p-3 border border-warning shadow">
                     <table class="text-center text-white">
                         <tr>
                             <td>

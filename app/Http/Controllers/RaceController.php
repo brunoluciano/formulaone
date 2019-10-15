@@ -66,7 +66,7 @@ class RaceController extends Controller
                     ['track_id', '=', $idTrack],
                     ['piloto_id', '=', $driver->id]
                 ])->get();
-                foreach ($smPonto as $key) {
+                foreach ($smPonto as $key) { // INSERINDO PONTOS PARA OS PILOTOS COM SUAS RESPECTIVAS POSIÇÕES NA CORRIDA
                     ScoreDriver::where('season_id', '=', $idSeason)
                                ->where('piloto_id', '=', $driver->id)
                                ->increment('pontos', $key->pontos);
@@ -81,7 +81,7 @@ class RaceController extends Controller
                             ['track_id', '=', $idTrack],
                             ['piloto_id', '=', $driver->id]
                         ])->get();
-                        foreach ($smPonto as $key) {
+                        foreach ($smPonto as $key) { // INSERINDO PONTOS PARA AS EQUIPES COM SUAS RESPECTIVAS POSIÇÕES NA CORRIDA
                             ScoreTeam::where('season_id', '=', $idSeason)
                                        ->where('equipe_id', '=', $team->id)
                                        ->increment('pontos', $key->pontos);
@@ -89,8 +89,13 @@ class RaceController extends Controller
                     }
                 }
             }
-        }
 
+            $podio = Race::orderby('id')->where('campeonato_id', '=', $idSeason)
+                                        ->where('track_id', '=', $idTrack)->take(3)->get();
+            foreach ($podio as $piloto) {
+                Driver::where('id','=',$piloto->piloto_id)->increment('podios', 1);
+            }
+        }
 
         $pilotoVencedor = Race::orderby('id')->where('campeonato_id', '=', $idSeason)
                               ->where('track_id', '=', $idTrack)->get()->first(); // PEGA O PILOTO VENCEDOR DA CORRIDA
@@ -100,10 +105,14 @@ class RaceController extends Controller
 
         if($campPilotos->piloto_venc_id == null){
             Campeonato::where('pista_id', '=', $idTrack)->update(['piloto_venc_id' => $pilotoVencedor->piloto_id]); // ATUALIZA A CORRIDA COM O RESPECTIVO PILOTO VENCEDOR
+            Driver::where('id','=',$pilotoVencedor->piloto_id)->increment('vitorias', 1);
+            $pilotoVenc = Driver::where('id','=',$pilotoVencedor->piloto_id)->get()->first();
+            Team::where('id','=',$pilotoVenc->equipe_id)->increment('vitorias', 1);
         }
 
         if($campPilotos->piloto_pole_id == null) {
             Campeonato::where('pista_id', '=', $idTrack)->update(['piloto_pole_id' => $rdmPilotoPole->piloto_id]); // ATUALIZA A CORRIDA COM A RESPECTIVA POLE POSITION
+            Driver::where('id','=',$rdmPilotoPole->piloto_id)->increment('pole_positions', 1);
         }
 
         $pista = Track::where('id', '=', $idTrack)->get()->first();
@@ -167,9 +176,14 @@ class RaceController extends Controller
                              ->where('season_id', '=', $idSeason)->get();
         $idClass = 0;
 
+        $campeonatos = Campeonato::orderby('id','desc')->where('season_id', '=', $idSeason)
+                                                ->where('terminado', '=', TRUE)->get();
+        $racesFinish = $campeonatos->count();
+        $totalPistas = Track::get()->count();
+
         return view('races.show', compact('pista', 'idSeason', 'idTrack',
                                           'clsDrivers', 'clsTeams', 'idClass',
-                                          'drivers', 'teams'));
+                                          'drivers', 'teams', 'racesFinish', 'totalPistas'));
     }
 
     /**
