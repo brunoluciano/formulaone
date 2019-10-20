@@ -36,7 +36,7 @@
                         <label for="inputEquipe">Equipe</label>
                         <select id="inputEquipe" class="form-control" name="equipe_id">
                             @foreach ($teams as $team)
-                                @if ($team->id == $driver->equipe()->get()->first()->id)
+                                @if ($team->id == $driver->equipe->id)
                                     <option value="{{ $team->id }}" selected>{{ $team->nome }}</option>
                                 @else
                                     <option value="{{ $team->id }}">{{ $team->nome }}</option>
@@ -48,7 +48,7 @@
                         <label for="inputPais">Nacionalidade</label>
                         <select id="inputPais" class="form-control" name="pais_id">
                             @foreach ($countries as $country)
-                                @if ($country->id == $driver->pais()->get()->first()->id)
+                                @if ($country->id == $driver->pais->id)
                                     <option value="{{ $country->id }}" selected>{{ $country->nome_pt }}</option>
                                 @else
                                     <option value="{{ $country->id }}">{{ $country->nome_pt }}</option>

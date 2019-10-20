@@ -76,17 +76,17 @@
                                     <td class="align-middle">
                                         @foreach (\App\Driver::where('id', '=', $campeonato->piloto_venc_id)->get() as $vencedor)
                                             <h5>
-                                                <img class="rounded shadow m-0" src="{{ $vencedor->pais()->get()->first()->image }}" height="15px">
+                                                <img class="rounded shadow m-0" src="{{ $vencedor->pais->image }}" height="15px">
                                                 {{ $vencedor->nome }}
                                                 <span class="badge badge-dark shadow-sm bordaSimples p-2" style="font-size:12px">
                                                     <i>{{ $vencedor->numero_carro }}</i>
                                                 </span>
                                             </h5>
                                             <hr class="my-2">
-                                            {{ $vencedor->equipe()->get()->first()->nome }}
+                                            {{ $vencedor->equipe->nome }}
                                             <div class="bgImg">
                                                 <img class="ml-1 mb-1" src="/image/f1Model.png" height="15px"
-                                                style="filter: drop-shadow(0 9999px 0 {{ $vencedor->equipe()->get()->first()->cor }})
+                                                style="filter: drop-shadow(0 9999px 0 {{ $vencedor->equipe->cor }})
                                                                 drop-shadow(2px 9999px 1px white)
                                                                 drop-shadow(-2px 9999px 1px white);">
 
@@ -96,17 +96,17 @@
                                     <td class="align-middle">
                                         @foreach (\App\Driver::where('id', '=', $campeonato->piloto_pole_id)->get() as $poleposition)
                                             <h5>
-                                                <img class="rounded shadow m-0" src="{{ $poleposition->pais()->get()->first()->image }}" height="15px">
+                                                <img class="rounded shadow m-0" src="{{ $poleposition->pais->image }}" height="15px">
                                                 {{ $poleposition->nome }}
                                                 <span class="badge badge-dark shadow-sm bordaSimples p-2" style="font-size:12px">
                                                     <i>{{ $poleposition->numero_carro }}</i>
                                                 </span>
                                             </h5>
                                             <hr class="my-2">
-                                            {{ $poleposition->equipe()->get()->first()->nome }}
+                                            {{ $poleposition->equipe->nome }}
                                             <div class="bgImg">
                                                 <img class="ml-1 mb-1" src="/image/f1Model.png" height="15px"
-                                                style="filter: drop-shadow(0 9999px 0 {{ $poleposition->equipe()->get()->first()->cor }})
+                                                style="filter: drop-shadow(0 9999px 0 {{ $poleposition->equipe->cor }})
                                                                 drop-shadow(2px 9999px 1px white)
                                                                 drop-shadow(-2px 9999px 1px white);">
 
@@ -122,8 +122,8 @@
                                                 <img src="{{ $track->image_circuito }}" class="card-img-top">
                                                 <div class="card-img-overlay text-center d-flex flex-column justify-content-end p-0">
                                                     <h6 class="card-text bg-dark-transparente">{{ $track->nome }}
-                                                        <img class="rounded shadow bordaImg mb-1" src="{{ $track->pais()->get()->first()->image }}"
-                                                            height="15px" data-toggle="tooltip" data-placement="right" title="{{ $track->pais()->get()->first()->nome_pt }}">
+                                                        <img class="rounded shadow bordaImg mb-1" src="{{ $track->pais->image }}"
+                                                            height="15px" data-toggle="tooltip" data-placement="right" title="{{ $track->pais->nome_pt }}">
                                                     </h6>
                                                 </div>
                                             </div>
@@ -236,15 +236,15 @@
                                     @foreach ($pilotos as $piloto)
                                         @if ($piloto->id == $driver->piloto_id)
                                             <td class="text-left font-weight-bold  py-1">
-                                                <img class="rounded shadow mb-1 mr-1" src="{{ $piloto->pais()->get()->first()->image }}" height="15px">
+                                                <img class="rounded shadow mb-1 mr-1" src="{{ $piloto->pais->image }}" height="15px">
                                                 {{ $piloto->nome }}
                                             </td>
                                             <td class="py-1">
-                                                <span class="badge badge-dark shadow-sm bordaSimples p-2" style="background-color:{{ $piloto->equipe()->get()->first()->cor }};font-size:12px;">
+                                                <span class="badge badge-dark shadow-sm bordaSimples p-2" style="background-color:{{ $piloto->equipe->cor }};font-size:12px;">
                                                     <i>{{ $piloto->numero_carro }}</i>
                                                 </span>
                                             </td>
-                                            <td class="py-1">{{ $piloto->equipe()->get()->first()->nome }}</td>
+                                            <td class="py-1">{{ $piloto->equipe->nome }}</td>
                                         @endif
                                     @endforeach
                                     <td class="py-1">#</td>
@@ -315,7 +315,7 @@
                                             <td class="py-1 align-middle">
                                                 @foreach (\App\Driver::where('equipe_id','=',$equipe->equipe_id)->orderby('nome')->get() as $piloto)
                                                     <p class="my-0 ml-5 text-left">
-                                                        <img class="rounded shadow" src="{{ $piloto->pais()->get()->first()->image }}" height="12px">
+                                                        <img class="rounded shadow" src="{{ $piloto->pais->image }}" height="12px">
                                                         <i class="ml-2">{{ $piloto->nome }}</i>
                                                     </p>
                                                 @endforeach

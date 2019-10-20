@@ -39,7 +39,7 @@
                         <label for="inputPais">País</label>
                         <select id="inputPais" class="form-control" name="pais_id">
                             @foreach ($paises as $pais)
-                                @if ($pais->id == $team->pais()->get()->first()->id)
+                                @if ($pais->id == $team->pais->id)
                                     <option value="{{ $pais->id }}" selected>{{ $pais->nome_pt }}</option>
                                 @else
                                     <option value="{{ $pais->id }}">{{ $pais->nome_pt }}</option>

@@ -23,9 +23,9 @@
                         <tr>
                             <td scope="row">
                                 <div class="card text-center border border-white" style="width: 15rem;background-color:#000!important;">
-                                    <img class="card-img-top" src="{{ $track->pais()->get()->first()->image }}">
+                                    <img class="card-img-top" src="{{ $track->pais->image }}">
                                     <div class="card-footer p-0">
-                                        <h3>{{ $track->pais()->get()->first()->nome_pt }}</h3>
+                                        <h3>{{ $track->pais->nome_pt }}</h3>
                                     </div>
                                 </div>
                             </td>
@@ -58,17 +58,17 @@
                                             @foreach ($drivers as $driver)
                                                 @if ($driver->id == $track->last_win_id)
                                                 <h4 class="font-weight-light">
-                                                    <img class="rounded shadow mb-1" src="{{ $driver->pais()->get()->first()->image }}" height="12px">
+                                                    <img class="rounded shadow mb-1" src="{{ $driver->pais->image }}" height="12px">
                                                     <i>{{ $driver->nome }}</i>
                                                     <span class="badge badge-dark shadow-sm bordaSimples p-1" style="font-size:12px;">
                                                         <i>{{ $driver->numero_carro }}</i>
                                                     </span>
                                                 </h4>
                                                 <hr class="bg-dark my-1">
-                                                <p class="m-0">{{ $driver->equipe()->get()->first()->nome }}</p>
+                                                <p class="m-0">{{ $driver->equipe->nome }}</p>
                                                 <div class="bgImg">
                                                     <img src="/image/f1Model.png" height="15px"
-                                                    style="filter: drop-shadow(0 9999px 0 {{ $driver->equipe()->get()->first()->cor }})
+                                                    style="filter: drop-shadow(0 9999px 0 {{ $driver->equipe->cor }})
                                                                     drop-shadow(2px 9999px 1px white)
                                                                     drop-shadow(-2px 9999px 1px white);">
 

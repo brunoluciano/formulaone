@@ -8,7 +8,7 @@
                 <a class="btn btn-outline-light float-right" href="{{ route('races.show', [$idSeason, $idTrack]) }}" role="button">
                     <i class="fas fa-table"></i>
                     Resultados</a>
-                <img class="rounded shadow" src="{{ $pista->pais()->get()->first()->image }}" height="40px"  data-toggle="tooltip" data-placement="right" title="{{ $pista->pais()->get()->first()->nome_pt }}">
+                <img class="rounded shadow" src="{{ $pista->pais->image }}" height="40px"  data-toggle="tooltip" data-placement="right" title="{{ $pista->pais->nome_pt }}">
             </h1>
             <hr class="bg-danger">
 
@@ -31,14 +31,14 @@
                                 @foreach ($drivers as $driver)
                                     @if ($driver->id == $segundo->piloto_id)
                                         <h5 class="font-weight-light">
-                                            <img class="rounded shadow m-0" src="{{ $driver->pais()->get()->first()->image }}" height="20px">
+                                            <img class="rounded shadow m-0" src="{{ $driver->pais->image }}" height="20px">
                                             {{ $driver->nome }}
                                             <hr class="bg-danger my-2">
                                         </h5>
-                                        <p class="my-0">{{ $driver->equipe()->get()->first()->nome }}</p>
+                                        <p class="my-0">{{ $driver->equipe->nome }}</p>
                                         <div class="bgImg">
                                             <img class="" src="/image/f1Model.png" height="20px"
-                                                    style="filter: drop-shadow(0 9999px 0 {{ $driver->equipe()->get()->first()->cor }})
+                                                    style="filter: drop-shadow(0 9999px 0 {{ $driver->equipe->cor }})
                                                                 drop-shadow(2px 9999px 1px white)
                                                                 drop-shadow(-2px 9999px 1px white);">
 
@@ -51,14 +51,14 @@
                                 @foreach ($drivers as $driver)
                                     @if ($driver->id == $primeiro->piloto_id)
                                         <h5 class="font-weight-light">
-                                            <img class="rounded shadow m-0" src="{{ $driver->pais()->get()->first()->image }}" height="20px">
+                                            <img class="rounded shadow m-0" src="{{ $driver->pais->image }}" height="20px">
                                             <b>{{ $driver->nome }}</b>
                                             <hr class="bg-danger my-2">
                                         </h5>
-                                        <p class="my-0">{{ $driver->equipe()->get()->first()->nome }}</p>
+                                        <p class="my-0">{{ $driver->equipe->nome }}</p>
                                         <div class="bgImg">
                                             <img class="" src="/image/f1Model.png" height="20px"
-                                                    style="filter: drop-shadow(0 9999px 0 {{ $driver->equipe()->get()->first()->cor }})
+                                                    style="filter: drop-shadow(0 9999px 0 {{ $driver->equipe->cor }})
                                                                 drop-shadow(2px 9999px 1px white)
                                                                 drop-shadow(-2px 9999px 1px white);">
 
@@ -71,14 +71,14 @@
                                 @foreach ($drivers as $driver)
                                     @if ($driver->id == $terceiro->piloto_id)
                                         <h5 class="font-weight-light">
-                                            <img class="rounded shadow m-0" src="{{ $driver->pais()->get()->first()->image }}" height="20px">
+                                            <img class="rounded shadow m-0" src="{{ $driver->pais->image }}" height="20px">
                                             {{ $driver->nome }}
                                             <hr class="bg-danger my-2">
                                         </h5>
-                                        <p class="my-0">{{ $driver->equipe()->get()->first()->nome }}</p>
+                                        <p class="my-0">{{ $driver->equipe->nome }}</p>
                                         <div class="bgImg">
                                             <img class="" src="/image/f1Model.png" height="20px"
-                                                    style="filter: drop-shadow(0 9999px 0 {{ $driver->equipe()->get()->first()->cor }})
+                                                    style="filter: drop-shadow(0 9999px 0 {{ $driver->equipe->cor }})
                                                                 drop-shadow(2px 9999px 1px white)
                                                                 drop-shadow(-2px 9999px 1px white);">
 
@@ -132,28 +132,28 @@
                                 @foreach ($drivers as $driver)
                                     @if ($race->piloto_id == $driver->id)
                                         <td class="align-middle pl-5 py-0">
-                                            <img class="rounded shadow m-0 float-right" src="{{ $driver->pais()->get()->first()->image }}" height="20px">
+                                            <img class="rounded shadow m-0 float-right" src="{{ $driver->pais->image }}" height="20px">
                                         </td>
                                         <td class="align-middle text-left py-0"> {{-- PILOTO --}}
                                             <i class="ml-1 mt-1 ">{{ $driver->nome }}</i>
                                         </td>
                                         <td class="align-middle px-0 py-0">
-                                            <span class="badge badge-info shadow bordaSimples p-2" style="background-color: {{ $driver->equipe()->get()->first()->cor }};">
+                                            <span class="badge badge-info shadow bordaSimples p-2" style="background-color: {{ $driver->equipe->cor }};">
                                                 <i>{{ $driver->numero_carro }}</i>
                                             </span>
                                         </td>
                                         <td class="align-middle py-0 text-right"> {{-- EQUIPE --}}
-                                            {{ $driver->equipe()->get()->first()->nome }}
+                                            {{ $driver->equipe->nome }}
                                         </td>
                                         <td class="align-middle pr-5 py-0 text-left">
                                             <div class="bgImg">
                                                 <img class="mt-2" src="/image/f1Model.png" height="15px"
-                                                     style="filter: drop-shadow(0 9999px 0 {{ $driver->equipe()->get()->first()->cor }})
+                                                     style="filter: drop-shadow(0 9999px 0 {{ $driver->equipe->cor }})
                                                                     drop-shadow(2px 9999px 1px white)
                                                                     drop-shadow(-2px 9999px 1px white);">
 
                                             </div>
-                                            {{-- <span class="badge badge-info" style="background-color:{{ $driver->equipe()->get()->first()->cor }} !important">
+                                            {{-- <span class="badge badge-info" style="background-color:{{ $driver->equipe->cor }} !important">
                                                 <i class="fas fa-car-alt"></i>
                                             </span> --}}
                                         </td>

@@ -12,9 +12,9 @@
                 @foreach ($tracks as $track)
                     <div class="col-md-3">
                         <div class="card bg-danger border border-white text-white shadow">
-                            <img src="{{ $track->image_circuito }}" class="card-img-top">
+                            <img src="{{ $track->image_circuito }}" class="card-img-top" data-toggle="tooltip" data-placement="right" title="{{ $track->nome }}">
                             <div class="card-footer text-center">
-                                <h4 class="card-text mt-1">{{ $track->nome }} <img class="rounded shadow bordaImg" src="{{ $track->pais()->get()->first()->image }}" height="30px" data-toggle="tooltip" data-placement="right" title="{{ $track->pais()->get()->first()->nome_pt }}"></h4>
+                                <h4 class="card-text mt-1">{{ $track->nome }} <img class="rounded shadow bordaImg" src="{{ $track->pais->image }}" height="30px" data-toggle="tooltip" data-placement="right" title="{{ $track->pais->nome_pt }}"></h4>
                             </div>
                         </div>
                         <br>

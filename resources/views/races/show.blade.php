@@ -41,15 +41,15 @@
                                 @foreach ($drivers as $driver)
                                     @if ($driver->id == $clsDriver->piloto_id)
                                         <td class="text-left py-1">
-                                            <img class="rounded shadow mb-1 mr-1" src="{{ $driver->pais()->get()->first()->image }}" height="15px">
+                                            <img class="rounded shadow mb-1 mr-1" src="{{ $driver->pais->image }}" height="15px">
                                             {{ $driver->nome }}
                                         </td>
                                         <td class="py-1">
-                                            <span class="badge badge-dark shadow-sm bordaSimples p-2" style="background-color:{{ $driver->equipe()->get()->first()->cor }};font-size:12px;">
+                                            <span class="badge badge-dark shadow-sm bordaSimples p-2" style="background-color:{{ $driver->equipe->cor }};font-size:12px;">
                                                 <i>{{ $driver->numero_carro }}</i>
                                             </span>
                                         </td>
-                                        <td class="py-1">{{ $driver->equipe()->get()->first()->nome }}</td>
+                                        <td class="py-1">{{ $driver->equipe->nome }}</td>
                                     @endif
                                 @endforeach
                                 <td class="py-1">#</td>
@@ -105,7 +105,7 @@
                                         <td class="py-1 align-middle">
                                             @foreach (\App\Driver::where('equipe_id','=',$equipe->equipe_id)->orderby('nome')->get() as $piloto)
                                                 <p class="my-0 ml-5 text-left">
-                                                    <img class="rounded shadow" src="{{ $piloto->pais()->get()->first()->image }}" height="12px">
+                                                    <img class="rounded shadow" src="{{ $piloto->pais->image }}" height="12px">
                                                     <i class="ml-2">{{ $piloto->nome }}</i>
                                                 </p>
                                             @endforeach

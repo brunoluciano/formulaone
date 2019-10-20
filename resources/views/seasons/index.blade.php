@@ -40,10 +40,10 @@
                                                         </span>
                                                     </h5>
                                                     <hr class="my-1">
-                                                    <p class="mb-0 font-italic">{{ $driver->equipe()->get()->first()->nome }}</p>
+                                                    <p class="mb-0 font-italic">{{ $driver->equipe->nome }}</p>
                                                     <div class="bgImg m-0">
                                                         <img class="ml-1 mb-1" src="/image/f1Model.png" height="10px"
-                                                        style="filter: drop-shadow(0 9999px 0 {{ $driver->equipe()->get()->first()->cor }})
+                                                        style="filter: drop-shadow(0 9999px 0 {{ $driver->equipe->cor }})
                                                                         drop-shadow(2px 9999px 1px white)
                                                                         drop-shadow(-2px 9999px 1px white) !important;">
                                                     </div>
@@ -65,10 +65,10 @@
                                                         </span>
                                                     </h5>
                                                     <hr class="my-1">
-                                                    <p class="mb-0 font-italic">{{ $driver->equipe()->get()->first()->nome }}</p>
+                                                    <p class="mb-0 font-italic">{{ $driver->equipe->nome }}</p>
                                                     <div class="bgImg m-0">
                                                         <img class="ml-1 mb-1" src="/image/f1Model.png" height="10px"
-                                                        style="filter: drop-shadow(0 9999px 0 {{ $driver->equipe()->get()->first()->cor }})
+                                                        style="filter: drop-shadow(0 9999px 0 {{ $driver->equipe->cor }})
                                                                         drop-shadow(2px 9999px 1px white)
                                                                         drop-shadow(-2px 9999px 1px white);">
 
@@ -91,10 +91,10 @@
                                                         </span>
                                                     </h5>
                                                     <hr class="my-1">
-                                                    <p class="mb-0 font-italic">{{ $driver->equipe()->get()->first()->nome }}</p>
+                                                    <p class="mb-0 font-italic">{{ $driver->equipe->nome }}</p>
                                                     <div class="bgImg m-0">
                                                         <img class="ml-1 mb-1" src="/image/f1Model.png" height="10px"
-                                                        style="filter: drop-shadow(0 9999px 0 {{ $driver->equipe()->get()->first()->cor }})
+                                                        style="filter: drop-shadow(0 9999px 0 {{ $driver->equipe->cor }})
                                                                         drop-shadow(2px 9999px 1px white)
                                                                         drop-shadow(-2px 9999px 1px white);">
 

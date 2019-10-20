@@ -45,10 +45,10 @@
                     <div class="col-md-2">
                         <div class="card text-center bg-dark border border-white shadow" style="background-color: #262626 !important; cursor: pointer">
                             <div class="card-body p-0">
-                                <img src="{{ url($team->pais()->get()->first()->image) }}" class="card-img" alt="{{ $team->pais()->get()->first()->nome_pt }}">
+                                <img src="{{ url($team->pais->image) }}" class="card-img" alt="{{ $team->pais->nome_pt }}">
                             </div>
                             <div class="card-footer">
-                                <h5 class="font-weight-bold font-italic">{{ $team->pais()->get()->first()->nome_pt }}</h5>
+                                <h5 class="font-weight-bold font-italic">{{ $team->pais->nome_pt }}</h5>
                             </div>
                         </div>
                     </div>
@@ -81,12 +81,12 @@
                                                                     </a>
                                                                 </td>
                                                                 <td class="align-middle">
-                                                                    <span class="badge badge-info shadow bordaSimples p-2 ml-2 mt-1" style="background-color: {{ $driver->equipe()->get()->first()->cor }};">
+                                                                    <span class="badge badge-info shadow bordaSimples p-2 ml-2 mt-1" style="background-color: {{ $driver->equipe->cor }};">
                                                                         {{ $driver->numero_carro }}
                                                                     </span>
                                                                 </td>
                                                                 <td class="align-middle">
-                                                                    <img class="bordaImg rounded shadow ml-2 mt-1" src="{{ url($driver->pais()->get()->first()->image) }}" height="25px">
+                                                                    <img class="bordaImg rounded shadow ml-2 mt-1" src="{{ url($driver->pais->image) }}" height="25px">
                                                                 </td>
                                                             </tr>
                                                         </table>

@@ -47,18 +47,18 @@
                                                 <td class="align-middle font-weight-bold" scope="row">{{ $driver->id }}</td>
                                                 <td class="align-middle">{{ $driver->nome }}</td>
                                                 <td class="align-middle">
-                                                    <span class="badge badge-info shadow bordaSimples p-2" style="background-color: {{ $driver->equipe()->get()->first()->cor }};">
+                                                    <span class="badge badge-info shadow bordaSimples p-2" style="background-color: {{ $driver->equipe->cor }};">
                                                         <i>{{ $driver->numero_carro }}</i>
                                                     </span>
                                                 </td>
-                                                <td class="align-middle">{{ $driver->equipe()->get()->first()->nome }}</td>
+                                                <td class="align-middle">{{ $driver->equipe->nome }}</td>
                                                 <td class="align-middle"><i>{{ $driver->titulos }}</i></td>
                                                 <td class="align-middle"><i></i>{{ $driver->vitorias }}</i></td>
                                                 <td class="align-middle text-right">
-                                                    <i>{{ $driver->pais()->get()->first()->nome_pt }}</i>
+                                                    <i>{{ $driver->pais->nome_pt }}</i>
                                                 </td>
                                                 <td class="align-middle text-left">
-                                                    <img class="rounded shadow" src="{{ $driver->pais()->get()->first()->image }}" height="20px">
+                                                    <img class="rounded shadow" src="{{ $driver->pais->image }}" height="20px">
                                                 </td>
                                                 <td class="align-middle">
                                                     <div class="btn-group border border-white rounded shadow" role="group" aria-label="Operações">

@@ -13,7 +13,7 @@
                         </td>
                         <td class="align-middle">
                             <h1 class="m-0">
-                                <span class="badge badge-info shadow bordaSimples p-2 ml-3" style="background-color: {{ $driver->equipe()->get()->first()->cor }};">
+                                <span class="badge badge-info shadow bordaSimples p-2 ml-3" style="background-color: {{ $driver->equipe->cor }};">
                                     <i>{{ $driver->numero_carro }}</i>
                                 </span>
                             </h1>
@@ -91,10 +91,10 @@
                     <div class="col-md-2">
                         <div class="card text-center bg-dark border border-white shadow" style="background-color: #262626 !important; cursor: pointer">
                             <div class="card-body p-0">
-                                <img src="{{ url($driver->pais()->get()->first()->image) }}" class="card-img" alt="{{ $driver->pais()->get()->first()->nome_pt }}">
+                                <img src="{{ url($driver->pais->image) }}" class="card-img" alt="{{ $driver->pais->nome_pt }}">
                             </div>
                             <div class="card-footer">
-                                <h5 class="font-weight-bold font-italic">{{ $driver->pais()->get()->first()->nome_pt }}</h5>
+                                <h5 class="font-weight-bold font-italic">{{ $driver->pais->nome_pt }}</h5>
                             </div>
                         </div>
                     </div>
@@ -102,11 +102,11 @@
                 <br>
                 <div class="row align-items-end">
                     <h4 class="">Equipe Atual:</h4>
-                    <a class="btn btn-outline-secondary ml-2 btnBorda" href="{{ route('teams.show', $driver->equipe()->get()->first()->id) }}" role="button" style="color: {{ $driver->equipe()->get()->first()->cor }} !important; border-color: {{ $driver->equipe()->get()->first()->cor }} !important;">
+                    <a class="btn btn-outline-secondary ml-2 btnBorda" href="{{ route('teams.show', $driver->equipe->id) }}" role="button" style="color: {{ $driver->equipe->cor }} !important; border-color: {{ $driver->equipe->cor }} !important;">
                         <table>
                             <tr>
-                                <td class="align-middle"><span class="font-weight-bold" style="font-size: 25px">{{ $driver->equipe()->get()->first()->nome }}</span></td>
-                                <td class="align-middle"><img class="rounded shadow ml-2" src="{{ url($driver->equipe()->get()->first()->pais()->get()->first()->image) }}" height="20px"></td>
+                                <td class="align-middle"><span class="font-weight-bold" style="font-size: 25px">{{ $driver->equipe->nome }}</span></td>
+                                <td class="align-middle"><img class="rounded shadow ml-2" src="{{ url($driver->equipe->pais->image) }}" height="20px"></td>
                             </tr>
                         </table>
                     </a>

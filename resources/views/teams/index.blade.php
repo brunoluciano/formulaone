@@ -51,10 +51,10 @@
                                             <td class="align-middle">{{ $team->titulos }}</td>
                                             <td class="align-middle">{{ $team->vitorias }}</td>
                                             <td class="align-middle text-right">
-                                                <i>{{ $team->pais()->get()->first()->nome_pt }}</i>
+                                                <i>{{ $team->pais->nome_pt }}</i>
                                             </td>
                                             <td class="align-middle text-left">
-                                                <img class="rounded shadow" src="image/paises/{{ $team->pais()->get()->first()->nome_pt }}.png" height="20px">
+                                                <img class="rounded shadow" src="{{ $team->pais->image }}" height="20px">
                                             </td>
                                             <td class="align-middle">
                                                 <div class="btn-group border border-white rounded shadow" role="group" aria-label="Operações">
