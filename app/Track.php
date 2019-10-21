@@ -19,4 +19,9 @@ class Track extends Model
     {
         return $this->hasMany('App\Driver');
     }
+
+    public function scorePiloto()
+    {
+        return $this->belongsToMany('App\ScoreCamp', 'score_camp_tracks', 'track_id', 'scorecamp_id');
+    }
 }

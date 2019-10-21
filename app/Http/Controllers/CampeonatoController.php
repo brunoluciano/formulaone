@@ -25,6 +25,7 @@ class CampeonatoController extends Controller
         $rows = Campeonato::where('season_id', '=', $idSeason)->get()->count();
         $pilotos = Driver::get();
         $teams = Team::get();
+        $tracks = Track::get();
 
         if($rows == 0){
             for($i=0; $i<21; $i++){
@@ -62,9 +63,11 @@ class CampeonatoController extends Controller
                                           ->where('piloto_id','=',$piloto->id)->get();
             $raceCamp = Race::where('campeonato_id','=',$idSeason)
                             ->where('piloto_id','=',$piloto->id)->get();
-
-
         }
+
+        //TABELA GERAL CLASSIFICAÇÃO CAMPEONATO
+        $classCamp = ScoreCamp::orderby('id')
+                              ->where('season_id', '=', $idSeason)->get();
 
         //TABELA DE CONDUTORES
         $classDrivers = ScoreDriver::orderby('pontos','desc')
@@ -73,6 +76,9 @@ class CampeonatoController extends Controller
         //TABELA DE CONSTRUTORES
         $classTeams = ScoreTeam::orderby('pontos','desc')
                                ->where('season_id', '=', $idSeason)->get();
+
+
+
         $idClass = 1;
 
         // $racesFinish = Campeonato::orderby('id')->where('season_id', '=', $idSeason)
@@ -107,7 +113,8 @@ class CampeonatoController extends Controller
 
         return view('campeonatos.index', compact('campeonatos', 'idSeason',
                                                  'racesFinish', 'percCampeonato', 'totalPistas',
-                                                 'classDrivers', 'classTeams', 'idClass', 'pilotos', 'teams'));
+                                                 'classDrivers', 'classTeams', 'classCamp',
+                                                 'idClass', 'pilotos', 'teams', 'tracks'));
     }
 
     /**

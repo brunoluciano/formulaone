@@ -161,7 +161,7 @@
 @if ($racesFinish > 0)
 <!-- Modal CAMPEONATO -->
 <div class="modal fade" id="TabelaCampeonato" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog w-75 mw-100" role="document">
         <div class="modal-content bg-dark border-danger">
             <div class="modal-header text-white text-center">
                 <h4 class="display-4 text-center m-0" id="exampleModalLabel" style="font-size:40px;">Tabela Geral - <i class="font-weight-bold">CAMPEONATO</i></h4>
@@ -174,21 +174,76 @@
                     <table class="table table-striped table-secondary table-hover text-center m-0">
                         <thead class="bg-info text-white">
                             <tr>
-                                <th scope="col" class="">POSIÇÃO</th>
-                                <th scope="col">PILOTO</th>
-                                <th scope="col">#</th>
-                                <th scope="col">EQUIPE</th>
-                                <th scope="col">PONTOS</th>
+                                <th class="align-middle" scope="col" rowspan="2">POSIÇÃO</th>
+                                <th class="align-middle" scope="col" rowspan="2">PILOTO</th>
+                                <th class="align-middle" scope="col" colspan="{{ $finishCamp }}">POSIÇÃO DA CORRIDA</th>
+                                <th class="align-middle" scope="col" rowspan="2">PONTOS</th>
+                            </tr>
+                            <tr>
+                                @php
+                                    $tracks = $tracks->take($finishCamp);
+                                @endphp
+                                @foreach ($tracks as $track)
+                                    <th class="align-middle p-0" scope="col">
+                                        <i class="m-0">{{ $track->id }}</i>
+                                        <br>
+                                        <img class="rounded shadow border border-white m-0" src="{{ $track->pais->image }}"
+                                             height="15px" data-toggle="tooltip" data-placement="right" title="{{ $track->nome }}">
+                                    </th>
+                                @endforeach
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="py-1">#</td>
-                                <td class="py-1">#</td>
-                                <td class="py-1">#</td>
-                                <td class="py-1">#</td>
-                                <td class="py-1">#</td>
-                            </tr>
+                            @php
+                                ($idClass = 1)
+                            @endphp
+                            @foreach ($classDrivers as $piloto)
+                                <tr>
+                                    <th class="py-1 align-middle" scope="row">{{ $idClass }}º</th>
+                                    @foreach ($pilotos as $driver)
+                                        @if ($driver->id == $piloto->piloto_id)
+                                            <td>{{ $driver->nome }}</td>
+                                            @foreach (\App\ScoreCamp::where('season_id','=',$idSeason)
+                                                                    ->where('piloto_id','=',$driver->id)->get() as $posicao)
+                                                <td class="py-1 align-middle mx-0 px-0"
+                                                @switch($posicao->posicao)
+                                                    @case(1)
+                                                        style="background-color:#fafa75;cursor:pointer;font-weight:bold;"
+                                                        onMouseOver="this.style.backgroundColor='#fcfc32'"
+                                                        onMouseOut="this.style.backgroundColor='#fafa75'"
+                                                        @break
+                                                    @case(2)
+                                                        style="background-color:#f7f7f7;cursor:pointer;font-weight:bold;"
+                                                        onMouseOver="this.style.backgroundColor='#e0e0e0'"
+                                                        onMouseOut="this.style.backgroundColor='#f7f7f7'"
+                                                        @break
+                                                    @case(3)
+                                                        style="background-color:#fcbc8b;cursor:pointer;font-weight:bold;"
+                                                        onMouseOver="this.style.backgroundColor='#ffb073'"
+                                                        onMouseOut="this.style.backgroundColor='#fcbc8b'"
+                                                        @break
+                                                    @case($posicao->posicao > 3 && $posicao->posicao < 15)
+                                                        style="background-color:#64bd7b;cursor:pointer;color:#fff"
+                                                        onMouseOver="this.style.backgroundColor='#41ab5d'"
+                                                        onMouseOut="this.style.backgroundColor='#64bd7b'"
+                                                        @break
+                                                    @default
+                                                        style="background-color:#b587f5;cursor:pointer;color:#fff"
+                                                        onMouseOver="this.style.backgroundColor='#9d6be3'"
+                                                        onMouseOut="this.style.backgroundColor='#b587f5'"
+                                                        @break
+                                                @endswitch>
+                                                    <i>{{ $posicao->posicao }}</i>
+                                                </td>
+                                            @endforeach
+                                        @endif
+                                    @endforeach
+                                    <td class="py-1 align-middle font-weight-bold"><i>{{ $piloto->pontos }}</i></td>
+                                </tr>
+                                @php
+                                    $idClass++;
+                                @endphp
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

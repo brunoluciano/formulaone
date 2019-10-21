@@ -9,6 +9,7 @@ use App\Campeonato;
 use App\Track;
 use App\ScoreDriver;
 use App\ScoreTeam;
+use App\ScoreCamp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\VarDumper\VarDumper;
@@ -88,6 +89,29 @@ class RaceController extends Controller
                         }
                     }
                 }
+            }
+
+            $corridas = Race::orderby('pontos', 'desc')
+                            ->orderby('id', 'asc')
+                            ->where('campeonato_id', '=', $idSeason)
+                            ->where('track_id', '=', $idTrack)
+                            ->get();
+            //$scoreDriversCamp = ScoreCamp::get();
+
+            $contPosicao = 0;
+            foreach ($corridas as $corrida) {
+                $ptosDriver = ScoreDriver::where('season_id', '=', $idSeason)
+                                         ->where('piloto_id', '=', $corrida->piloto_id)->get()->first();
+                $contPosicao++;
+                ScoreCamp::insert([
+                    'season_id' => $idSeason,
+                    'piloto_id' => $corrida->piloto_id,
+                    'track_id' => $idTrack,
+                    'posicao' => $contPosicao,
+                    'pontos' => $ptosDriver->pontos,
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ]);
             }
 
             $podio = Race::orderby('id')->where('campeonato_id', '=', $idSeason)

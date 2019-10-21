@@ -9,12 +9,13 @@ class Race extends Model
     protected $table = 'races';
 
     protected $fillable = [
-        'id', 'piloto_id', 'campeonato_id', 'pontos'
+        'id', 'piloto_id', 'campeonato_id', 'pontos', 'piloto'
     ];
 
     public function piloto()
     {
         //return $this->belongsToMany('App\Driver', 'races_drivers', 'race_id', 'driver_id');
-        return $this->hasMany(\App\Driver::class, 'id');
+        //return $this->hasMany(\App\Driver::class, 'id');
+        return $this->hasMany('App\Driver');
     }
 }

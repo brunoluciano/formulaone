@@ -9,7 +9,7 @@ class ScoreDriver extends Model
     //protected $table = 'score_drivers';
 
     protected $fillable = [
-        'id', 'season_id', 'race_id', 'piloto_id', 'pontos'
+        'id', 'season_id', 'race_id', 'piloto_id', 'pontos', 'piloto'
     ];
 
     public function piloto()
