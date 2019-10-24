@@ -43,6 +43,9 @@ class CampeonatoController extends Controller
                 ScoreDriver::insert([
                     'season_id' => $idSeason,
                     'piloto_id' => $piloto->id,
+                    'vitorias' => 0,
+                    'podios' => 0,
+                    'pole_positions' => 0,
                     'pontos' => 0,
                     'created_at' => now(),
                     'updated_at' => now()
@@ -53,6 +56,7 @@ class CampeonatoController extends Controller
                 ScoreTeam::insert([
                     'season_id' => $idSeason,
                     'equipe_id' => $team->id,
+                    'vitorias' => 0,
                     'pontos' => 0,
                     'created_at' =>  now(),
                     'updated_at' => now()
@@ -71,26 +75,22 @@ class CampeonatoController extends Controller
 
         //TABELA DE CONDUTORES
         $classDrivers = ScoreDriver::orderby('pontos','desc')
+                                   ->orderby('vitorias', 'desc')
+                                   ->orderby('podios', 'desc')
+                                   ->orderby('pole_positions', 'desc')
                                    ->where('season_id', '=', $idSeason)->get();
 
         //TABELA DE CONSTRUTORES
         $classTeams = ScoreTeam::orderby('pontos','desc')
+                               ->orderby('vitorias', 'desc')
                                ->where('season_id', '=', $idSeason)->get();
-
-
 
         $idClass = 1;
 
-        // $racesFinish = Campeonato::orderby('id')->where('season_id', '=', $idSeason)
-        //                                         ->where('terminado', '=', TRUE)->get()->count();
-
         $campeonatos = Campeonato::orderby('id','desc')->where('season_id', '=', $idSeason)
-                                                ->where('terminado', '=', TRUE)->get();
-        // $contId = 1;
+                                                       ->where('terminado', '=', TRUE)->get();
 
         $racesFinish = $campeonatos->count();
-
-        $percCampeonato = 0;
         $totalPistas = Track::get()->count();
 
         if($racesFinish == $totalPistas){ // DEFININDO GANHADORES TEMPORADA
@@ -110,6 +110,8 @@ class CampeonatoController extends Controller
                                    ->where('season_id', '=', $idSeason)->get()->first();
             Season::where('id', '=', $idSeason)->update(['construtor_id' => $construtor->equipe_id]);
         }
+
+        $percCampeonato = 0;
 
         return view('campeonatos.index', compact('campeonatos', 'idSeason',
                                                  'racesFinish', 'percCampeonato', 'totalPistas',
@@ -138,13 +140,7 @@ class CampeonatoController extends Controller
      */
     public function store(Request $request)
     {
-        $id = Campeonato::count();
-        if($id == 0){
-            echo "É zero!";
-        }
-        // $campeonatos = Campeonato::orderby('id')->get();
-        // return view('races.index', compact('campeonatos'));
-        return redirect()->route('races.index');
+        //
     }
 
     /**
@@ -155,7 +151,52 @@ class CampeonatoController extends Controller
      */
     public function show(Campeonato $campeonato,$idSeason)
     {
-        return view('campeonatos.show', compact('campeonato', 'idSeason'));
+        $pilotos = Driver::get();
+        $teams = Team::get();
+        $tracks = Track::get();
+
+        $campeonatos = Campeonato::orderby('id','desc')->where('season_id', '=', $idSeason)
+                                                       ->where('terminado', '=', TRUE)->get();
+
+        $racesFinish = $campeonatos->count();
+        $totalPistas = Track::get()->count();
+
+        //TABELA DE CONDUTORES
+        $classDrivers = ScoreDriver::orderby('pontos','desc')
+                                   ->orderby('vitorias', 'desc')
+                                   ->orderby('podios', 'desc')
+                                   ->orderby('pole_positions', 'desc')
+                                   ->where('season_id', '=', $idSeason)->get();
+
+
+        if($racesFinish == $totalPistas){ // DEFININDO GANHADORES TEMPORADA E OUTRAS INFORMAÇÕES
+            $campeao = ScoreDriver::orderby('pontos','desc')
+                                  ->where('season_id', '=', $idSeason)->get()->first();
+            Season::where('id', '=', $idSeason)->update(['piloto_venc_id' => $campeao->piloto_id]);
+
+            $vice = ScoreDriver::orderby('pontos','desc')
+                               ->where('season_id', '=', $idSeason)->get()->skip(1)->first();
+            Season::where('id', '=', $idSeason)->update(['piloto_vice_id' => $vice->piloto_id]);
+
+            $terceiro = ScoreDriver::orderby('pontos','desc')
+                                   ->where('season_id', '=', $idSeason)->get()->skip(2)->first();
+            Season::where('id', '=', $idSeason)->update(['piloto_terc_id' => $terceiro->piloto_id]);
+
+            $construtor = ScoreTeam::orderby('pontos','desc')
+                                   ->where('season_id', '=', $idSeason)->get()->first();
+            Season::where('id', '=', $idSeason)->update(['construtor_id' => $construtor->equipe_id]);
+
+            $maiorVencedor = ScoreDriver::orderby('vitorias', 'desc')
+                                        ->orderby('pontos', 'desc')
+                                        ->where('season_id', '=', $idSeason)->get()->first();
+            $maiorPoles = ScoreDriver::orderby('pole_positions', 'desc')
+                                     ->orderby('pontos', 'desc')
+                                     ->where('season_id', '=', $idSeason)->get()->first();
+        }
+
+        return view('campeonatos.show', compact('campeonato', 'idSeason', 'pilotos', 'teams', 'tracks',
+                                                'campeao', 'vice', 'terceiro', 'construtor',
+                                                'classDrivers', 'maiorVencedor', 'maiorPoles'));
     }
 
     /**

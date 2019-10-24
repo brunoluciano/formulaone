@@ -9,11 +9,11 @@ class ScoreTeam extends Model
     protected $table = 'score_teams';
 
     protected $fillable = [
-        'id', 'season_id', 'equipe_id', 'pontos'
+        'id', 'season_id', 'equipe_id', 'vitorias', 'pontos'
     ];
 
     public function equipe()
     {
-        return $this->hasMany('App\Teams', 'id');
+        return $this->hasMany('App\Team', 'id');
     }
 }

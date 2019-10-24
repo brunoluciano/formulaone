@@ -52,9 +52,9 @@
                                         <td class="py-1">{{ $driver->equipe->nome }}</td>
                                     @endif
                                 @endforeach
-                                <td class="py-1">#</td>
-                                <td class="py-1">#</td>
-                                <td class="py-1">#</td>
+                                <td class="py-1">{{ $clsDriver->vitorias }}</td>
+                                <td class="py-1">{{ $clsDriver->podios }}</td>
+                                <td class="py-1">{{ $clsDriver->pole_positions }}</td>
                                 <th class="font-italic py-1">{{ $clsDriver->pontos }}</th>
                             </tr>
                             @php
@@ -76,7 +76,6 @@
                             <th scope="col" colspan="2">EQUIPE</th>
                             <th scope="col">PILOTOS</th>
                             <th scope="col">VITÓRIAS</th>
-                            <th scope="col">PÓDIOS</th>
                             <th scope="col">PONTOS</th>
                         </tr>
                     </thead>
@@ -112,8 +111,7 @@
                                         </td>
                                     @endif
                                 @endforeach
-                                <td class="py-1 align-middle">#</td>
-                                <td class="py-1 align-middle">#</td>
+                                <td class="py-1 align-middle">{{ $equipe->vitorias }}</td>
                                 <th class="font-italic py-1 align-middle">{{ $equipe->pontos }}</th>
                             </tr>
                             @php

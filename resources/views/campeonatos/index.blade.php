@@ -27,9 +27,11 @@
                         @endif
 
                         <div class="btn-group" role="group" aria-label="Tabelas">
-                            <a href="#" class="btn btn-outline-warning mb-2" role="button" data-toggle="modal" data-target="#TabelaCampeonato">
-                                <i class="fas fa-table"></i> Campeonato
-                            </a>
+                            @if ($racesFinish < $totalPistas)
+                                <a href="#" class="btn btn-outline-warning mb-2" role="button" data-toggle="modal" data-target="#TabelaCampeonato">
+                                    <i class="fas fa-table"></i> Campeonato
+                                </a>
+                            @endif
                             <a href="#" class="btn btn-outline-warning mb-2" role="button"  data-toggle="modal" data-target="#TabelaCondutores">
                                 <i class="fas fa-table"></i> Condutores
                             </a>
@@ -202,10 +204,24 @@
                                     <th class="py-1 align-middle" scope="row">{{ $idClass }}º</th>
                                     @foreach ($pilotos as $driver)
                                         @if ($driver->id == $piloto->piloto_id)
-                                            <td>{{ $driver->nome }}</td>
+                                            <td class="text-center py-1">
+                                                <p class="font-weight-bold my-0">
+                                                    <img class="rounded shadow mb-1 mr-1" src="{{ $driver->pais->image }}" height="15px">
+                                                    {{ $driver->nome }}
+                                                </p>
+                                                <hr class="my-0">
+                                                <div class="bgImg">
+                                                    <i>{{ $driver->equipe->nome }}</i>
+                                                    <img class="ml-1" src="/image/f1Model.png" height="10px"
+                                                    style="filter: drop-shadow(0 9999px 0 {{ $driver->equipe->cor }})
+                                                                    drop-shadow(2px 9999px 1px white)
+                                                                    drop-shadow(-2px 9999px 1px white);">
+
+                                                </div>
+                                            </td>
                                             @foreach (\App\ScoreCamp::where('season_id','=',$idSeason)
                                                                     ->where('piloto_id','=',$driver->id)->get() as $posicao)
-                                                <td class="py-1 align-middle mx-0 px-0"
+                                                <td class="py-1 align-middle mx-0 px-0 border border-secondary" onclick="location.href='{{ route('races.index', [$idSeason, $posicao->track_id]) }}'"
                                                 @switch($posicao->posicao)
                                                     @case(1)
                                                         style="background-color:#fafa75;cursor:pointer;font-weight:bold;"
@@ -222,15 +238,20 @@
                                                         onMouseOver="this.style.backgroundColor='#ffb073'"
                                                         onMouseOut="this.style.backgroundColor='#fcbc8b'"
                                                         @break
-                                                    @case($posicao->posicao > 3 && $posicao->posicao < 15)
+                                                    @case($posicao->posicao > 3 && $posicao->posicao <= 10)
                                                         style="background-color:#64bd7b;cursor:pointer;color:#fff"
                                                         onMouseOver="this.style.backgroundColor='#41ab5d'"
                                                         onMouseOut="this.style.backgroundColor='#64bd7b'"
                                                         @break
-                                                    @default
+                                                    @case($posicao->posicao > 10  && $posicao->posicao <= 15)
                                                         style="background-color:#b587f5;cursor:pointer;color:#fff"
                                                         onMouseOver="this.style.backgroundColor='#9d6be3'"
                                                         onMouseOut="this.style.backgroundColor='#b587f5'"
+                                                        @break
+                                                    @default
+                                                        style="background-color:#b362b3;cursor:pointer;color:#fff"
+                                                        onMouseOver="this.style.backgroundColor='#8a3f8a'"
+                                                        onMouseOut="this.style.backgroundColor='#b362b3'"
                                                         @break
                                                 @endswitch>
                                                     <i>{{ $posicao->posicao }}</i>
@@ -302,8 +323,8 @@
                                             <td class="py-1">{{ $piloto->equipe->nome }}</td>
                                         @endif
                                     @endforeach
-                                    <td class="py-1">#</td>
-                                    <td class="py-1">#</td>
+                                    <td class="py-1">{{ $driver->vitorias }}</td>
+                                    <td class="py-1">{{ $driver->podios }}</td>
                                     {{-- <td>123</td> --}}
                                     <th class="font-italic py-1">{{ $driver->pontos }}</th>
                                 </tr>
@@ -378,7 +399,7 @@
                                         @endif
                                     @endforeach
                                     {{-- <td></td> --}}
-                                    <td class="align-middle">#</td>
+                                    <td class="align-middle">{{ $equipe->vitorias }}</td>
                                     <th class="font-italic align-middle">{{ $equipe->pontos }}</th>
                                 </tr>
                                 @php
