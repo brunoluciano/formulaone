@@ -100,7 +100,11 @@ class RaceController extends Controller
 
             $contPosicao = 0;
             foreach ($corridas as $corrida) {
-                $ptosDriver = ScoreDriver::where('season_id', '=', $idSeason)
+                $ptosDriver = ScoreDriver::orderby('pontos','desc')
+                                         ->orderby('vitorias', 'desc')
+                                         ->orderby('podios', 'desc')
+                                         ->orderby('pole_positions', 'desc')
+                                         ->where('season_id', '=', $idSeason)
                                          ->where('piloto_id', '=', $corrida->piloto_id)->get()->first();
                 $contPosicao++;
                 ScoreCamp::insert([

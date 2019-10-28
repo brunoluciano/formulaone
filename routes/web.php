@@ -19,15 +19,16 @@ Route::resource('countries', 'CountryController');
 Route::resource('teams', 'TeamController');
 Route::resource('drivers', 'DriverController');
 Route::resource('tracks', 'TrackController');
-//Route::resource('seasons/campeonatos/races', 'RaceController');
 Route::resource('index', 'Index');
 
-//Route::resource('seasons/campeonatos', 'CampeonatoController');
-Route::get('/seasons/campeonatos/{idSeason}', 'CampeonatoController@index')->name('campeonatos.index');
-Route::get('/seasons/campeonatos/{idSeason}/resultados', 'CampeonatoController@show')->name('campeonatos.show');
-Route::get('/seasons/campeonatos/{idSeason}/{idTrack}', 'CampeonatoController@create')->name('campeonatos.create');
+Route::get('seasons/campeonatos/{idSeason}', 'CampeonatoController@index')->name('campeonatos.index');
 
-Route::get('/seasons/campeonatos/{idSeason}/race/{idTrack}', 'RaceController@index')->name('races.index');
-Route::get('/seasons/campeonatos/{idSeason}/race/{idTrack}/resultados', 'RaceController@show')->name('races.show');
+Route::prefix('seasons/campeonatos/{idSeason}')->group(function () {
+    Route::get('resultados', 'CampeonatoController@show')->name('campeonatos.show');
+    Route::get('{idTrack}', 'CampeonatoController@create')->name('campeonatos.create');
+
+    Route::get('race/{idTrack}', 'RaceController@index')->name('races.index');
+    Route::get('race/{idTrack}/resultados', 'RaceController@show')->name('races.show');
+});
 
 Route::resource('seasons', 'SeasonController');

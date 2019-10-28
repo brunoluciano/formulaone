@@ -31,18 +31,21 @@
                                 @foreach ($drivers as $driver)
                                     @if ($driver->id == $segundo->piloto_id)
                                         <h5 class="font-weight-light">
-                                            <img class="rounded shadow m-0" src="{{ $driver->pais->image }}" height="20px">
-                                            {{ $driver->nome }}
+                                            <a href="{{ route('drivers.show', $driver->id) }}" class="text-white link-hover2">
+                                                <img class="rounded shadow m-0" src="{{ $driver->pais->image }}" height="20px">
+                                                {{ $driver->nome }}
+                                            </a>
                                             <hr class="bg-danger my-2">
                                         </h5>
-                                        <p class="my-0">{{ $driver->equipe->nome }}</p>
-                                        <div class="bgImg">
-                                            <img class="" src="/image/f1Model.png" height="20px"
-                                                    style="filter: drop-shadow(0 9999px 0 {{ $driver->equipe->cor }})
-                                                                drop-shadow(2px 9999px 1px white)
-                                                                drop-shadow(-2px 9999px 1px white);">
-
-                                        </div>
+                                        <a href="{{ route('teams.show', $driver->equipe->id) }}" class="text-white link-hover2">
+                                            <p class="my-0">{{ $driver->equipe->nome }}</p>
+                                            <div class="bgImg">
+                                                <img src="/image/f1Model.png" height="20px"
+                                                     style="filter: drop-shadow(0 9999px 0 {{ $driver->equipe->cor }})
+                                                                    drop-shadow(2px 9999px 1px white)
+                                                                    drop-shadow(-2px 9999px 1px white);">
+                                            </div>
+                                        </a>
                                         <p class="font-weight-bold font-italic mt-1 my-0">{{ $segundo->pontos }} pontos</p>
                                     @endif
                                 @endforeach
@@ -51,18 +54,21 @@
                                 @foreach ($drivers as $driver)
                                     @if ($driver->id == $primeiro->piloto_id)
                                         <h5 class="font-weight-light">
-                                            <img class="rounded shadow m-0" src="{{ $driver->pais->image }}" height="20px">
-                                            <b>{{ $driver->nome }}</b>
+                                            <a href="{{ route('drivers.show', $driver->id) }}" class="text-white link-hover2">
+                                                <img class="rounded shadow m-0" src="{{ $driver->pais->image }}" height="20px">
+                                                <b>{{ $driver->nome }}</b>
+                                            </a>
                                             <hr class="bg-danger my-2">
                                         </h5>
-                                        <p class="my-0">{{ $driver->equipe->nome }}</p>
-                                        <div class="bgImg">
-                                            <img class="" src="/image/f1Model.png" height="20px"
-                                                    style="filter: drop-shadow(0 9999px 0 {{ $driver->equipe->cor }})
-                                                                drop-shadow(2px 9999px 1px white)
-                                                                drop-shadow(-2px 9999px 1px white);">
-
-                                        </div>
+                                        <a href="{{ route('teams.show', $driver->equipe->id) }}" class="text-white link-hover2">
+                                            <p class="my-0">{{ $driver->equipe->nome }}</p>
+                                            <div class="bgImg">
+                                                <img src="/image/f1Model.png" height="20px"
+                                                     style="filter: drop-shadow(0 9999px 0 {{ $driver->equipe->cor }})
+                                                                    drop-shadow(2px 9999px 1px white)
+                                                                    drop-shadow(-2px 9999px 1px white);">
+                                            </div>
+                                        </a>
                                         <p class="font-weight-bold font-italic mt-1 my-0">{{ $primeiro->pontos }} pontos</p>
                                     @endif
                                 @endforeach
@@ -71,18 +77,22 @@
                                 @foreach ($drivers as $driver)
                                     @if ($driver->id == $terceiro->piloto_id)
                                         <h5 class="font-weight-light">
-                                            <img class="rounded shadow m-0" src="{{ $driver->pais->image }}" height="20px">
-                                            {{ $driver->nome }}
+                                            <a href="{{ route('drivers.show', $driver->id) }}" class="text-white link-hover2">
+                                                <img class="rounded shadow m-0" src="{{ $driver->pais->image }}" height="20px">
+                                                {{ $driver->nome }}
+                                            </a>
                                             <hr class="bg-danger my-2">
                                         </h5>
-                                        <p class="my-0">{{ $driver->equipe->nome }}</p>
-                                        <div class="bgImg">
-                                            <img class="" src="/image/f1Model.png" height="20px"
-                                                    style="filter: drop-shadow(0 9999px 0 {{ $driver->equipe->cor }})
-                                                                drop-shadow(2px 9999px 1px white)
-                                                                drop-shadow(-2px 9999px 1px white);">
+                                        <a href="{{ route('teams.show', $driver->equipe->id) }}" class="text-white link-hover2">
+                                            <p class="my-0">{{ $driver->equipe->nome }}</p>
+                                            <div class="bgImg">
+                                                <img src="/image/f1Model.png" height="20px"
+                                                     style="filter: drop-shadow(0 9999px 0 {{ $driver->equipe->cor }})
+                                                                    drop-shadow(2px 9999px 1px white)
+                                                                    drop-shadow(-2px 9999px 1px white);">
 
-                                        </div>
+                                            </div>
+                                        </a>
                                         <p class="font-weight-bold font-italic mt-1 my-0">{{ $terceiro->pontos }} pontos</p>
                                     @endif
                                 @endforeach
@@ -135,7 +145,9 @@
                                             <img class="rounded shadow m-0 float-right" src="{{ $driver->pais->image }}" height="20px">
                                         </td>
                                         <td class="align-middle text-left py-0"> {{-- PILOTO --}}
-                                            <i class="ml-1 mt-1 ">{{ $driver->nome }}</i>
+                                            <a href="{{ route('drivers.show', $driver->id) }}" class="text-dark link-hover">
+                                                <i class="ml-1 mt-1 ">{{ $driver->nome }}</i>
+                                            </a>
                                         </td>
                                         <td class="align-middle px-0 py-0">
                                             <span class="badge badge-info shadow bordaSimples p-2" style="background-color: {{ $driver->equipe->cor }};">
@@ -143,15 +155,18 @@
                                             </span>
                                         </td>
                                         <td class="align-middle py-0 text-right"> {{-- EQUIPE --}}
-                                            {{ $driver->equipe->nome }}
+                                            <a href="{{ route('teams.show', $driver->equipe->id) }}" class="text-dark link-hover">
+                                                {{ $driver->equipe->nome }}
+                                            </a>
                                         </td>
                                         <td class="align-middle pr-5 py-0 text-left">
                                             <div class="bgImg">
-                                                <img class="mt-2" src="/image/f1Model.png" height="15px"
-                                                     style="filter: drop-shadow(0 9999px 0 {{ $driver->equipe->cor }})
-                                                                    drop-shadow(2px 9999px 1px white)
-                                                                    drop-shadow(-2px 9999px 1px white);">
-
+                                                <a href="{{ route('teams.show', $driver->equipe->id) }}" class="text-dark link-hover">
+                                                    <img class="mt-2" src="/image/f1Model.png" height="15px"
+                                                         style="filter: drop-shadow(0 9999px 0 {{ $driver->equipe->cor }})
+                                                                        drop-shadow(2px 9999px 1px white)
+                                                                        drop-shadow(-2px 9999px 1px white);">
+                                                </a>
                                             </div>
                                             {{-- <span class="badge badge-info" style="background-color:{{ $driver->equipe->cor }} !important">
                                                 <i class="fas fa-car-alt"></i>

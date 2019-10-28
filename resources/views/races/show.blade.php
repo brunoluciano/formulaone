@@ -41,15 +41,21 @@
                                 @foreach ($drivers as $driver)
                                     @if ($driver->id == $clsDriver->piloto_id)
                                         <td class="text-left py-1">
-                                            <img class="rounded shadow mb-1 mr-1" src="{{ $driver->pais->image }}" height="15px">
-                                            {{ $driver->nome }}
+                                            <a href="{{ route('drivers.show', $driver->id) }}" class="text-dark link-hover">
+                                                <img class="rounded shadow mb-1 mr-1" src="{{ $driver->pais->image }}" height="15px">
+                                                {{ $driver->nome }}
+                                            </a>
                                         </td>
                                         <td class="py-1">
                                             <span class="badge badge-dark shadow-sm bordaSimples p-2" style="background-color:{{ $driver->equipe->cor }};font-size:12px;">
                                                 <i>{{ $driver->numero_carro }}</i>
                                             </span>
                                         </td>
-                                        <td class="py-1">{{ $driver->equipe->nome }}</td>
+                                        <td class="py-1">
+                                            <a href="{{ route('teams.show', $driver->equipe->id) }}" class="text-dark link-hover">
+                                                {{ $driver->equipe->nome }}
+                                            </a>
+                                        </td>
                                     @endif
                                 @endforeach
                                 <td class="py-1">{{ $clsDriver->vitorias }}</td>
@@ -90,22 +96,27 @@
                                 @foreach ($teams as $team)
                                     @if ($equipe->equipe_id == $team->id)
                                         <td class="text-right py-1 align-middle">
-                                            {{ $team->nome }}
+                                            <a href="{{ route('teams.show', $team->id) }}" class="text-dark link-hover">
+                                                {{ $team->nome }}
+                                            </a>
                                         </td>
                                         <td class="py-1 align-middle">
                                             <div class="bgImg text-left">
-                                                <img class="mb-1" src="/image/f1Model.png" height="15px"
-                                                style="filter: drop-shadow(0 9999px 0 {{ $team->cor }})
-                                                                drop-shadow(2px 9999px 1px white)
-                                                                drop-shadow(-2px 9999px 1px white);">
-
+                                                <a href="{{ route('teams.show', $team->id) }}" class="text-dark link-hover">
+                                                    <img class="mb-1" src="/image/f1Model.png" height="15px"
+                                                         style="filter: drop-shadow(0 9999px 0 {{ $team->cor }})
+                                                                        drop-shadow(2px 9999px 1px white)
+                                                                        drop-shadow(-2px 9999px 1px white);">
+                                                </a>
                                             </div>
                                         </td>
                                         <td class="py-1 align-middle">
                                             @foreach (\App\Driver::where('equipe_id','=',$equipe->equipe_id)->orderby('nome')->get() as $piloto)
                                                 <p class="my-0 ml-5 text-left">
-                                                    <img class="rounded shadow" src="{{ $piloto->pais->image }}" height="12px">
-                                                    <i class="ml-2">{{ $piloto->nome }}</i>
+                                                    <a href="{{ route('drivers.show', $piloto->id) }}" class="text-dark link-hover">
+                                                        <img class="rounded shadow" src="{{ $piloto->pais->image }}" height="12px">
+                                                        <i class="ml-2">{{ $piloto->nome }}</i>
+                                                    </a>
                                                 </p>
                                             @endforeach
                                         </td>

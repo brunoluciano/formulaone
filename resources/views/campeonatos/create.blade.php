@@ -16,7 +16,9 @@
             </div>
             <div class="row align-items-center">
                 <div class="col-md-6">
-                    <img src="{{ $track->image_circuito }}" class="img-fluid border border-white" width="100%" alt="Responsive image">
+                    <a href="{{ route('tracks.index') }}">
+                        <img src="{{ $track->image_circuito }}" class="img-fluid border border-white" width="100%" alt="Responsive image">
+                    </a>
                 </div>
                 <div class="col-md-6">
                     <table class="table table-borderless text-white">
@@ -58,21 +60,24 @@
                                             @foreach ($drivers as $driver)
                                                 @if ($driver->id == $track->last_win_id)
                                                 <h4 class="font-weight-light">
-                                                    <img class="rounded shadow mb-1" src="{{ $driver->pais->image }}" height="12px">
-                                                    <i>{{ $driver->nome }}</i>
-                                                    <span class="badge badge-dark shadow-sm bordaSimples p-1" style="font-size:12px;">
-                                                        <i>{{ $driver->numero_carro }}</i>
-                                                    </span>
+                                                    <a href="{{ route('drivers.show', $driver->id) }}" class="text-white link-hover2">
+                                                        <img class="rounded shadow mb-1" src="{{ $driver->pais->image }}" height="12px">
+                                                        <i>{{ $driver->nome }}</i>
+                                                        <span class="badge badge-dark shadow-sm bordaSimples p-1" style="font-size:12px;">
+                                                            <i>{{ $driver->numero_carro }}</i>
+                                                        </span>
+                                                    </a>
                                                 </h4>
                                                 <hr class="bg-dark my-1">
-                                                <p class="m-0">{{ $driver->equipe->nome }}</p>
-                                                <div class="bgImg">
-                                                    <img src="/image/f1Model.png" height="15px"
-                                                    style="filter: drop-shadow(0 9999px 0 {{ $driver->equipe->cor }})
-                                                                    drop-shadow(2px 9999px 1px white)
-                                                                    drop-shadow(-2px 9999px 1px white);">
-
-                                                </div>
+                                                <a href="{{ route('teams.show', $driver->equipe->id) }}" class="text-white link-hover2">
+                                                    <p class="m-0">{{ $driver->equipe->nome }}</p>
+                                                    <div class="bgImg">
+                                                        <img src="/image/f1Model.png" height="15px"
+                                                             style="filter: drop-shadow(0 9999px 0 {{ $driver->equipe->cor }})
+                                                                            drop-shadow(2px 9999px 1px white)
+                                                                            drop-shadow(-2px 9999px 1px white);">
+                                                    </div>
+                                                </a>
                                                 @endif
                                             @endforeach
                                         @else

@@ -56,6 +56,32 @@
     background-color: #00000050 !important;
 }
 
+a.link-hover, a.link-hover2 {
+    text-decoration: none !important;
+    transition: all ease-in-out 0.3s !important;
+	-webkit-transition: .3s all ease-in-out !important;
+	-moz-transition: .3s all ease-in-out !important;
+	-o-transition: .3s all ease-in-out !important;
+}
+
+a.link-hover:hover {
+    color: #00799e !important;
+    text-shadow: 2px 2px 1px  rgba(255, 255, 255, 0.5) !important;
+    transition: all ease-in-out 0.3s;
+	-webkit-transition: .3s all ease-in-out !important;
+	-moz-transition: .3s all ease-in-out !important;
+	-o-transition: .3s all ease-in-out !important;
+}
+
+a.link-hover2:hover {
+    color: #32d8e4 !important;
+    text-shadow: 2px 2px 1px  rgb(0, 0, 0) !important;
+    transition: all ease-in-out 0.3s;
+	-webkit-transition: .3s all ease-in-out !important;
+	-moz-transition: .3s all ease-in-out !important;
+	-o-transition: .3s all ease-in-out !important;
+}
+
 /* table th {
     text-align: center;
  }
