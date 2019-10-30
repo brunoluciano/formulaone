@@ -126,24 +126,28 @@
                                         <div class="card-header bg-dark font-weight-light font-italic text-center py-2">
                                             <h4 class="my-0">Construtor</h4>
                                         </div>
-                                        <div class="card-body text-dark text-center pb-2">
+                                        <div class="card-body text-dark text-center px-0">
                                             @foreach ($teams as $team)
                                                 @if ($construtor->equipe_id == $team->id)
                                                     <h4 class="card-title font-weight-light">
                                                         <a href="{{ route('teams.show', $team->id) }}" class="text-dark link-hover stretched-link">
-                                                            {{ $team->nome }}
+                                                            <img class="rounded mb-1 border border-secondary" src="{{ $team->pais->image }}" height="20px">
+                                                            <b>{{ $team->nome }}</b>
                                                         </a>
                                                     </h4>
                                                     <div class="bgImg">
-                                                        <img class="" src="/image/f1Model.png" height="40px"
+                                                        <img src="/image/f1Model.png" height="40px"
                                                                 style="filter: drop-shadow(0 9999px 0 {{ $team->cor }})
                                                                             drop-shadow(2px 9999px 1px black)
                                                                             drop-shadow(-2px 9999px 1px black);">
+                                                        <br>
+                                                        <i class="m-0">Diretor: <b>{{ $team->diretor }}</b></i>
                                                     </div>
-                                                    <hr class="my-3 bg-secondary">
-                                                    <p class="font-weight-bold font-italic my-0">{{ $construtor->pontos }} pontos</p>
                                                 @endif
                                             @endforeach
+                                        </div>
+                                        <div class="card-footer text-dark text-center border-top border-dark">
+                                            <p class="font-weight-bold font-italic my-0">{{ $construtor->pontos }} pontos</p>
                                         </div>
                                     </div>
                                 </div>
@@ -152,13 +156,13 @@
                                         <div class="card-header bg-dark font-weight-light font-italic text-center py-2">
                                             <h4 class="my-0">Maior Vencedor</h4>
                                         </div>
-                                        <div class="card-body text-dark pb-2">
+                                        <div class="card-body text-dark px-0">
                                             @foreach ($pilotos as $piloto)
                                                 @if ($piloto->id == $maiorVencedor->piloto_id)
                                                     <h4 class="card-title font-weight-light">
                                                         <a href="{{ route('drivers.show', $piloto->id) }}" class="text-dark link-hover">
                                                             <img class="rounded mb-1 border border-secondary" src="{{ $piloto->pais->image }}" height="20px">
-                                                            {{ $piloto->nome }}
+                                                            <b>{{ $piloto->nome }}</b>
                                                         </a>
                                                     </h4>
                                                     <div class="bgImg m-0">
@@ -171,10 +175,11 @@
                                                             <i class="m-0">{{ $piloto->equipe->nome }}</i>
                                                         </a>
                                                     </div>
-                                                    <hr class="my-3 bg-secondary">
-                                                    <p class="font-weight-bold font-italic my-0">{{ $maiorVencedor->vitorias }} vitórias</p>
                                                 @endif
                                             @endforeach
+                                        </div>
+                                        <div class="card-footer text-dark text-center border-top border-dark">
+                                            <p class="font-weight-bold font-italic my-0">{{ $maiorVencedor->vitorias }} vitórias</p>
                                         </div>
                                     </div>
                                 </div>
@@ -183,13 +188,13 @@
                                         <div class="card-header bg-dark font-weight-light font-italic text-center py-2">
                                             <h4 class="my-0">Maior nº Poles</h4>
                                         </div>
-                                        <div class="card-body text-dark pb-2">
+                                        <div class="card-body text-dark px-0">
                                             @foreach ($pilotos as $piloto)
                                                 @if ($piloto->id == $maiorPoles->piloto_id)
                                                     <h4 class="card-title font-weight-light">
                                                         <a href="{{ route('drivers.show', $piloto->id) }}" class="text-dark link-hover">
                                                             <img class="rounded mb-1 border border-secondary" src="{{ $piloto->pais->image }}" height="20px">
-                                                            {{ $piloto->nome }}
+                                                            <b>{{ $piloto->nome }}</b>
                                                         </a>
                                                     </h4>
                                                     <div class="bgImg m-0">
@@ -202,10 +207,11 @@
                                                             <i class="m-0">{{ $piloto->equipe->nome }}</i>
                                                         </a>
                                                     </div>
-                                                    <hr class="my-3 bg-secondary">
-                                                    <p class="font-weight-bold font-italic my-0">{{ $maiorPoles->pole_positions }} Pole-Positions</p>
                                                 @endif
                                             @endforeach
+                                        </div>
+                                        <div class="card-footer text-dark text-center border-top border-dark">
+                                            <p class="font-weight-bold font-italic my-0">{{ $maiorPoles->pole_positions }} Pole-Positions</p>
                                         </div>
                                     </div>
                                 </div>
@@ -237,8 +243,14 @@
                                         <th class="align-middle p-0" scope="col">
                                             <i class="m-0">{{ $track->id }}</i>
                                             <br>
-                                            <img class="rounded shadow border border-white m-0" src="{{ $track->pais->image }}"
-                                                 height="15px" data-toggle="tooltip" data-placement="right" title="{{ $track->nome }}">
+                                            <img class="rounded shadow border border-white m-0" src="{{ $track->pais->image }}" height="15px"
+                                                 data-toggle="popover" title="{{ $track->pais->nome_pt }}" data-img="{{ $track->image_circuito }}"
+                                                 data-content="<table>
+                                                                 <tr>
+                                                                     <img class='m-0 border border-danger rounded' src='{{ $track->image_circuito }}' width='80px'/>
+                                                                     <i class='ml-1'>{{ $track->nome }}</i>
+                                                                 </tr>
+                                                               </table>">
                                         </th>
                                     @endforeach
                                 </tr>
@@ -252,7 +264,7 @@
                                         <th class="py-1 align-middle" scope="row">{{ $idClass }}º</th>
                                         @foreach ($pilotos as $driver)
                                             @if ($driver->id == $piloto->piloto_id)
-                                                <td class="text-center py-1">
+                                                <td class="text-center py-1 px-0 pr-1">
                                                     <p class="font-weight-bold my-0">
                                                         <a href="{{ route('drivers.show', $driver->id) }}" class="text-dark link-hover">
                                                             <img class="rounded shadow mb-1 mr-1" src="{{ $driver->pais->image }}" height="15px">
@@ -327,4 +339,14 @@
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function(){
+            $('[data-toggle="popover"]').popover({
+                html: true,
+                trigger: 'hover',
+                placement: 'bottom',
+                template: '<div class="popover border border-white text-center"><div class="arrow"></div><h2 class="popover-header bg-dark text-white"></h2><div class="popover-body"></div><div class="popover-footer"></div></div>'
+            });
+        });
+    </script>
 @endsection

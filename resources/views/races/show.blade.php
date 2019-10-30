@@ -9,6 +9,9 @@
                     @if ($racesFinish < $totalPistas)
                         <a class="btn btn-outline-success" href="{{ route('campeonatos.create', [$idSeason, $racesFinish+1]) }}" role="button"><i class="fas fa-flag-checkered"></i>
                             Próxima Corrida</a>
+                    @else
+                        <a class="btn btn-outline-success" href="{{ route('campeonatos.show', $idSeason) }}" role="button"><i class="fas fa-flag-checkered"></i>
+                            Resultados</a>
                     @endif
                     <a class="btn btn-outline-light" href="{{ route('campeonatos.index', $idSeason) }}" role="button"><i class="fas fa-trophy"></i>
                         Campeonato</a>

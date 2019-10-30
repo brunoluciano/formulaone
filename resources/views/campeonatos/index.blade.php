@@ -198,8 +198,17 @@
                                     <th class="align-middle p-0" scope="col">
                                         <i class="m-0">{{ $track->id }}</i>
                                         <br>
-                                        <img class="rounded shadow border border-white m-0" src="{{ $track->pais->image }}"
-                                             height="15px" data-toggle="tooltip" data-placement="right" title="{{ $track->nome }}">
+                                        {{-- <img class="rounded shadow border border-white m-0" src="{{ $track->pais->image }}" data-img="{{ $track->image_circuito }}" data-track="{{ $track->nome }}"
+                                             height="15px" data-toggle="popover" data-placement="bottom" data-title="{{$track->pais->nome_pt}}"> --}}
+
+                                        <img class="rounded shadow border border-white m-0" src="{{ $track->pais->image }}" height="15px"
+                                            data-toggle="popover" title="{{ $track->pais->nome_pt }}" data-img="{{ $track->image_circuito }}"
+                                            data-content="<table>
+                                                            <tr>
+                                                                <img class='m-0 border border-danger rounded' src='{{ $track->image_circuito }}' width='80px'/>
+                                                                <i class='ml-1'>{{ $track->nome }}</i>
+                                                            </tr>
+                                                          </table>">
                                     </th>
                                 @endforeach
                             </tr>
@@ -442,5 +451,31 @@
     </div>
 </div>
 @endif
+{{-- <script>
+    $(document).ready(function()
+        $('body').popover({{
+            container: 'body',
+            selector: 'img[data-toggle="popover"]',
+            trigger: 'hover',
+            html: true,
+            animation: true,
+            offset: '0 0',
+            content: function () {
+                    return '<table><tr><img class="m-0 border border-danger rounded" src="'+$(this).data('img') + '" width="80px"/></tr><tr class="ml-1"><i>'+$(this).data('track')+'</i></tr></table>';
+            }
+        })
+    });
+</script> --}}
+
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="popover"]').popover({
+            html: true,
+            trigger: 'hover',
+            placement: 'bottom',
+            template: '<div class="popover border border-white text-center"><div class="arrow"></div><h2 class="popover-header bg-dark text-white"></h2><div class="popover-body"></div><div class="popover-footer"></div></div>'
+        });
+    });
+</script>
 
 @endsection

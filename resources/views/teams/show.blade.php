@@ -128,7 +128,8 @@
 
                 <hr class="bg-danger">
                 <br>
-                <button class="btn btn-outline-light" onclick="javascript:location.href='{{ route('teams.index') }}'">Voltar</button>
+                {{-- <button class="btn btn-outline-light" onclick="javascript:location.href='{{ route('teams.index') }}'">Voltar</button> --}}
+                <button class="btn btn-outline-light" onclick="javascript:history.back()">Voltar</button>
             </div>
         </div>
     </div>

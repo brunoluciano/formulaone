@@ -90,7 +90,8 @@ class SeasonController extends Controller
 
         // $seasons = Season::orderby('id')->get();
         // return view('seasons.index', compact('seasons'));
-        return redirect()->route('seasons.index', $idTemp);
+        // return redirect()->route('seasons.index', $idTemp);
+        return redirect()->route('campeonatos.index', $idTemp);
     }
 
     /**

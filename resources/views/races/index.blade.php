@@ -117,23 +117,23 @@
                         @foreach ($races as $race)
                             <tr
                             @switch($race->pontos)
-                                @case(25)
+                                @case($primeiro->pontos)
                                     style="background-color:#fafa75;cursor:pointer"
                                     onMouseOver="this.style.backgroundColor='#fcfc32'"
                                     onMouseOut="this.style.backgroundColor='#fafa75'"
                                     @break
-                                @case(18)
+                                @case($segundo->pontos)
                                     style="background-color:#f7f7f7;cursor:pointer"
                                     onMouseOver="this.style.backgroundColor='#e0e0e0'"
                                     onMouseOut="this.style.backgroundColor='#f7f7f7'"
                                     @break
-                                @case(15)
+                                @case($terceiro->pontos)
                                     style="background-color:#fcbc8b;cursor:pointer"
                                     onMouseOver="this.style.backgroundColor='#ffb073'"
                                     onMouseOut="this.style.backgroundColor='#fcbc8b'"
                                     @break
                             @endswitch
-                            @if ($race->pontos==25 || $race->pontos==18 || $race->pontos==15)
+                            @if ($race->pontos==$primeiro->pontos || $race->pontos==$segundo->pontos || $race->pontos==$terceiro->pontos)
                                 class="font-weight-bold"
                             @endif
                             >

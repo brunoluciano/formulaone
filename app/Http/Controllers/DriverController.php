@@ -16,7 +16,7 @@ class DriverController extends Controller
      */
     public function index()
     {
-        $drivers = Driver::orderby('id')->get();
+        $drivers = Driver::orderby('nome')->get();
         $teams = Team::orderby('nome')->get();
         return view('drivers.index', compact('drivers', 'teams'));
     }
