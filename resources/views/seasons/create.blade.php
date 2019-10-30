@@ -1,4 +1,5 @@
 @extends('app')
+@section('title') - Nova Temporada @endsection
 @section('content')
 <div class="row justify-content-center">
     <div class="col-md-12">

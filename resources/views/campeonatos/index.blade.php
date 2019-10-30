@@ -14,6 +14,7 @@
             </div>
 
             @if ($racesFinish > 0)
+                @section('title') - Campeonato {{ $idSeason }} @endsection
                 <div class="row align-items-end">
                     <div class="col-md-7">
                         @if ($racesFinish == $totalPistas)
@@ -153,6 +154,7 @@
                     </table>
                 </div>
             @else
+                @section('title') - Iniciar Campeonato @endsection
                 <a href="{{ route('campeonatos.create', [$idSeason, $racesFinish+1]) }}" class="btn btn-success mr-2" role="button">
                     <i class="fas fa-flag-checkered"></i> Inicar Campeonato
                 </a>

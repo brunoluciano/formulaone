@@ -1,4 +1,5 @@
 @extends('app')
+@section('title') - Resultado Campeonato {{ $idSeason }} @endsection
 @section('content')
     <div class="row">
         <div class="col-md-12">

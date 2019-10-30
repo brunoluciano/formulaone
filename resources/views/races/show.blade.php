@@ -1,4 +1,5 @@
 @extends('app')
+@section('title') - Classificação Campeonato @endsection
 @section('content')
 <div class="row justify-content-center">
     <div class="col-md-12">
