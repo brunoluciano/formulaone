@@ -222,6 +222,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
+                        <h1 class="font-weight-light font-italic ml-4"><b>Condutores</b></h1>
                         <table class="table table-striped table-secondary table-hover text-center m-0">
                             <thead class="bg-info text-white">
                                 <tr>
@@ -333,10 +334,73 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        <br>
-                        <a class="btn btn-outline-light" href="{{ route('campeonatos.index', $idSeason) }}" role="button">Voltar</a>
                     </div>
                 </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="font-weight-light font-italic ml-4"><b>Construtores</b></h1>
+                        <table class="table table-striped table-secondary table-hover text-center m-0">
+                            <thead class="bg-info text-white">
+                                <tr>
+                                    <th scope="col">POSIÇÃO</th>
+                                    <th scope="col" colspan="2">EQUIPE</th>
+                                    <th scope="col">PILOTOS</th>
+                                    <th scope="col">VITÓRIAS</th>
+                                    <th scope="col">PONTOS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php
+                                    $idClass=1;
+                                @endphp
+                                @foreach ($classTeams as $equipe)
+                                    <tr>
+                                        <th scope="row" class="align-middle">{{ $idClass }}º</th>
+
+                                        @foreach ($teams as $team)
+                                            @if ($equipe->equipe_id == $team->id)
+                                                <td class="text-right font-weight-bold align-middle" style="cursor:pointer">
+                                                    <a href="{{ route('teams.show', $team->id) }}" class="text-dark link-hover">
+                                                        {{ $team->nome }}
+                                                    </a>
+                                                </td>
+                                                <td class="align-middle" style="cursor:pointer">
+                                                    <a href="{{ route('teams.show', $team->id) }}" class="text-dark link-hover">
+                                                        <div class="bgImg text-left">
+                                                            <img class="mb-1" src="/image/f1Model.png" height="15px"
+                                                            style="filter: drop-shadow(0 9999px 0 {{ $team->cor }})
+                                                                            drop-shadow(2px 9999px 1px white)
+                                                                            drop-shadow(-2px 9999px 1px white);">
+
+                                                        </div>
+                                                    </a>
+                                                </td>
+                                                <td class="py-1 align-middle">
+                                                    @foreach (\App\Driver::where('equipe_id','=',$equipe->equipe_id)->orderby('nome')->get() as $piloto)
+                                                        <p class="my-0 ml-5 text-left">
+                                                            <a href="{{ route('drivers.show', $piloto->id) }}" class="text-dark link-hover">
+                                                                <img class="rounded shadow" src="{{ $piloto->pais->image }}" height="12px">
+                                                                <i class="ml-2">{{ $piloto->nome }}</i>
+                                                            </a>
+                                                        </p>
+                                                    @endforeach
+                                                </td>
+                                            @endif
+                                        @endforeach
+                                        <td class="align-middle">{{ $equipe->vitorias }}</td>
+                                        <th class="font-italic align-middle">{{ $equipe->pontos }}</th>
+                                    </tr>
+                                    @php
+                                        $idClass++;
+                                    @endphp
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <br>
+                <a class="btn btn-outline-light" href="{{ route('campeonatos.index', $idSeason) }}" role="button">Voltar</a>
             </div>
         </div>
     </div>

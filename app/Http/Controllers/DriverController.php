@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Driver;
 use App\Team;
 use App\Country;
+use App\Track;
+use App\ScoreCamp;
+use App\ScoreDriver;
 use Illuminate\Http\Request;
 
 class DriverController extends Controller
@@ -64,7 +67,23 @@ class DriverController extends Controller
      */
     public function show(Driver $driver)
     {
-        return view('drivers.show', compact('driver'));
+        $tracks = Track::get();
+        $totalPistas = $tracks->count();
+
+        //TABELA DE CONDUTORES
+        $classDriver = ScoreDriver::orderby('season_id','desc')
+                                  ->where('piloto_id','=',$driver->id)->get();
+
+        $classCamp = ScoreCamp::where('piloto_id','=',$driver->id)->get();
+
+        $posFinalCamp = ScoreDriver::orderby('season_id','desc')
+                                   ->orderby('pontos','desc')
+                                   ->orderby('vitorias', 'desc')
+                                   ->orderby('podios', 'desc')
+                                   ->orderby('pole_positions', 'desc')->get();
+
+        return view('drivers.show', compact('driver', 'classDriver', 'tracks', 'totalPistas',
+                                            'posFinalCamp'));
     }
 
     /**

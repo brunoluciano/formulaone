@@ -24,14 +24,14 @@
                 <table class="table table-striped table-secondary table-hover text-center m-0">
                     <thead class="bg-info text-white">
                         <tr>
-                            <th scope="col" class="">POSIÇÃO</th>
-                            <th scope="col">PILOTO</th>
+                            <th scope="col" class=""><i class="fas fa-flag-checkered"></i> POSIÇÃO</th>
+                            <th scope="col"><i class="fas fa-hard-hat"></i> PILOTO</th>
                             <th scope="col">#</th>
-                            <th scope="col">EQUIPE</th>
-                            <th scope="col">VITÓRIAS</th>
-                            <th scope="col">PÓDIOS</th>
-                            <th scope="col">POLES</th>
-                            <th scope="col">PONTOS</th>
+                            <th scope="col"><i class="fas fa-users"></i> EQUIPE</th>
+                            <th scope="col"><i class="fas fa-trophy"></i> VITÓRIAS</th>
+                            <th scope="col"><i class="fas fa-award"></i> PÓDIOS</th>
+                            <th scope="col"><i class="fas fa-stopwatch"></i> POLES</th>
+                            <th scope="col"><i class="fas fa-table"></i> PONTOS</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -82,11 +82,11 @@
                 <table class="table table-striped table-secondary table-hover text-center m-0">
                     <thead class="bg-info text-white">
                         <tr>
-                            <th scope="col">POSIÇÃO</th>
-                            <th scope="col" colspan="2">EQUIPE</th>
-                            <th scope="col">PILOTOS</th>
-                            <th scope="col">VITÓRIAS</th>
-                            <th scope="col">PONTOS</th>
+                            <th scope="col"><i class="fas fa-flag-checkered"></i> POSIÇÃO</th>
+                            <th scope="col" colspan="2"><i class="fas fa-users"></i> EQUIPE</th>
+                            <th scope="col"><i class="fas fa-hard-hat"></i> PILOTOS</th>
+                            <th scope="col"><i class="fas fa-trophy"></i> VITÓRIAS</th>
+                            <th scope="col"><i class="fas fa-table"></i> PONTOS</th>
                         </tr>
                     </thead>
                     <tbody>

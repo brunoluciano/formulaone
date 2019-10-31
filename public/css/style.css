@@ -56,6 +56,10 @@
     background-color: #00000050 !important;
 }
 
+.card-header.bg-black {
+    background-color: rgba(0, 0, 0, 0.80) !important;
+}
+
 a.link-hover, a.link-hover2 {
     text-decoration: none !important;
     transition: all ease-in-out 0.3s !important;

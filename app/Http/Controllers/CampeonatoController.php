@@ -168,6 +168,11 @@ class CampeonatoController extends Controller
                                    ->orderby('pole_positions', 'desc')
                                    ->where('season_id', '=', $idSeason)->get();
 
+        //TABELA DE CONSTRUTORES
+        $classTeams = ScoreTeam::orderby('pontos','desc')
+                               ->orderby('vitorias', 'desc')
+                               ->where('season_id', '=', $idSeason)->get();
+
 
         if($racesFinish == $totalPistas){ // DEFININDO GANHADORES TEMPORADA E OUTRAS INFORMAÇÕES
             $campeao = ScoreDriver::orderby('pontos','desc')
@@ -196,7 +201,7 @@ class CampeonatoController extends Controller
 
         return view('campeonatos.show', compact('campeonato', 'idSeason', 'pilotos', 'teams', 'tracks',
                                                 'campeao', 'vice', 'terceiro', 'construtor',
-                                                'classDrivers', 'maiorVencedor', 'maiorPoles'));
+                                                'classDrivers', 'classTeams', 'maiorVencedor', 'maiorPoles'));
     }
 
     /**

@@ -4,7 +4,15 @@
     <div class="row">
         <div class="col-md-12">
             <div class="jumbotron pt-5 pb-5 shadow-lg bg-dark text-white border border-danger">
-                <h3 class="display-4 ml-4"><span class="font-weight-bold font-italic bordaLetra" style="color:{{$team->cor}};">{{ $team->nome }}</span></h3>
+                <h3 class="display-4 ml-4">
+                    <div class="bgImg">
+                        <span class="font-weight-bold font-italic bordaLetra" style="color:{{$team->cor}};">{{ $team->nome }}</span>
+                        <img class="ml-4" src="/image/f1Model.png" height="45px"
+                            style="filter: drop-shadow(0 9999px 0 {{ $team->cor }})
+                                            drop-shadow(3px 9999px 1px white)
+                                            drop-shadow(-3px 9999px 1px white);">
+                    </div>
+                </h3>
                 <hr class="bg-danger">
                 <br>
                 <h4>Diretor: <span class="font-weight-bold" style="font-size: 30px;">{{ $team->diretor }}</span></h4>
@@ -74,19 +82,19 @@
                                                         <table>
                                                             <tr>
                                                                 <td class="align-middle">
+                                                                    <img class="bordaImg rounded shadow mt-1" src="{{ url($driver->pais->image) }}" height="25px">
+                                                                </td>
+                                                                <td class="align-middle">
                                                                     <a class="text-decoration-none text-white stretched-link" href="{{ route('drivers.show', $driver->id) }}">
-                                                                        <span class="card-title font-weight-bold font-italic m-0" style="font-size: 25px">
+                                                                        <span class="card-title font-weight-bold font-italic ml-2 mr-2 m-0" style="font-size: 25px">
                                                                             {{ $driver->nome }}
                                                                         </span>
                                                                     </a>
                                                                 </td>
                                                                 <td class="align-middle">
-                                                                    <span class="badge badge-info shadow bordaSimples p-2 ml-2 mt-1" style="background-color: {{ $driver->equipe->cor }};">
+                                                                    <span class="badge badge-info shadow bordaSimples p-2 mt-1" style="background-color: {{ $driver->equipe->cor }};">
                                                                         {{ $driver->numero_carro }}
                                                                     </span>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                    <img class="bordaImg rounded shadow ml-2 mt-1" src="{{ url($driver->pais->image) }}" height="25px">
                                                                 </td>
                                                             </tr>
                                                         </table>

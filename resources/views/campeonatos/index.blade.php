@@ -302,7 +302,7 @@
 
 <!-- Modal CONDUTORES -->
 <div class="modal fade" id="TabelaCondutores" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content bg-dark border-danger">
             <div class="modal-header text-white text-center">
                 <h4 class="display-4 text-center m-0" id="exampleModalLabel" style="font-size:40px;">Tabela de Classificação - <i class="font-weight-bold">CONDUTORES</i></h4>
@@ -315,14 +315,13 @@
                     <table class="table table-striped table-secondary table-hover text-center m-0">
                         <thead class="bg-info text-white">
                             <tr>
-                                <th scope="col">POSIÇÃO</th>
-                                <th scope="col">PILOTO</th>
+                                <th scope="col"><i class="fas fa-flag-checkered"></i> POSIÇÃO</th>
+                                <th scope="col"><i class="fas fa-hard-hat"></i> PILOTO</th>
                                 <th scope="col">#</th>
-                                <th scope="col">EQUIPE</th>
-                                <th scope="col">VITÓRIAS</th>
-                                <th scope="col">PÓDIOS</th>
-                                {{-- <th scope="col">POLES</th> --}}
-                                <th scope="col">PONTOS</th>
+                                <th scope="col"><i class="fas fa-users"></i> EQUIPE</th>
+                                <th scope="col"><i class="fas fa-trophy"></i> VITÓRIAS</th>
+                                <th scope="col"><i class="fas fa-award"></i> PÓDIOS</th>
+                                <th scope="col"><i class="fas fa-table"></i> PONTOS</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -355,7 +354,6 @@
                                     @endforeach
                                     <td class="py-1">{{ $driver->vitorias }}</td>
                                     <td class="py-1">{{ $driver->podios }}</td>
-                                    {{-- <td>123</td> --}}
                                     <th class="font-italic py-1">{{ $driver->pontos }}</th>
                                 </tr>
                                 @php
@@ -375,7 +373,7 @@
 
 <!-- Modal CONSTRUTORES -->
 <div class="modal fade" id="TabelaConstrutores" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content bg-dark border-danger">
             <div class="modal-header text-white text-center">
                 <h4 class="display-4 text-center m-0" id="exampleModalLabel" style="font-size:40px;">Tabela de Classificação - <i class="font-weight-bold">CONSTRUTORES</i></h4>
@@ -388,12 +386,11 @@
                     <table class="table table-striped table-secondary table-hover text-center m-0">
                         <thead class="bg-info text-white">
                             <tr>
-                                <th scope="col">POSIÇÃO</th>
-                                <th scope="col" colspan="2">EQUIPE</th>
-                                <th scope="col">PILOTOS</th>
-                                <th scope="col">VITÓRIAS</th>
-                                {{-- <th scope="col">PÓDIOS</th> --}}
-                                <th scope="col">PONTOS</th>
+                                <th scope="col"><i class="fas fa-flag-checkered"></i> POSIÇÃO</th>
+                                <th scope="col" colspan="2"><i class="fas fa-users"></i> EQUIPE</th>
+                                <th scope="col"><i class="fas fa-hard-hat"></i> PILOTOS</th>
+                                <th scope="col"><i class="fas fa-trophy"></i> VITÓRIAS</th>
+                                <th scope="col"><i class="fas fa-table"></i> PONTOS</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -434,7 +431,6 @@
                                             </td>
                                         @endif
                                     @endforeach
-                                    {{-- <td></td> --}}
                                     <td class="align-middle">{{ $equipe->vitorias }}</td>
                                     <th class="font-italic align-middle">{{ $equipe->pontos }}</th>
                                 </tr>
@@ -453,21 +449,6 @@
     </div>
 </div>
 @endif
-{{-- <script>
-    $(document).ready(function()
-        $('body').popover({{
-            container: 'body',
-            selector: 'img[data-toggle="popover"]',
-            trigger: 'hover',
-            html: true,
-            animation: true,
-            offset: '0 0',
-            content: function () {
-                    return '<table><tr><img class="m-0 border border-danger rounded" src="'+$(this).data('img') + '" width="80px"/></tr><tr class="ml-1"><i>'+$(this).data('track')+'</i></tr></table>';
-            }
-        })
-    });
-</script> --}}
 
 <script>
     $(document).ready(function(){
