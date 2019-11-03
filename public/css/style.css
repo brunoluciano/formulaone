@@ -94,3 +94,16 @@ a.link-hover2:hover {
 .popover-inner {
     padding: 0px !important;
 }
+
+.dropdown-menu.dropdown-menu-wide {
+    min-width: 100% ;
+    text-align: center;
+}
+
+.background{
+    background-image: url('/image/imgHome3.jpg');
+    background-attachment: fixed;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

@@ -133,6 +133,7 @@
                                     <th scope="col" class="font-italic"><i class="fas fa-award"></i> Pódios</th>
                                     <th scope="col" class="font-italic"><i class="fas fa-stopwatch"></i> Pole-Positions</th>
                                     <th scope="col" class="font-italic"><i class="fas fa-table"></i> Pontos</th>
+                                    <th scope="col" class="font-italic"><i class="fas fa-info-circle"></i></th>
                                 </tr>
                             </thead>
                             <tbody class="table-secondary" id="accordionExample" style="cursor:pointer">
@@ -154,37 +155,52 @@
                                     @endphp
                                     <tr class="collapsed" id="heading{{ $piloto->season_id }}" data-toggle="collapse"
                                         data-target="#collapse{{ $piloto->season_id }}" aria-expanded="false" aria-controls="collapse{{ $piloto->season_id }}"
-                                        @switch($idClass)
-                                            @case(1)
-                                                style="background-color:#fafa75 !important"
-                                                onMouseOver="this.style.backgroundColor='#fcfc32'"
-                                                onMouseOut="this.style.backgroundColor='#fafa75'"
-                                                @break
-                                            @case(2)
-                                                style="background-color:#f7f7f7 !important"
-                                                onMouseOver="this.style.backgroundColor='#e0e0e0'"
-                                                onMouseOut="this.style.backgroundColor='#f7f7f7'"
-                                                @break
-                                            @case(3)
-                                                style="background-color:#fcbc8b !important"
-                                                onMouseOver="this.style.backgroundColor='#ffb073'"
-                                                onMouseOut="this.style.backgroundColor='#fcbc8b'"
-                                                @break
-                                        @endswitch>
+                                        @if ($finishCamp == $totalPistas)
+                                            @switch($idClass)
+                                                @case(1)
+                                                    style="background-color:#fafa75 !important"
+                                                    onMouseOver="this.style.backgroundColor='#fcfc32'"
+                                                    onMouseOut="this.style.backgroundColor='#fafa75'"
+                                                    @break
+                                                @case(2)
+                                                    style="background-color:#f7f7f7 !important"
+                                                    onMouseOver="this.style.backgroundColor='#e0e0e0'"
+                                                    onMouseOut="this.style.backgroundColor='#f7f7f7'"
+                                                    @break
+                                                @case(3)
+                                                    style="background-color:#fcbc8b !important"
+                                                    onMouseOver="this.style.backgroundColor='#ffb073'"
+                                                    onMouseOut="this.style.backgroundColor='#fcbc8b'"
+                                                    @break
+                                            @endswitch
+                                        @endif>
                                         <td scope="row">
                                             <b>{{ $piloto->season_id }}</b>
                                             @if ($finishCamp < $totalPistas)
                                                 <i>(em andamento)</i>
                                             @endif
                                         </td>
-                                        <th>{{ $idClass }}º</th>
+                                        <th>
+                                            @if ($finishCamp < $totalPistas)
+                                                <div class="spinner-border spinner-border-sm text-secondary" role="status">
+                                                    <span class="sr-only">Loading...</span>
+                                                  </div>
+                                            @else
+                                                {{ $idClass }}º
+                                            @endif
+                                        </th>
                                         <td class="font-italic">{{ $piloto->vitorias }}</td>
                                         <td class="font-italic">{{ $piloto->podios }}</td>
                                         <td class="font-italic">{{ $piloto->pole_positions }}</td>
                                         <th class="font-italic">{{ $piloto->pontos }}</th>
+                                        <td>
+                                            <a class="btn btn-info btn-sm p-0 px-1" href="{{ route('campeonatos.index', $piloto->season_id) }}" role="button" data-toggle="tooltip" data-placement="top" title="Vizualizar Campeonato">
+                                                <i class="fas fa-search"></i>
+                                            </a>
+                                        </td>
                                     </tr>
                                     <tr id="collapse{{ $piloto->season_id }}" class="collapse bg-dark" aria-labelledby="heading{{ $piloto->season_id }}" data-parent="#accordionExample">
-                                        <td scope="row" class="p-0 pb-3" colspan="6">
+                                        <td scope="row" class="p-0 pb-3" colspan="7">
                                             <table class="table table-striped table-secondary table-hover text-center m-0">
                                                 <thead class="bg-info text-white">
                                                     <tr>

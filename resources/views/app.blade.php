@@ -23,9 +23,9 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                <img src="{{ URL::asset('/image/logo_f1.png') }}" width="" height="40" class="d-inline-block align-top" alt="">
-                <span class="align-middle font-weight-bold">Fórmula 1</span>
+                <a class="navbar-brand" href="{{ url('/home') }}">
+                    <img src="{{ URL::asset('/image/logo_f1.png') }}" width="" height="40" class="d-inline-block align-top" alt="">
+                    <span class="align-middle font-weight-bold">Fórmula 1</span>
                 </a>
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,24 +34,16 @@
 
                 <div class="collapse navbar-collapse text-info" id="navbarToggler">
                     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                        <li class="nav-item active">
-                        <a class="nav-link" href="{{ url('/') }}"><i class="fas fa-home"></i> Home <span class="sr-only">(current)</span></a>
+                        <li class="nav-item {{ request()->is('home*') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ url('/home') }}"><i class="fas fa-home"></i> Home <span class="sr-only">(current)</span></a>
                         </li>
-                        {{-- <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-hard-hat"></i> Pilotos</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{{ url('/countries') }}">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                        </li>--}}
-                        <li class="nav-item">
+                        <li class="nav-item {{ request()->is('seasons*') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('seasons.index') }}"><i class="fas fa-flag-checkered"></i> Corridas</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item {{ request()->is('drivers*') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('drivers.index') }}"><i class="fas fa-hard-hat"></i> Pilotos</a>
                         </li>
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown {{ request()->is('teams*') ? 'active' : '' }}">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="{{ route('teams.index') }}" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-car"></i> Equipes</a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="{{ route('teams.index') }}">Todas Equipes</a>
@@ -61,14 +53,58 @@
                                 @endforeach
                             </div>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item {{ request()->is('tracks*') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('tracks.index') }}"><i class="fas fa-road"></i> Pistas</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item {{ request()->is('countries*') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('countries.index') }}"><i class="fas fa-globe-americas"></i> Países</a>
                         </li>
                     </ul>
-                <button type="button" name="" id="" class="btn btn-outline-warning"><i class="fas fa-sign-in-alt"></i> Login</button>
+                    {{-- <button type="button" name="" id="" class="btn btn-outline-warning"><i class="fas fa-sign-in-alt"></i> Login</button> --}}
+
+                    <!-- Authentication Links -->
+                    @guest
+                        <a class="btn btn-info" role="button" href="{{ route('login') }}"><i class="fas fa-sign-in-alt"></i> {{ __('Login') }}</a>
+                        @if (Route::has('register'))
+                            <a class="btn btn-outline-light ml-1" role="button" href="{{ route('register') }}"><i class="fas fa-sign-in-alt"></i> {{ __('Cadastrar') }}</a>
+                        @endif
+                    @else
+                        <div class="dropdown">
+                            <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-user"></i> {{ Auth::user()->name }}
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-wide" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();">
+                                <i class="fas fa-sign-out-alt"></i> {{ __('Sair') }}
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                            </div>
+                        </div>
+
+                        {{-- <ul class="navbar-nav mr-auto mt-2 mt-lg-0 float-right">
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
+                        </ul> --}}
+                    @endguest
                 </div>
             </div>
         </nav>
@@ -79,10 +115,40 @@
         </div>
 
         {{-- RODAPÉ --}}
-        {{-- <nav class="navbar fixed-bottom navbar-light bg-dark" style="background-color: #0f0f0f !important">
-            <div class="container">
-                <a class="navbar-brand text-white" href="#">Fixed bottom</a>
+        <nav class="navbar sticky-bottom navbar-light bg-dark mt-4 text-white" style="background-color: #0f0f0f !important">
+            <div class="container py-3">
+                <button class="btn btn-outline-light mx-auto" type="button" data-toggle="collapse" data-target="#collapseSobre" role="button" aria-expanded="false" aria-controls="collapseSobre">
+                    Sobre | Desenvolvimento <i class="fas fa-angle-down"></i>
+                </button>
+                <div class="collapse mt-3" id="collapseSobre">
+                    <div class="row align-items-start border border-secondary p-3 rounded-lg">
+                        <div class="col-md-6 border-right border-light">
+                            <h3 class="font-weight-light text-center"><b>Sobre</b></h3>
+                            <hr class="bg-light">
+                            <p class="lead text-justify">
+                                Projeto Web desenvolvido em PHP juntamente com framework Laravel como trabalho para disciplina de
+                                Linguagem de Programação. O mesmo realiza operações de CRUD e algumas outras funcionalidades.
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <h3 class="font-weight-light text-center"><b>Desenvolvimento</b></h3>
+                            <hr class="bg-light">
+                            <div class="lead text-center p-0">
+                                <p>
+                                    <span class="text-muted">Desenvolvido por:</span> <i>Bruno de Andrade Luciano</i> <br>
+                                    <span class="text-muted">Docente:</span> <i>Almir Camolesi</i>
+                                </p>
+                                <p>
+
+                                    2º Ano - Ciência da Computação <br>
+                                    2019
+                                </p>
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </nav> --}}
-</body>
+        </nav>
+    </body>
 </html>
