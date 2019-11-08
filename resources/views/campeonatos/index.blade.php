@@ -315,7 +315,7 @@
                     <table class="table table-striped table-secondary table-hover text-center m-0">
                         <thead class="bg-info text-white">
                             <tr>
-                                <th scope="col"><i class="fas fa-flag-checkered"></i> POSIÇÃO</th>
+                                <th scope="col" colspan="2"><i class="fas fa-flag-checkered"></i> POSIÇÃO</th>
                                 <th scope="col"><i class="fas fa-hard-hat"></i> PILOTO</th>
                                 <th scope="col">#</th>
                                 <th scope="col"><i class="fas fa-users"></i> EQUIPE</th>
@@ -330,7 +330,37 @@
                             @endphp
                             @foreach ($classDrivers as $driver)
                                 <tr>
-                                    <th class="py-1" scope="row">{{ $idClass }}º</th>
+                                    @if ($racesFinish > 1)
+                                        <th class="py-1 px-0 text-right" scope="row">
+                                            {{ $idClass }}º
+                                        </th>
+                                        <td class="py-1 px-0 m-0 align-middle" data-toggle="tooltip" data-placement="top" title="Pos. Anterior: {{ $driver->posAnt }}º" style="cursor:pointer">
+                                            @php $driverDif = $driver->posAtual-$driver->posAnt;
+                                                $maior5 = abs($driverDif)>=5 ? "-double-" : "-";
+                                            @endphp
+
+                                            @if ($driverDif < 0)
+                                                <i class="fas fa-angle{{$maior5}}up h4 text-success m-0"></i>
+                                                <span class="badge badge-success bg-dark-success p-1 ml-1">
+                                                    {{ abs($driverDif) }}
+                                                </span>
+                                            @elseif ($driverDif > 0)
+                                                <i class="fas fa-angle{{$maior5}}down h4 text-danger m-0"></i>
+                                                <span class="badge badge-danger bg-dark-danger p-1 ml-1">
+                                                    {{ abs($driverDif) }}
+                                                </span>
+                                            @else
+                                                <i class="fas fa-minus h6 text-secondary m-0"></i>
+                                                <span class="badge badge-secondary p-1 ml-1">
+                                                    {{ abs($driverDif) }}
+                                                </span>
+                                            @endif
+                                        </td>
+                                    @else
+                                        <th class="py-1 px-0" colspan="2" scope="row">
+                                            {{ $idClass }}º
+                                        </th>
+                                    @endif
 
                                     @foreach ($pilotos as $piloto)
                                         @if ($piloto->id == $driver->piloto_id)
@@ -386,7 +416,7 @@
                     <table class="table table-striped table-secondary table-hover text-center m-0">
                         <thead class="bg-info text-white">
                             <tr>
-                                <th scope="col"><i class="fas fa-flag-checkered"></i> POSIÇÃO</th>
+                                <th colspan="2" scope="col"><i class="fas fa-flag-checkered"></i> POSIÇÃO</th>
                                 <th scope="col" colspan="2"><i class="fas fa-users"></i> EQUIPE</th>
                                 <th scope="col"><i class="fas fa-hard-hat"></i> PILOTOS</th>
                                 <th scope="col"><i class="fas fa-trophy"></i> VITÓRIAS</th>
@@ -399,7 +429,37 @@
                             @endphp
                             @foreach ($classTeams as $equipe)
                                 <tr>
-                                    <th scope="row" class="align-middle">{{ $idClass }}º</th>
+                                    @if ($racesFinish > 1)
+                                        <th class="py-1 px-0 text-right align-middle" scope="row">
+                                            {{ $idClass }}º
+                                        </th>
+                                        <td class="py-1 px-0 m-0 align-middle" data-toggle="tooltip" data-placement="top" title="Pos. Anterior: {{ $equipe->posAnt }}º" style="cursor:pointer">
+                                            @php $equipeDif = $equipe->posAtual-$equipe->posAnt;
+                                                $maior5 = abs($equipeDif)>=5 ? "-double-" : "-";
+                                            @endphp
+
+                                            @if ($equipeDif < 0)
+                                                <i class="fas fa-angle{{$maior5}}up h4 text-success m-0"></i>
+                                                <span class="badge badge-success bg-dark-success p-1 ml-1">
+                                                    {{ abs($equipeDif) }}
+                                                </span>
+                                            @elseif ($equipeDif > 0)
+                                                <i class="fas fa-angle{{$maior5}}down h4 text-danger m-0"></i>
+                                                <span class="badge badge-danger bg-dark-danger p-1 ml-1">
+                                                    {{ abs($equipeDif) }}
+                                                </span>
+                                            @else
+                                                <i class="fas fa-minus h6 text-secondary m-0"></i>
+                                                <span class="badge badge-secondary p-1 ml-1">
+                                                    {{ abs($equipeDif) }}
+                                                </span>
+                                            @endif
+                                        </td>
+                                    @else
+                                        <th class="py-1 px-0 align-middle" colspan="2" scope="row">
+                                            {{ $idClass }}º
+                                        </th>
+                                    @endif
 
                                     @foreach ($teams as $team)
                                         @if ($equipe->equipe_id == $team->id)

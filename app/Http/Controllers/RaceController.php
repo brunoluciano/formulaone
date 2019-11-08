@@ -27,6 +27,12 @@ class RaceController extends Controller
         $drivers = Driver::orderby('id')->get();
         $teams = Team::orderby('id')->get();
 
+        $campeonatos = Campeonato::orderby('id','desc')
+                                 ->where('season_id', '=', $idSeason)
+                                 ->where('terminado', '=', TRUE)->get();
+        $racesFinish = $campeonatos->count();
+        $totalPistas = Track::get()->count();
+
         $driverRdm = [];
         $cont = 0;
         foreach ($drivers as $d) { // PASSA PARA UM VETOR TODOS OS IDs DOS PILOTOS REGISTRADOS
@@ -126,6 +132,48 @@ class RaceController extends Controller
                            ->where('piloto_id','=',$piloto->piloto_id)
                            ->increment('podios', 1);
             }
+
+            $clsDrivers = ScoreDriver::orderby('pontos','desc')
+                                     ->orderby('vitorias', 'desc')
+                                     ->orderby('podios', 'desc')
+                                     ->orderby('pole_positions', 'desc')
+                                     ->where('season_id', '=', $idSeason)->get();
+            $pos = 1;
+            foreach ($clsDrivers as $posicao) {
+                $atual = ScoreDriver::where('season_id', '=', $idSeason)
+                                    ->where('piloto_id', '=', $posicao->piloto_id)->get()->first();
+
+                if($racesFinish > 0){
+                    ScoreDriver::where('season_id', '=', $idSeason)
+                                ->where('piloto_id', '=', $posicao->piloto_id)
+                                ->update(['posAnt' => $atual->posAtual]);
+                }
+
+                ScoreDriver::where('season_id', '=', $idSeason)
+                            ->where('piloto_id', '=', $posicao->piloto_id)
+                            ->update(['posAtual' => $pos]);
+                $pos++;
+            }
+
+            $clsTeams = ScoreTeam::orderby('pontos','desc')
+                                 ->orderby('vitorias', 'desc')
+                                 ->where('season_id', '=', $idSeason)->get();
+            $pos = 1;
+            foreach ($clsTeams as $posicao) {
+                $atual = ScoreTeam::where('season_id', '=', $idSeason)
+                                  ->where('equipe_id', '=', $posicao->equipe_id)->get()->first();
+                if($racesFinish > 0){
+                    ScoreTeam::where('season_id', '=', $idSeason)
+                             ->where('equipe_id', '=', $posicao->equipe_id)
+                             ->update(['posAnt' => $atual->posAtual]);
+                }
+
+                ScoreTeam::where('season_id', '=', $idSeason)
+                         ->where('equipe_id', '=', $posicao->equipe_id)
+                         ->update(['posAtual' => $pos]);
+                $pos++;
+            }
+
         }
 
         $pilotoVencedor = Race::orderby('id')->where('campeonato_id', '=', $idSeason)
@@ -173,8 +221,12 @@ class RaceController extends Controller
         $segundo = $races->skip(1)->first();
         $terceiro = $races->skip(2)->first();
 
+        $pilotoPole = Campeonato::where('season_id', '=', $idSeason)
+                                ->where('pista_id', '=', $idTrack)->get()->first();
+        //echo $pilotoPole;
+
         return view('races.index', compact('races', 'drivers', 'contGrid', 'idSeason', 'idTrack', 'pista',
-                                           'primeiro', 'segundo', 'terceiro'));
+                                           'primeiro', 'segundo', 'terceiro', 'pilotoPole'));
     }
 
     /**

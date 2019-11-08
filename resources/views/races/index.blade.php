@@ -139,7 +139,11 @@
                             @endif
                             >
                                 @php($contGrid++)
-                                <td class="font-weight-bold align-middle py-2" scope="row">{{ $contGrid }}º</td>
+
+                                <td class="font-weight-bold align-middle py-2" scope="row">
+                                    {{ $contGrid }}º
+                                </td>
+
                                 @foreach ($drivers as $driver)
                                     @if ($race->piloto_id == $driver->id)
                                         <td class="align-middle pl-5 py-0">
@@ -148,6 +152,9 @@
                                         <td class="align-middle text-left py-0"> {{-- PILOTO --}}
                                             <a href="{{ route('drivers.show', $driver->id) }}" class="text-dark link-hover">
                                                 <i class="ml-1 mt-1 ">{{ $driver->nome }}</i>
+                                                @if ($race->piloto_id == $pilotoPole->piloto_pole_id)
+                                                    <i class="fas fa-stopwatch"></i>
+                                                @endif
                                             </a>
                                         </td>
                                         <td class="align-middle px-0 py-0">

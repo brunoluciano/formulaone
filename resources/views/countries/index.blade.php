@@ -28,7 +28,7 @@
                                                 @php
                                                     if(file_exists(public_path('image/paises/'.$country->nome_pt.'.png'))){
                                                         echo "<img class='rounded shadow' src='".$country->image."' height='50px' alt='".$country->nome_pt.">'";
-                                                    } // else echo "nao existe";
+                                                    } else echo "<img class='rounded shadow' src='image/paises/defaultFlag.png' height='50px' alt='FÓRMULA 1''>";
                                                 @endphp
                                                 {{-- @if(public_path('image/paises/{{ $country->nome_pt }}.png'))
                                                     existe

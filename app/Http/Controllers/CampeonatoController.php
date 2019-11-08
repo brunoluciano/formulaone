@@ -46,6 +46,8 @@ class CampeonatoController extends Controller
                     'vitorias' => 0,
                     'podios' => 0,
                     'pole_positions' => 0,
+                    'posAtual' => 0,
+                    'posAnt' => 0,
                     'pontos' => 0,
                     'created_at' => now(),
                     'updated_at' => now()
@@ -57,6 +59,8 @@ class CampeonatoController extends Controller
                     'season_id' => $idSeason,
                     'equipe_id' => $team->id,
                     'vitorias' => 0,
+                    'posAtual' => 0,
+                    'posAnt' => 0,
                     'pontos' => 0,
                     'created_at' =>  now(),
                     'updated_at' => now()

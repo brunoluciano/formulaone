@@ -9,6 +9,7 @@
                         <td class="align-middle">
                             <h1 class="display-4">
                                 <span class="font-weight-bold font-italic">{{ $driver->nome }}</span>
+
                             </h1>
                         </td>
                         <td class="align-middle">
@@ -18,11 +19,13 @@
                                 </span>
                             </h1>
                         </td>
+                        <a class="btn btn-outline-light float-right" href="{{ route('drivers.index') }}" role="button">
+                            <i class="fas fa-hard-hat"></i>
+                                Pilotos
+                        </a>
                     </tr>
                 </table>
 
-
-                </h1>
                 <hr class="bg-danger">
                 <br>
                 <div class="row align-items-center">
@@ -124,7 +127,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h2>Histórico de Temporadas:</h2>
-                        <table class="table table-striped text-center">
+                        <table class="table table-secondary table-striped text-center">
                             <thead class="bg-danger text-white">
                                 <tr>
                                     <th scope="col">TEMPORADA</th>
@@ -136,7 +139,7 @@
                                     <th scope="col" class="font-italic"><i class="fas fa-info-circle"></i></th>
                                 </tr>
                             </thead>
-                            <tbody class="table-secondary" id="accordionExample" style="cursor:pointer">
+                            <tbody id="accordionExample" style="cursor:pointer">
                                 @foreach ($classDriver as $piloto)
                                     @php
                                         $finishCamp = \App\Campeonato::where('season_id', '=', $piloto->season_id)

@@ -21,6 +21,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </head>
     <body>
+        <div class="thetop"></div>
+
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{{ url('/home') }}">
@@ -109,10 +111,11 @@
             </div>
         </nav>
 
-        <div class="container">
+        <div class="container min-vh-100">
             <br><br>
             @yield('content')
         </div>
+
 
         {{-- RODAPÉ --}}
         <nav class="navbar sticky-bottom navbar-light bg-dark mt-4 text-white" style="background-color: #0f0f0f !important">
@@ -139,7 +142,6 @@
                                     <span class="text-muted">Docente:</span> <i>Almir Camolesi</i>
                                 </p>
                                 <p>
-
                                     2º Ano - Ciência da Computação <br>
                                     2019
                                 </p>
@@ -150,5 +152,29 @@
                 </div>
             </div>
         </nav>
+
+        <div class="scrolltop">
+            <div class="scroll shadow-lg">
+                <i class="fas fa-angle-up h4 m-0"></i>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+        <script>
+            $(window).scroll(function() {
+                if ($(this).scrollTop() > 200) {
+                    $('.scrolltop:hidden').stop(true, true).fadeIn();
+                    // $('.scrolltop').animate({left:'-80px'},"500");
+                    // return false
+                } else {
+                    $('.scrolltop').stop(true, true).fadeOut();
+                    // return false
+                }
+            });
+            $(function(){$(".scroll").click(function(){
+                $("html,body").animate({scrollTop:$(".thetop").offset().top},"1000");
+                return false
+            })})
+        </script>
     </body>
 </html>

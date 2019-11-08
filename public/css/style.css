@@ -107,3 +107,53 @@ a.link-hover2:hover {
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+.scrolltop {
+	display:none;
+	width:100%;
+	margin:0 auto;
+	position:fixed;
+	bottom:20px;
+	right:10px;
+}
+.scroll {
+	position:absolute;
+	right:10px;
+	bottom:0px;
+	background: #343a40;
+    color:white;
+    padding: 15px 20px 15px 20px;
+	text-align: center;
+	margin: 0 0 0 0;
+	cursor:pointer;
+	transition: 0.5s;
+	-moz-transition: 0.5s;
+	-webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+    border-radius: 100%;
+    border: 1px solid red;
+
+}
+.scroll:hover {
+    background: #000000;
+	transition: 0.5s;
+	-moz-transition: 0.5s;
+	-webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+    color: red;
+    transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    border: 1px solid white;
+}
+
+.bg-dark-success {
+    /* background-color: #28a745 !important; */
+    background-color: #1d7e34 !important;
+}
+
+.bg-dark-danger {
+    /* background-color: #dc3545 !important; */
+    background-color: #8f232e !important;
+}

@@ -5,12 +5,17 @@
         <div class="col-md-12">
             <div class="jumbotron pt-5 pb-5 shadow-lg bg-dark text-white border border-danger">
                 <h3 class="display-4 ml-4">
+                    <a class="btn btn-outline-light float-right" href="{{ route('teams.index') }}" role="button">
+                        <i class="fas fa-users"></i>
+                            Equipes
+                    </a>
                     <div class="bgImg">
                         <span class="font-weight-bold font-italic bordaLetra" style="color:{{$team->cor}};">{{ $team->nome }}</span>
                         <img class="ml-4" src="/image/f1Model.png" height="45px"
-                            style="filter: drop-shadow(0 9999px 0 {{ $team->cor }})
+                             style="filter: drop-shadow(0 9999px 0 {{ $team->cor }})
                                             drop-shadow(3px 9999px 1px white)
                                             drop-shadow(-3px 9999px 1px white);">
+
                     </div>
                 </h3>
                 <hr class="bg-danger">
